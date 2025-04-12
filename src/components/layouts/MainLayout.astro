@@ -24,7 +24,7 @@ const { title, description, keywords } = Astro.props as Props;
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords.join(", ")} />
     </head>
-    <body class="bg-background min-h-screen font-sans antialiased">
+    <body class="bg-background min-h-screen scroll-smooth font-sans antialiased">
         <div class="relative flex min-h-screen flex-col">
             <MainHeader pathname={Astro.originPathname} />
             <main class="flex-1">
