@@ -1,9 +1,6 @@
 ---
 import "@/styles/global.css";
 
-import { MainHeader } from "./main-header";
-import { MainFooter } from "./main-footer";
-
 interface Props {
     title: string;
     description: string;
@@ -26,11 +23,24 @@ const { title, description, keywords } = Astro.props as Props;
     </head>
     <body class="bg-background min-h-screen scroll-smooth font-sans antialiased">
         <div class="relative flex min-h-screen flex-col">
-            <MainHeader pathname={Astro.originPathname} />
             <main class="flex-1">
                 <slot />
             </main>
-            <MainFooter />
+            <footer class="bg-background border-t">
+                <div class="container mx-auto py-8 md:py-12">
+                    <p class="text-center">
+                        &copy; {new Date().getFullYear()}{" "}
+                        <a
+                            target="_blank"
+                            href="https://developershihab.com"
+                            class="hover:underline hover:underline-offset-2"
+                        >
+                            Shihab Mahamud
+                        </a>
+                        . All rights reserved.
+                    </p>
+                </div>
+            </footer>
         </div>
     </body>
 </html>
