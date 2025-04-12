@@ -4,7 +4,7 @@ import MainLayout from "@/components/layouts/MainLayout.astro";
 import { cn } from "@/lib/utils";
 
 import { LogoIcon } from "@/components/icons/logo-icon";
-import { ArrowRightIcon, KeyIcon } from "lucide-react";
+import { ArrowRightIcon, KeyIcon, FileTextIcon, CalculatorIcon } from "lucide-react";
 
 const tools = [
     {
@@ -13,11 +13,30 @@ const tools = [
         title: "Password Generator",
         desc: "Generate strong, secure passwords with customizable length, character types, and advanced options.",
         href: "/password-generator"
+    },
+    {
+        icon: FileTextIcon,
+        iconClass: "text-blue-500",
+        title: "Text Case Converter",
+        desc: "Convert text between different cases: lowercase, UPPERCASE, Title Case, camelCase, snake_case, and more.",
+        href: "/text-case-converter"
+    },
+    {
+        icon: CalculatorIcon,
+        iconClass: "text-green-500",
+        title: "Unit Converter",
+        desc: "Quickly and accurately convert between different units of measurement for length, weight, volume, temperature, time, and more.",
+        href: "/unit-converter"
     }
 ];
 
-const title = "Home";
-const description = "A versatile web toolkit that functions like a digital Swiss Army Knife";
+const title = "Your Digital Swiss Army Knife";
+
+const description =
+    "A versatile collection of web tools designed to simplify your digital life" +
+    "and help you with everyday tasks. Powerful, user-friendly, and" +
+    "privacy-focused — all in one place, all for free, with no sign-up required.";
+
 const keywords = ["swiss", "web toolkit", "digital swiss army knife", "shihab mahamud"];
 ---
 
@@ -34,10 +53,7 @@ const keywords = ["swiss", "web toolkit", "digital swiss army knife", "shihab ma
                     >
                         Your Digital Swiss Army Knife
                     </h1>
-                    <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                        A versatile collection of web tools to help you with everyday tasks. All in
-                        one place, all for free.
-                    </p>
+                    <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl"></p>
                     <a
                         href="#tools"
                         class="bg-primary hover:bg-primary/90 focus:ring-primary inline-flex items-center justify-center rounded-md px-6 py-3 text-lg font-medium text-white shadow focus:ring-2 focus:ring-offset-2 focus:outline-none"
