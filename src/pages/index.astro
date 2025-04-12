@@ -1,25 +1,14 @@
 ---
-import "../styles/global.css";
-// Component Imports
-import Button from "../components/Button.astro";
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import Button from "@/components/elements/Button.astro";
+import MainLayout from "@/components/layouts/MainLayout.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro + TailwindCSS</title>
-    </head>
-
-    <body>
-        <div class="grid h-screen place-items-center content-center">
-            <Button>Tailwind Button in Astro!</Button>
-            <a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-        </div>
-    </body>
-</html>
+<MainLayout
+    title="Home"
+    description="A versatile web toolkit that functions like a digital Swiss Army Knife"
+    keywords={["swiss", "web toolkit", "digital swiss army knife", "shihab mahamud"]}
+>
+    <div class="grid h-screen place-items-center content-center">
+        <Button>Tailwind Button in Astro!</Button>
+    </div>
+</MainLayout>
