@@ -15,13 +15,13 @@ const tools = [
         href: "/password-generator"
     }
 ];
+
+const title = "Home";
+const description = "A versatile web toolkit that functions like a digital Swiss Army Knife";
+const keywords = ["swiss", "web toolkit", "digital swiss army knife", "shihab mahamud"];
 ---
 
-<MainLayout
-    title="Home"
-    description="A versatile web toolkit that functions like a digital Swiss Army Knife"
-    keywords={["swiss", "web toolkit", "digital swiss army knife", "shihab mahamud"]}
->
+<MainLayout title={title} description={description} keywords={keywords}>
     <div class="flex flex-col items-center">
         <section class="from-background to-muted w-full bg-gradient-to-b py-12 md:py-24 lg:py-32">
             <div class="container mx-auto px-4 md:px-6">
@@ -29,52 +29,43 @@ const tools = [
                     <a href="/">
                         <LogoIcon />
                     </a>
-                    <div class="space-y-2">
-                        <h1
-                            class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
-                        >
-                            Your Digital Swiss Army Knife
-                        </h1>
-                        <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                            A versatile collection of web tools to help you with everyday tasks. All
-                            in one place, all for free.
-                        </p>
-                    </div>
-                    <div class="space-x-4">
-                        <a
-                            href="#tools"
-                            class="bg-primary hover:bg-primary/90 focus:ring-primary inline-flex items-center justify-center rounded-md px-6 py-3 text-lg font-medium text-white shadow focus:ring-2 focus:ring-offset-2 focus:outline-none"
-                        >
-                            Explore Tools
-                            <ArrowRightIcon className="ml-2 h-4 w-4" />
-                        </a>
-                    </div>
+                    <h1
+                        class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
+                    >
+                        Your Digital Swiss Army Knife
+                    </h1>
+                    <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl">
+                        A versatile collection of web tools to help you with everyday tasks. All in
+                        one place, all for free.
+                    </p>
+                    <a
+                        href="#tools"
+                        class="bg-primary hover:bg-primary/90 focus:ring-primary inline-flex items-center justify-center rounded-md px-6 py-3 text-lg font-medium text-white shadow focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                    >
+                        Explore Tools
+                        <ArrowRightIcon className="ml-2 h-4 w-4" />
+                    </a>
                 </div>
             </div>
         </section>
         <section id="tools" class="w-full py-12 md:py-24">
             <div class="container mx-auto px-4 md:px-6">
-                <div class="flex flex-col items-center justify-center space-y-4 text-center">
-                    <div class="space-y-2">
-                        <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">Tools</h2>
-                        <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                            Discover our most powerful and versatile tools to boost your
-                            productivity.
-                        </p>
-                    </div>
+                <div class="mb-8 text-center">
+                    <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">Tools</h2>
+                    <p class="mx-auto mt-3 max-w-[700px] text-gray-500 md:text-xl">
+                        Discover our most powerful and versatile tools to boost your productivity.
+                    </p>
                 </div>
                 <div class="mx-auto grid gap-6 py-8 md:grid-cols-2 lg:grid-cols-3">
                     {
                         tools.map(({ icon: Icon, ...tool }) => (
                             <a href={tool.href}>
-                                <div class="flex flex-col rounded-md border border-gray-200 bg-white shadow-2xs transition-all hover:shadow-xs">
-                                    <div class="flex flex-col space-y-1.5 p-6">
-                                        <div class="flex items-center gap-2">
-                                            <Icon className={cn("size-8", tool.iconClass)} />
-                                            <h3 class="text-lg font-semibold">{tool.title}</h3>
-                                        </div>
-                                        <p class="text-sm text-gray-500">{tool.desc}</p>
+                                <div class="rounded-md border border-gray-200 bg-white p-6 shadow-2xs transition-all hover:shadow-sm">
+                                    <div class="mb-2 flex items-center gap-2">
+                                        <Icon className={cn("size-8", tool.iconClass)} />
+                                        <h3 class="text-lg font-semibold">{tool.title}</h3>
                                     </div>
+                                    <p class="text-sm text-gray-500">{tool.desc}</p>
                                 </div>
                             </a>
                         ))
