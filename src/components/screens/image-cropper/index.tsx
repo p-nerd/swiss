@@ -39,7 +39,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
     );
 }
 
-// Function to get image data from a canvas
+// Function to get image data from a canvas - FIXED VERSION
 function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotate = 0) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -51,26 +51,30 @@ function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotat
     // Calculate the size of the cropped image
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-    const pixelRatio = window.devicePixelRatio;
 
     // Set canvas size to the cropped image size
-    canvas.width = Math.floor(crop.width * scaleX * scale);
-    canvas.height = Math.floor(crop.height * scaleY * scale);
+    const canvasWidth = Math.floor(crop.width * scaleX);
+    const canvasHeight = Math.floor(crop.height * scaleY);
 
-    // Set canvas pixel density
-    ctx.scale(pixelRatio, pixelRatio);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    // Apply high quality settings
     ctx.imageSmoothingQuality = "high";
 
-    // Calculate the center of the canvas
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
+    // Clear the canvas with white background
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Move the canvas context to the center
-    ctx.translate(centerX, centerY);
-    // Rotate the canvas context if needed
+    // Save the current context state
+    ctx.save();
+
+    // Apply transformations in the correct order:
+    // First translate to center, then rotate, then scale, then translate back
+    ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((rotate * Math.PI) / 180);
-    // Move back
-    ctx.translate(-centerX, -centerY);
+    ctx.scale(scale, scale);
+    ctx.translate(-canvas.width / 2, -canvas.height / 2);
 
     // Draw the cropped image
     ctx.drawImage(
@@ -81,9 +85,12 @@ function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotat
         crop.height * scaleY,
         0,
         0,
-        crop.width * scaleX,
-        crop.height * scaleY
+        canvasWidth,
+        canvasHeight
     );
+
+    // Restore the context state
+    ctx.restore();
 
     return canvas;
 }
