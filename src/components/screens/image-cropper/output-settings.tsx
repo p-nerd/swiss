@@ -1,3 +1,5 @@
+import type { TFileType } from "@/types/image-generator";
+
 import { useImageCropperStore } from "./use-image-cropper-store";
 
 import { Label } from "@/components/ui/label";
@@ -22,7 +24,7 @@ export const OuputputSettings = () => {
                 <Tabs
                     defaultValue={fileType}
                     value={fileType}
-                    onValueChange={setFileType}
+                    onValueChange={(v) => setFileType(v as TFileType)}
                     className="w-full"
                 >
                     <TabsList className="grid grid-cols-3 h-auto">
