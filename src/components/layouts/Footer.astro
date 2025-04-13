@@ -7,14 +7,16 @@ const home = Astro.originPathname === "/";
 ---
 
 <footer class="bg-background border-t">
-    <div class="container mx-auto flex items-center justify-between py-8 md:py-12">
-        <div class="flex items-center space-x-10">
+    <div
+        class="container mx-auto flex flex-col items-center justify-between space-y-6 py-8 md:flex-row md:space-y-0 md:py-12"
+    >
+        <div class="flex flex-col items-center space-y-6 md:flex-row md:space-y-0 md:space-x-10">
             <a href="/" class="flex items-center">
                 <LogoIcon />
             </a>
             {
                 !home && (
-                    <div class="mb-8 grid grid-cols-2 gap-x-8 gap-y-2 md:mb-0">
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-2">
                         {tools.map((tool) => (
                             <a href={tool.href} class="group flex items-center space-x-1 text-sm">
                                 <span class={tool.iconClass}>•</span>{" "}
@@ -27,7 +29,7 @@ const home = Astro.originPathname === "/";
                 )
             }
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col items-center md:items-start">
             <a
                 href="https://github.com/p-nerd/swiss"
                 target="_blank"
