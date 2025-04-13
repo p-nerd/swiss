@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 
+import { BackButton } from "./back-button";
 import { ThemeToggle } from "./theme-toggle";
 
 interface Props {
@@ -37,6 +38,7 @@ const { title, description, keywords } = Astro.props as Props;
     </head>
     <body class="bg-background min-h-screen scroll-smooth font-sans antialiased">
         <div class="relative flex min-h-screen flex-col">
+            {Astro.originPathname !== "/" && <BackButton client:load />}
             <ThemeToggle client:load />
             <main class="flex-1">
                 <slot />
