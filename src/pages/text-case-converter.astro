@@ -1,27 +1,30 @@
 ---
 import Layout from "@/components/layouts/Layout.astro";
 
-import { PasswordGeneratorComponent } from "@/components/screens/password-generator";
+import { TextCaseConverterComponent } from "@/components/screens/text-case-converter";
 import { LogoIcon } from "@/components/icons/logo-icon";
-import { KeyIcon } from "lucide-react";
+import { FileTextIcon } from "lucide-react";
 
-const title = "Password Generator";
+const title = "Text Case Converter";
 
 const description =
-    "Generate strong, secure passwords with customizable length, character types, and etc. " +
-    "Free online password generator tool with no data storage.";
+    "Convert text between different cases: uppercase, lowercase, title case, camelCase, and more. " +
+    "Free online text transformation tool with additional text statistics.";
 
 const keywords = [
-    "password generator",
-    "secure password",
-    "strong password",
-    "random password",
-    "password creator",
-    "password tool",
-    "security tool",
-    "password strength",
-    "custom password",
-    "online password generator",
+    "text case converter",
+    "uppercase converter",
+    "lowercase converter",
+    "title case",
+    "camel case",
+    "pascal case",
+    "snake case",
+    "kebab case",
+    "text transformer",
+    "text formatter",
+    "case changer",
+    "text utility",
+    "online text tool",
     "swiss"
 ];
 ---
@@ -35,7 +38,7 @@ const keywords = [
                         <LogoIcon />
                     </a>
                     <div class="flex items-center space-x-2">
-                        <KeyIcon className="size-16 text-red-500 dark:text-red-400" />
+                        <FileTextIcon className="size-16 text-blue-500 dark:text-blue-400" />
                         <h1
                             class="text-foreground text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
                         >
@@ -50,9 +53,7 @@ const keywords = [
         </section>
         <section class="w-full py-12 md:py-24">
             <div class="container mx-auto px-4 md:px-6">
-                <div class="mx-auto w-full max-w-2xl">
-                    <PasswordGeneratorComponent client:load />
-                </div>
+                <TextCaseConverterComponent client:load />
             </div>
         </section>
     </div>
