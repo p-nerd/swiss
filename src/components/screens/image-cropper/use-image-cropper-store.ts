@@ -3,7 +3,7 @@ import type { Crop, PixelCrop } from "react-image-crop";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-export const ASPECT_RATIOS = {
+export const aspectRatios = {
     free: undefined,
     "1:1": 1,
     "4:3": 4 / 3,
@@ -22,8 +22,8 @@ export const useImageCropperStore = create<{
     completedCrop: PixelCrop | undefined;
     setCompletedCrop: (completedCrop: PixelCrop | undefined) => void;
 
-    aspectRatio: keyof typeof ASPECT_RATIOS;
-    setAspectRatio: (aspectRatio: keyof typeof ASPECT_RATIOS) => void;
+    aspectRatio: keyof typeof aspectRatios;
+    setAspectRatio: (aspectRatio: keyof typeof aspectRatios) => void;
 
     scale: number;
     setScale: (scale: number) => void;
