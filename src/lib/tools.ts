@@ -12,6 +12,31 @@ export type TTool = {
 
 export const tools: TTool[] = [
     {
+        icon: "crop-icon",
+        iconClass: "text-purple-500 dark:text-purple-400",
+        title: "Image Cropper",
+        href: "/image-cropper",
+        desc: "Easily crop, resize, and edit your images online. Adjust aspect ratios, zoom, rotate, and download in multiple formats.",
+        descMore: "Free online image cropping tool with no watermarks or ads.",
+        keywords: [
+            "image cropper",
+            "photo editor",
+            "crop image",
+            "resize image",
+            "image editor",
+            "aspect ratio",
+            "rotate image",
+            "online image tool",
+            "free image cropper",
+            "image trimmer",
+            "picture cropper",
+            "crop and save",
+            "image manipulation",
+            "web image editor",
+            "swiss"
+        ]
+    },
+    {
         icon: "key-icon",
         iconClass: "text-red-500 dark:text-red-400",
         title: "Password Generator",
@@ -80,31 +105,6 @@ export const tools: TTool[] = [
             "conversion calculator",
             "measurement tool",
             "online converter",
-            "swiss"
-        ]
-    },
-    {
-        icon: "crop-icon",
-        iconClass: "text-purple-500 dark:text-purple-400",
-        title: "Image Cropper",
-        href: "/image-cropper",
-        desc: "Easily crop, resize, and edit your images online. Adjust aspect ratios, zoom, rotate, and download in multiple formats.",
-        descMore: "Free online image cropping tool with no watermarks or ads.",
-        keywords: [
-            "image cropper",
-            "photo editor",
-            "crop image",
-            "resize image",
-            "image editor",
-            "aspect ratio",
-            "rotate image",
-            "online image tool",
-            "free image cropper",
-            "image trimmer",
-            "picture cropper",
-            "crop and save",
-            "image manipulation",
-            "web image editor",
             "swiss"
         ]
     }
