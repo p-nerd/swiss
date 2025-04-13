@@ -1,42 +1,13 @@
 ---
+import { getIcon } from "@/components/icons/icons-list";
+import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
 
-import { ArrowRightIcon, KeyIcon, FileTextIcon, CalculatorIcon, CropIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 
 import Shell from "@/components/elements/Shell.astro";
 import Layout from "@/components/layouts/Layout.astro";
 import Hero from "@/components/elements/Hero.astro";
-
-const tools = [
-    {
-        icon: KeyIcon,
-        iconClass: "text-red-500 dark:text-red-400",
-        title: "Password Generator",
-        desc: "Generate strong, secure passwords with customizable length, character types, and advanced options for maximum online security.",
-        href: "/password-generator"
-    },
-    {
-        icon: FileTextIcon,
-        iconClass: "text-blue-500 dark:text-blue-400",
-        title: "Text Case Converter",
-        desc: "Instantly convert text between different cases: lowercase, UPPERCASE, Title Case, camelCase, snake_case, and more.",
-        href: "/text-case-converter"
-    },
-    {
-        icon: CalculatorIcon,
-        iconClass: "text-green-500 dark:text-green-400",
-        title: "Unit Converter",
-        desc: "Quickly and accurately convert between different units of measurement for length, weight, volume, temperature, time, and more.",
-        href: "/unit-converter"
-    },
-    {
-        icon: CropIcon,
-        iconClass: "text-purple-500 dark:text-purple-400",
-        title: "Image Cropper",
-        desc: "Easily crop, resize, and edit your images online. Adjust aspect ratios, zoom, rotate, and download in multiple formats.",
-        href: "/image-cropper"
-    }
-];
 
 const title = "Your Digital Swiss Army Knife";
 
@@ -67,17 +38,22 @@ const keywords = ["swiss", "web toolkit", "digital swiss army knife", "shihab ma
         </div>
         <div class="mx-auto grid gap-6 py-8 md:grid-cols-2 lg:grid-cols-3">
             {
-                tools.map(({ icon: Icon, ...tool }) => (
-                    <a href={tool.href}>
-                        <div class="bg-card text-card-foreground border-border relative z-10 rounded-md border p-6 shadow-2xs transition-all hover:shadow-xs">
-                            <div class="mb-2 flex items-center gap-2">
-                                <Icon className={cn("size-8", tool.iconClass)} />
-                                <h3 class="text-foreground text-lg font-semibold">{tool.title}</h3>
+                tools.map((tool) => {
+                    const Icon = getIcon(tool.icon);
+                    return (
+                        <a href={tool.href}>
+                            <div class="bg-card text-card-foreground border-border relative z-10 rounded-md border p-6 shadow-2xs transition-all hover:shadow-xs">
+                                <div class="mb-2 flex items-center gap-2">
+                                    <Icon className={cn("size-8", tool.iconClass)} />
+                                    <h3 class="text-foreground text-lg font-semibold">
+                                        {tool.title}
+                                    </h3>
+                                </div>
+                                <p class="text-muted-foreground text-sm">{tool.desc}</p>
                             </div>
-                            <p class="text-muted-foreground text-sm">{tool.desc}</p>
-                        </div>
-                    </a>
-                ))
+                        </a>
+                    );
+                })
             }
         </div>
     </Shell>

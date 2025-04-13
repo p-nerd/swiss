@@ -1,42 +1,24 @@
 ---
+import { getToolData } from "@/lib/tools";
+
 import { ImageCropperComponent } from "@/components/screens/image-cropper";
 
 import Layout from "@/components/layouts/Layout.astro";
 import Hero from "@/components/elements/Hero.astro";
 import Shell from "@/components/elements/Shell.astro";
 
-const title = "Image Cropper";
+const data = getToolData(Astro.originPathname);
 
-const description =
-    "Easily crop, resize, and edit your images online with our free image cropper tool. " +
-    "Adjust aspect ratios, zoom, rotate, and download in multiple formats without losing quality.";
-
-const keywords = [
-    "image cropper",
-    "photo editor",
-    "crop image",
-    "resize image",
-    "image editor",
-    "aspect ratio",
-    "rotate image",
-    "online image tool",
-    "free image cropper",
-    "image trimmer",
-    "picture cropper",
-    "crop and save",
-    "image manipulation",
-    "web image editor",
-    "swiss"
-];
+const description = `${data.desc} ${data.descMore}`;
 ---
 
-<Layout title={title} description={description} keywords={keywords}>
+<Layout title={data.title} description={description} keywords={data.keywords}>
     <Hero
-        title={title}
+        title={data.title}
         description={description}
         patternColor="currentColor"
-        icon="crop-icon"
-        iconClass="text-purple-500 dark:text-purple-400"
+        icon={data.icon}
+        iconClass={data.iconClass}
     />
     <Shell>
         <div class="mx-auto w-full max-w-5xl">

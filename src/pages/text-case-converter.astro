@@ -1,41 +1,24 @@
 ---
+import { getToolData } from "@/lib/tools";
+
 import { TextCaseConverterComponent } from "@/components/screens/text-case-converter";
 
 import Layout from "@/components/layouts/Layout.astro";
 import Hero from "@/components/elements/Hero.astro";
 import Shell from "@/components/elements/Shell.astro";
 
-const title = "Text Case Converter";
+const data = getToolData(Astro.originPathname);
 
-const description =
-    "Convert text between different cases: uppercase, lowercase, title case, camelCase, and more. " +
-    "Free online text transformation tool with additional text statistics.";
-
-const keywords = [
-    "text case converter",
-    "uppercase converter",
-    "lowercase converter",
-    "title case",
-    "camel case",
-    "pascal case",
-    "snake case",
-    "kebab case",
-    "text transformer",
-    "text formatter",
-    "case changer",
-    "text utility",
-    "online text tool",
-    "swiss"
-];
+const description = `${data.desc} ${data.descMore}`;
 ---
 
-<Layout title={title} description={description} keywords={keywords}>
+<Layout title={data.title} description={description} keywords={data.keywords}>
     <Hero
-        title={title}
+        title={data.title}
         description={description}
         patternColor="currentColor"
-        icon="file-text-icon"
-        iconClass="text-blue-500 dark:text-blue-400"
+        icon={data.icon}
+        iconClass={data.iconClass}
     />
     <Shell>
         <TextCaseConverterComponent client:load />

@@ -1,5 +1,5 @@
 ---
-import { iconsList } from "@/components/icons/icons-list";
+import { iconsList, getIcon } from "@/components/icons/icons-list";
 
 import { LogoIcon } from "@/components/icons/logo-icon";
 
@@ -13,7 +13,7 @@ interface Props {
 
 const { title, description, patternColor = "currentColor", icon, iconClass } = Astro.props as Props;
 
-const Icon: any = icon ? iconsList[icon] : null;
+const Icon = getIcon(icon);
 ---
 
 <section

@@ -6,3 +6,7 @@ export const iconsList = {
     "calculator-icon": CalculatorIcon,
     "crop-icon": CropIcon
 };
+
+export const getIcon = (key?: keyof typeof iconsList | null): any => {
+    return key ? iconsList[key] : null;
+};
