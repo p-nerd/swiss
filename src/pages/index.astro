@@ -1,4 +1,5 @@
 ---
+import { site } from "@/lib/site";
 import { getIcon } from "@/components/icons/icons-list";
 import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
@@ -19,7 +20,12 @@ const description =
 const keywords = ["swiss", "web toolkit", "digital swiss army knife", "shihab mahamud"];
 ---
 
-<Layout title={title} description={description} keywords={keywords}>
+<Layout
+    title={`${site.name} - ${title}`}
+    titlePrefix={false}
+    description={description}
+    keywords={keywords}
+>
     <Hero title={title} description={description} patternColor="currentColor">
         <a
             href="#tools"

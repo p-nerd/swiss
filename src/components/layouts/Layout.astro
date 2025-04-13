@@ -1,6 +1,8 @@
 ---
 import "@/styles/global.css";
 
+import { site } from "@/lib/site";
+
 import { BackButton } from "./back-button";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -8,11 +10,12 @@ import Footer from "./Footer.astro";
 
 interface Props {
     title: string;
+    titlePrefix?: boolean;
     description: string;
     keywords: string[];
 }
 
-const { title, description, keywords } = Astro.props as Props;
+const { title, titlePrefix = true, description, keywords } = Astro.props as Props;
 ---
 
 <html lang="en">
@@ -28,7 +31,7 @@ const { title, description, keywords } = Astro.props as Props;
         <meta name="generator" content={Astro.generator} />
         <meta name="author" content="Shihab Mahamud" />
 
-        <title>{title} - Swiss</title>
+        <title>{title}{titlePrefix && ` - ${site.name}`}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords.join(", ")} />
 
