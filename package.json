@@ -6,7 +6,7 @@
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro preview",
-        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro,json,svg}\"",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro,json,svg,yml,yaml}\"",
         "lint": "astro check",
         "astro": "astro",
         "shadcn": "shadcn"

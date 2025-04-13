@@ -22,6 +22,12 @@
                 "tabWidth": 4,
                 "proseWrap": "preserve"
             }
+        },
+        {
+            "files": ["*.yml", "*.yaml"],
+            "options": {
+                "tabWidth": 2
+            }
         }
     ],
     "plugins": [
