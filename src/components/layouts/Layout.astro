@@ -50,7 +50,9 @@ const { title, description, keywords } = Astro.props as Props;
             {Astro.originPathname !== "/" && <BackButton client:load />}
             <ThemeToggle client:load />
             <main class="flex-1">
-                <slot />
+                <div class="flex flex-col items-center">
+                    <slot />
+                </div>
             </main>
             <footer class="bg-background border-t">
                 <div class="container mx-auto py-8 md:py-12">
