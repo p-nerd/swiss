@@ -1,6 +1,10 @@
-import ReactCrop, { centerCrop, makeAspectCrop, type Crop, type PixelCrop } from "react-image-crop";
+import ReactCrop from "react-image-crop";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import "react-image-crop/dist/ReactCrop.css";
+
+import { useCallback, useEffect, useRef } from "react";
+import { centerAspectCrop, getImageData } from "./manipulation-utils";
+import { ASPECT_RATIOS, useImageCropperStore } from "./use-image-cropper-store";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,117 +14,43 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, RotateCw, Trash, Upload, ZoomIn } from "lucide-react";
 
-import "react-image-crop/dist/ReactCrop.css";
-
-// This is to help identify what aspect ratio to use based on the preset
-const ASPECT_RATIOS = {
-    free: undefined,
-    "1:1": 1,
-    "4:3": 4 / 3,
-    "16:9": 16 / 9,
-    "3:4": 3 / 4,
-    "9:16": 9 / 16
-};
-
-// Function to create a centered crop with a specific aspect ratio
-function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number | undefined) {
-    return centerCrop(
-        makeAspectCrop(
-            {
-                unit: "%",
-                width: 90
-            },
-            aspect || 1,
-            mediaWidth,
-            mediaHeight
-        ),
-        mediaWidth,
-        mediaHeight
-    );
-}
-
-// Function to get image data from a canvas - FIXED VERSION
-function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotate = 0) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    if (!ctx) {
-        throw new Error("No 2d context");
-    }
-
-    // Calculate the size of the cropped image
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-
-    // Set canvas size to the cropped image size
-    const canvasWidth = Math.floor(crop.width * scaleX);
-    const canvasHeight = Math.floor(crop.height * scaleY);
-
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-
-    // Apply high quality settings
-    ctx.imageSmoothingQuality = "high";
-
-    // Clear the canvas with white background
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Save the current context state
-    ctx.save();
-
-    // Apply transformations in the correct order:
-    // First translate to center, then rotate, then scale, then translate back
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.rotate((rotate * Math.PI) / 180);
-    ctx.scale(scale, scale);
-    ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-    // Draw the cropped image
-    ctx.drawImage(
-        image,
-        crop.x * scaleX,
-        crop.y * scaleY,
-        crop.width * scaleX,
-        crop.height * scaleY,
-        0,
-        0,
-        canvasWidth,
-        canvasHeight
-    );
-
-    // Restore the context state
-    ctx.restore();
-
-    return canvas;
-}
-
 export function ImageCropperComponent() {
-    const [imgSrc, setImgSrc] = useState<string>("");
+    const {
+        imgSrc,
+        crop,
+        completedCrop,
+        aspectRatio,
+        scale,
+        rotate,
+        fileName,
+        maintainQuality,
+        fileType,
+        fileQuality,
+        previewUrl,
+        setImgSrc,
+        setCrop,
+        setCompletedCrop,
+        setAspectRatio,
+        setScale,
+        setRotate,
+        setFileName,
+        setMaintainQuality,
+        setFileType,
+        setFileQuality,
+        setPreviewUrl,
+        resetCropper
+    } = useImageCropperStore();
+
     const imgRef = useRef<HTMLImageElement>(null);
-    const [crop, setCrop] = useState<Crop>();
-    const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-    const [aspectRatio, setAspectRatio] = useState<string>("free");
-    const [scale, setScale] = useState<number>(1);
-    const [rotate, setRotate] = useState<number>(0);
-    const [fileName, setFileName] = useState<string>("cropped-image.png");
-    const [maintainQuality, setMaintainQuality] = useState<boolean>(true);
-    const [fileType, setFileType] = useState<string>("image/png");
-    const [fileQuality, setFileQuality] = useState<number>(0.92);
-    const [previewUrl, setPreviewUrl] = useState<string>("");
 
     // Reset crop when aspect ratio changes
     useEffect(() => {
         if (imgRef.current && aspectRatio !== "free") {
             const { width, height } = imgRef.current;
-            const newCrop = centerAspectCrop(
-                width,
-                height,
-                ASPECT_RATIOS[aspectRatio as keyof typeof ASPECT_RATIOS]
-            );
+            const newCrop = centerAspectCrop(width, height, ASPECT_RATIOS[aspectRatio]);
             setCrop(newCrop);
         }
-    }, [aspectRatio, imgSrc]);
+    }, [aspectRatio, imgSrc, setCrop]);
 
     // Update preview when crop changes
     useEffect(() => {
@@ -172,11 +102,7 @@ export function ImageCropperComponent() {
 
             // If aspect ratio is set, create a centered crop
             if (aspectRatio !== "free") {
-                const newCrop = centerAspectCrop(
-                    width,
-                    height,
-                    ASPECT_RATIOS[aspectRatio as keyof typeof ASPECT_RATIOS]
-                );
+                const newCrop = centerAspectCrop(width, height, ASPECT_RATIOS[aspectRatio]);
                 setCrop(newCrop);
             } else {
                 // For free aspect ratio, create a default crop
@@ -189,7 +115,7 @@ export function ImageCropperComponent() {
                 });
             }
         },
-        [aspectRatio]
+        [aspectRatio, setCrop]
     );
 
     // Update the preview image
@@ -245,16 +171,6 @@ export function ImageCropperComponent() {
         );
     };
 
-    // Reset the cropper
-    const resetCropper = () => {
-        setImgSrc("");
-        setCrop(undefined);
-        setCompletedCrop(undefined);
-        setScale(1);
-        setRotate(0);
-        setPreviewUrl("");
-    };
-
     return (
         <Card className="w-full">
             <CardContent className="p-6">
@@ -296,7 +212,9 @@ export function ImageCropperComponent() {
                                         <Tabs
                                             defaultValue={aspectRatio}
                                             value={aspectRatio}
-                                            onValueChange={setAspectRatio}
+                                            onValueChange={(value) =>
+                                                setAspectRatio(value as keyof typeof ASPECT_RATIOS)
+                                            }
                                             className="w-full"
                                         >
                                             <TabsList className="grid grid-cols-3 md:grid-cols-6 h-auto">
@@ -449,11 +367,7 @@ export function ImageCropperComponent() {
                                             crop={crop}
                                             onChange={(c) => setCrop(c)}
                                             onComplete={(c) => setCompletedCrop(c)}
-                                            aspect={
-                                                ASPECT_RATIOS[
-                                                    aspectRatio as keyof typeof ASPECT_RATIOS
-                                                ]
-                                            }
+                                            aspect={ASPECT_RATIOS[aspectRatio]}
                                             className="max-w-full"
                                         >
                                             <img
