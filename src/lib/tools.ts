@@ -131,6 +131,31 @@ export const tools: TTool[] = [
             "online health tool",
             "swiss"
         ]
+    },
+    {
+        icon: "qr-code-icon",
+        iconClass: "text-indigo-500 dark:text-indigo-400",
+        title: "QR Code Generator",
+        href: "/qr-code-generator",
+        desc: "Create customizable QR codes for websites, text, contact information, Wi-Fi networks, and more with this easy-to-use tool.",
+        descMore: "Free online QR code generator with download options in multiple formats.",
+        keywords: [
+            "QR code generator",
+            "QR maker",
+            "QR creator",
+            "create QR code",
+            "scan code generator",
+            "URL to QR",
+            "custom QR code",
+            "mobile QR",
+            "scannable code",
+            "digital code generator",
+            "contact QR",
+            "WiFi QR code",
+            "online QR tool",
+            "free QR generator",
+            "swiss"
+        ]
     }
 ];
 

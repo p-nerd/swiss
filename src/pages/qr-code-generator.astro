@@ -1,0 +1,26 @@
+---
+import { getToolData } from "@/lib/tools";
+
+import { QRCodeGeneratorComponent } from "@/components/screens/qr-code-generator";
+
+import Layout from "@/components/layouts/Layout.astro";
+import Hero from "@/components/elements/Hero.astro";
+import Shell from "@/components/elements/Shell.astro";
+
+const data = getToolData(Astro.originPathname);
+
+const description = `${data.desc} ${data.descMore}`;
+---
+
+<Layout title={data.title} description={description} keywords={data.keywords}>
+    <Hero
+        title={data.title}
+        description={description}
+        patternColor="currentColor"
+        icon={data.icon}
+        iconClass={data.iconClass}
+    />
+    <Shell>
+        <QRCodeGeneratorComponent client:load />
+    </Shell>
+</Layout>
