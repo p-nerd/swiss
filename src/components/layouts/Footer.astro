@@ -2,14 +2,13 @@
 import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
 
-const pathname = Astro.originPathname;
-const home = pathname === "/";
+const home = Astro.originPathname === "/";
 ---
 
 <footer class="bg-background border-t">
     <div
         class={cn("container mx-auto flex items-center justify-between py-8 md:py-12", {
-            "justify-center": home
+            "justify-end": home
         })}
     >
         {
