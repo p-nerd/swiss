@@ -1,5 +1,5 @@
+import { usePasswordGeneratorStore } from "@/states/use-password-generator-store";
 import { useEffect } from "react";
-import { usePasswordGeneratorStore } from "./use-password-generator-store";
 
 import { AdvancedOptions } from "./advanced-options";
 import { CharacterTypes } from "./character-types";
