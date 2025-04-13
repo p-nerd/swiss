@@ -1,7 +1,7 @@
-import type { iconsList } from "@/components/icons/icons-list";
+import type { TIconKey } from "@/components/icons/icons-list";
 
 export type TTool = {
-    icon: keyof typeof iconsList;
+    icon: TIconKey;
     iconClass: string;
     title: string;
     href: string;
@@ -105,6 +105,30 @@ export const tools: TTool[] = [
             "conversion calculator",
             "measurement tool",
             "online converter",
+            "swiss"
+        ]
+    },
+    {
+        icon: "activity-icon",
+        iconClass: "text-orange-500 dark:text-orange-400",
+        title: "BMI Calculator",
+        href: "/bmi-calculator",
+        desc: "Calculate your Body Mass Index (BMI) to assess your weight relative to your height and better understand your health status.",
+        descMore: "Free online BMI calculator with health category assessment and recommendations.",
+        keywords: [
+            "BMI calculator",
+            "body mass index",
+            "weight calculator",
+            "health assessment",
+            "fitness tool",
+            "weight status",
+            "health calculator",
+            "obesity measurement",
+            "weight-to-height ratio",
+            "body health check",
+            "weight management",
+            "health indicator",
+            "online health tool",
             "swiss"
         ]
     }

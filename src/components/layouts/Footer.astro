@@ -16,7 +16,7 @@ const home = Astro.originPathname === "/";
             </a>
             {
                 !home && (
-                    <div class="grid grid-cols-2 gap-x-8 gap-y-2">
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-2 md:grid-cols-3">
                         {tools.map((tool) => (
                             <a href={tool.href} class="group flex items-center space-x-1 text-sm">
                                 <span class={tool.iconClass}>•</span>{" "}
