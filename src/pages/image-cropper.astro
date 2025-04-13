@@ -31,7 +31,13 @@ const keywords = [
 ---
 
 <Layout title={title} description={description} keywords={keywords}>
-    <Hero title={title} description={description} patternColor="currentColor" />
+    <Hero
+        title={title}
+        description={description}
+        patternColor="currentColor"
+        icon="crop-icon"
+        iconClass="text-purple-500 dark:text-purple-400"
+    />
     <Shell>
         <div class="mx-auto w-full max-w-5xl">
             <ImageCropperComponent client:load />

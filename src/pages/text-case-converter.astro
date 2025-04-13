@@ -30,7 +30,13 @@ const keywords = [
 ---
 
 <Layout title={title} description={description} keywords={keywords}>
-    <Hero title={title} description={description} patternColor="currentColor" />
+    <Hero
+        title={title}
+        description={description}
+        patternColor="currentColor"
+        icon="file-text-icon"
+        iconClass="text-blue-500 dark:text-blue-400"
+    />
     <Shell>
         <TextCaseConverterComponent client:load />
     </Shell>

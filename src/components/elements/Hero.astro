@@ -1,11 +1,19 @@
 ---
+import { iconsList } from "@/components/icons/icons-list";
+
 import { LogoIcon } from "@/components/icons/logo-icon";
+
 interface Props {
     title: string;
     description: string;
     patternColor?: string;
+    icon?: keyof typeof iconsList;
+    iconClass?: string;
 }
-const { title, description, patternColor = "currentColor" } = Astro.props as Props;
+
+const { title, description, patternColor = "currentColor", icon, iconClass } = Astro.props as Props;
+
+const Icon: any = icon ? iconsList[icon] : null;
 ---
 
 <section
@@ -32,11 +40,14 @@ const { title, description, patternColor = "currentColor" } = Astro.props as Pro
             <a href="/">
                 <LogoIcon />
             </a>
-            <h1
-                class="text-foreground text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
-            >
-                {title}
-            </h1>
+            <div class="flex items-center space-x-2">
+                {icon && <Icon className={`size-16 ${iconClass}`} />}
+                <h1
+                    class="text-foreground text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
+                >
+                    {title}
+                </h1>
+            </div>
             <p class="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
                 {description}
             </p>

@@ -31,7 +31,13 @@ const keywords = [
 ---
 
 <Layout title={title} description={description} keywords={keywords}>
-    <Hero title={title} description={description} patternColor="currentColor" />
+    <Hero
+        title={title}
+        description={description}
+        patternColor="currentColor"
+        icon="calculator-icon"
+        iconClass="text-green-500 dark:text-green-400"
+    />
     <Shell>
         <div class="mx-auto w-full max-w-4xl">
             <UnitConverterComponent client:load />
