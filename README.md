@@ -24,20 +24,29 @@ A versatile collection of web tools designed to simplify your digital life and h
 ### Available Scripts
 
 - **Development server**:
+
     ```bash
     bun dev
     ```
+
     Starts the development server at `http://localhost:4321`
+
 - **Format code**:
+
     ```bash
     bun format
     ```
+
     Runs Prettier to format all code files
+
 - **Lint code**:
+
     ```bash
     bun lint
     ```
+
     Runs Astro's built-in linting
+
 - **Add shadcn/ui components**:
     ```bash
     bun shadcn add [component-name]
