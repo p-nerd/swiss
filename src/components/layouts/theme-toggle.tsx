@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { MoonIcon, SunIcon } from "lucide-react";
 
 type TTheme = "light" | "dark";
@@ -55,26 +56,35 @@ export const ThemeToggle = () => {
     }, []);
 
     return (
-        <div className="theme-switch fixed top-4 right-4 z-50">
-            <Button
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 rounded-full"
-                onClick={toggleTheme}
-                aria-label="Toggle theme"
-            >
-                <span className="sr-only">Toggle theme</span>
-                <SunIcon
-                    className={`h-[1.2rem] w-[1.2rem] transition-all ${
-                        theme === "dark" ? "scale-0 -rotate-90" : "scale-100 rotate-0"
-                    }`}
-                />
-                <MoonIcon
-                    className={`absolute h-[1.2rem] w-[1.2rem] transition-all ${
-                        theme === "dark" ? "scale-100 rotate-0" : "scale-0 rotate-90"
-                    }`}
-                />
-            </Button>
+        <div className="fixed top-4 right-4 z-50">
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-10 w-10 rounded-full"
+                            onClick={toggleTheme}
+                            aria-label="Toggle theme"
+                        >
+                            <span className="sr-only">Toggle theme</span>
+                            <SunIcon
+                                className={`h-[1.2rem] w-[1.2rem] transition-all ${
+                                    theme === "dark" ? "scale-0 -rotate-90" : "scale-100 rotate-0"
+                                }`}
+                            />
+                            <MoonIcon
+                                className={`absolute h-[1.2rem] w-[1.2rem] transition-all ${
+                                    theme === "dark" ? "scale-100 rotate-0" : "scale-0 rotate-90"
+                                }`}
+                            />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Theme</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
         </div>
     );
 };
