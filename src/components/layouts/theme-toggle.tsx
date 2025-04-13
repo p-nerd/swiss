@@ -56,7 +56,7 @@ export const ThemeToggle = () => {
     }, []);
 
     return (
-        <div className="fixed top-4 left-4 z-50">
+        <div className="fixed top-4 right-4 z-50">
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
@@ -81,7 +81,7 @@ export const ThemeToggle = () => {
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Toggle Theme</p>
+                        <p>Theme</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
