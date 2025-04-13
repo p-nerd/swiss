@@ -12,12 +12,10 @@ A versatile collection of web tools designed to simplify your digital life and h
 ### Installation
 
 1. Clone the repository:
-
     ```bash
     git clone https://github.com/yourusername/swiss.git
     cd swiss
     ```
-
 2. Install dependencies:
     ```bash
     bun install
@@ -26,48 +24,23 @@ A versatile collection of web tools designed to simplify your digital life and h
 ### Available Scripts
 
 - **Development server**:
-
     ```bash
-    bun run dev
+    bun dev
     ```
-
     Starts the development server at `http://localhost:4321`
-
-- **Build for production**:
-
-    ```bash
-    bun run build
-    ```
-
-    Creates an optimized production build in the `dist` directory
-
-- **Preview production build**:
-
-    ```bash
-    bun run preview
-    ```
-
-    Serves the production build locally for testing
-
 - **Format code**:
-
     ```bash
-    bun run format
+    bun format
     ```
-
     Runs Prettier to format all code files
-
-- **Lint**:
-
+- **Lint code**:
     ```bash
-    bun run lint
+    bun lint
     ```
-
     Runs Astro's built-in linting
-
-- **Add UI components**:
+- **Add shadcn/ui components**:
     ```bash
-    bun run shadcn add [component-name]
+    bun shadcn add [component-name]
     ```
     Adds shadcn/ui components to your project
 
