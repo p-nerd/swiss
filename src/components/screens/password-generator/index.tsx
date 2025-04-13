@@ -133,10 +133,10 @@ export const PasswordGeneratorComponent = () => {
     };
 
     const getStrengthColor = () => {
-        if (strength < 30) return "bg-red-500";
-        if (strength < 60) return "bg-yellow-500";
-        if (strength < 80) return "bg-green-500";
-        return "bg-emerald-500";
+        if (strength < 30) return "bg-destructive dark:bg-destructive";
+        if (strength < 60) return "bg-yellow-500 dark:bg-yellow-500";
+        if (strength < 80) return "bg-green-500 dark:bg-green-400";
+        return "bg-emerald-500 dark:bg-emerald-400";
     };
 
     return (
@@ -245,7 +245,7 @@ export const PasswordGeneratorComponent = () => {
 
                 <div className="space-y-3">
                     <Label>Advanced Options</Label>
-                    <div className="grid grid-cols-1  gap-2">
+                    <div className="grid grid-cols-1 gap-2">
                         <div className="flex items-center space-x-2">
                             <Checkbox
                                 id="excludeSimilar"
