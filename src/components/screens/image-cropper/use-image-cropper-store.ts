@@ -1,5 +1,7 @@
+import type { TFileType } from "@/types/image-generator";
 import type { Crop, PixelCrop } from "react-image-crop";
 
+import { changeExtension, getExtension } from "@/lib/utils";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -37,8 +39,8 @@ export const useImageCropperStore = create<{
     maintainQuality: boolean;
     setMaintainQuality: (maintainQuality: boolean) => void;
 
-    fileType: string;
-    setFileType: (fileType: string) => void;
+    fileType: TFileType;
+    setFileType: (fileType: TFileType) => void;
 
     fileQuality: number;
     setFileQuality: (fileQuality: number) => void;
@@ -74,7 +76,12 @@ export const useImageCropperStore = create<{
         setMaintainQuality: (maintainQuality) => set({ maintainQuality }),
 
         fileType: "image/png",
-        setFileType: (fileType) => set({ fileType }),
+        setFileType: (fileType) => {
+            set((state) => {
+                state.fileType = fileType;
+                state.fileName = changeExtension(state.fileName, getExtension(fileType));
+            });
+        },
 
         fileQuality: 0.92,
         setFileQuality: (fileQuality) => set({ fileQuality }),
