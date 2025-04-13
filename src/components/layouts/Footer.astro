@@ -1,5 +1,32 @@
+---
+import { tools } from "@/lib/tools";
+import { cn } from "@/lib/utils";
+
+const pathname = Astro.originPathname;
+
+const home = pathname === "/";
+---
+
 <footer class="bg-background border-t">
-    <div class="container mx-auto py-8 md:py-12">
+    <div
+        class={cn("container mx-auto flex items-center justify-between py-8 md:py-12", {
+            "justify-center": home
+        })}
+    >
+        {
+            !home && (
+                <div class="mb-8 grid grid-cols-2 gap-x-10 gap-y-2 md:mb-0">
+                    {tools.map((tool) => (
+                        <a href={tool.href} class="group flex items-center space-x-1 text-sm">
+                            <span class={tool.iconClass}>•</span>{" "}
+                            <span class="group-hover:underline group-hover:underline-offset-2">
+                                {tool.title}
+                            </span>
+                        </a>
+                    ))}
+                </div>
+            )
+        }
         <p class="text-center">
             &copy; {new Date().getFullYear()}{" "}
             <a
