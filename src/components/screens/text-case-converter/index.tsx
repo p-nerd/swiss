@@ -132,47 +132,15 @@ export const TextCaseConverterComponent = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                    <label htmlFor="input-text" className="text-sm font-medium">
-                        Enter your text
-                    </label>
-                    <div className="flex gap-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={clearText}
-                            disabled={!text}
-                            className="h-8"
-                        >
-                            Clear
-                        </Button>
-                    </div>
-                </div>
-                <Textarea
-                    id="input-text"
-                    placeholder="Type or paste your text here..."
-                    className="min-h-[120px] font-mono"
-                    value={text}
-                    onChange={handleTextChange}
-                />
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                    <div>Characters: {stats.characters}</div>
-                    <div>Words: {stats.words}</div>
-                    <div>Lines: {stats.lines}</div>
-                    <div>Characters (no spaces): {stats.charactersNoSpaces}</div>
-                </div>
-            </div>
-
-            <div className="space-y-4">
+        <div className="space-y-8">
+            <div className="flex flex-col items-center w-full">
                 <Tabs
                     defaultValue="uppercase"
                     value={activeTab}
                     onValueChange={handleTabChange}
-                    className="w-full"
+                    className="w-auto"
                 >
-                    <TabsList className="grid grid-cols-3 md:grid-cols-5 h-auto">
+                    <TabsList>
                         <TabsTrigger value="uppercase" className="text-xs sm:text-sm">
                             UPPERCASE
                         </TabsTrigger>
@@ -202,8 +170,41 @@ export const TextCaseConverterComponent = () => {
                         </TabsTrigger>
                     </TabsList>
                 </Tabs>
+            </div>
+            <div className="flex flex-row w-full gap-4">
+                <div className="space-y-2 flex-1">
+                    <div className="flex items-center justify-between">
+                        <label htmlFor="input-text" className="text-sm font-medium">
+                            Enter your text
+                        </label>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={clearText}
+                                disabled={!text}
+                                className="h-8"
+                            >
+                                Clear
+                            </Button>
+                        </div>
+                    </div>
+                    <Textarea
+                        id="input-text"
+                        placeholder="Type or paste your text here..."
+                        className="min-h-[120px] font-mono"
+                        value={text}
+                        onChange={handleTextChange}
+                    />
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                        <div>Characters: {stats.characters}</div>
+                        <div>Characters (no spaces): {stats.charactersNoSpaces}</div>
+                        <div>Words: {stats.words}</div>
+                        <div>Lines: {stats.lines}</div>
+                    </div>
+                </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 flex-1">
                     <div className="flex items-center justify-between">
                         <label htmlFor="output-text" className="text-sm font-medium">
                             Converted text
@@ -228,9 +229,9 @@ export const TextCaseConverterComponent = () => {
                     />
                 </div>
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm flex flex-col items-center text-muted-foreground">
                 <h3 className="font-medium mb-1">About Text Case Converter</h3>
-                <p>
+                <p className="max-w-xl">
                     This tool allows you to convert text between different case formats. It's useful
                     for coding, writing, and formatting text for various purposes. Simply enter your
                     text above and select the desired case format.

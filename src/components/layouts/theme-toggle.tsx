@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 
 type TTheme = "light" | "dark";
@@ -55,9 +56,11 @@ export const ThemeToggle = () => {
 
     return (
         <div className="theme-switch fixed top-4 right-4 z-50">
-            <button
+            <Button
+                variant="outline"
+                size="icon"
+                className="h-10 w-10 rounded-full"
                 onClick={toggleTheme}
-                className="border-input bg-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-10 w-10 items-center justify-center rounded-md border shadow-sm focus-visible:ring-2 focus-visible:outline-none"
                 aria-label="Toggle theme"
             >
                 <span className="sr-only">Toggle theme</span>
@@ -71,7 +74,7 @@ export const ThemeToggle = () => {
                         theme === "dark" ? "scale-100 rotate-0" : "scale-0 rotate-90"
                     }`}
                 />
-            </button>
+            </Button>
         </div>
     );
 };

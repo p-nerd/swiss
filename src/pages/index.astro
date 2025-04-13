@@ -4,7 +4,7 @@ import Layout from "@/components/layouts/Layout.astro";
 import { cn } from "@/lib/utils";
 
 import { LogoIcon } from "@/components/icons/logo-icon";
-import { ArrowRightIcon, KeyIcon, FileTextIcon, CalculatorIcon } from "lucide-react";
+import { ArrowRightIcon, KeyIcon, FileTextIcon, CalculatorIcon, CropIcon } from "lucide-react";
 
 const tools = [
     {
@@ -27,6 +27,13 @@ const tools = [
         title: "Unit Converter",
         desc: "Quickly and accurately convert between different units of measurement for length, weight, volume, temperature, time, and more.",
         href: "/unit-converter"
+    },
+    {
+        icon: CropIcon,
+        iconClass: "text-purple-500 dark:text-purple-400",
+        title: "Image Cropper",
+        desc: "Easily crop, resize, and edit your images online. Adjust aspect ratios, zoom, rotate, and download in multiple formats.",
+        href: "/image-cropper"
     }
 ];
 
