@@ -62,16 +62,18 @@ export const OuputputSettings = () => {
             )}
 
             {/* Maintain Original Quality Option */}
-            <div className="flex items-center space-x-2 pt-2">
-                <Switch
-                    id="maintain-quality"
-                    checked={maintainQuality}
-                    onCheckedChange={setMaintainQuality}
-                />
-                <Label htmlFor="maintain-quality" className="cursor-pointer">
-                    Maintain original quality
-                </Label>
-            </div>
+            {fileType === "image/png" && (
+                <div className="flex items-center space-x-2 pt-2">
+                    <Switch
+                        id="maintain-quality"
+                        checked={maintainQuality}
+                        onCheckedChange={setMaintainQuality}
+                    />
+                    <Label htmlFor="maintain-quality" className="cursor-pointer">
+                        Maintain original quality
+                    </Label>
+                </div>
+            )}
         </div>
     );
 };
