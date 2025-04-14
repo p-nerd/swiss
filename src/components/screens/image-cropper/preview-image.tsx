@@ -1,4 +1,4 @@
-import { useImageCropperStore } from "./use-image-cropper-store";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 export const PreviewImage = () => {
     const { previewUrl } = useImageCropperStore();

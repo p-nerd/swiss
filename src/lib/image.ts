@@ -1,49 +1,59 @@
 import type { Crop, PixelCrop } from "react-image-crop";
 
+export const aspectRatios = {
+    free: undefined,
+    "1:1": 1,
+    "4:3": 4 / 3,
+    "16:9": 16 / 9,
+    "3:4": 3 / 4,
+    "9:16": 9 / 16
+};
+
 // Function to create a centered crop with a specific aspect ratio
 export function centerAspectCrop(
     mediaWidth: number,
     mediaHeight: number,
     aspect: number | undefined
-) {
-    const centerCrop = (crop: Crop, width: number, height: number) => {
+): Crop {
+    if (!aspect) {
+        // Default crop for free aspect ratio
         return {
-            ...crop,
-            x: width / 2 - (width * crop.width) / 200,
-            y: height / 2 - (height * crop.height) / 200
+            unit: "%",
+            width: 90,
+            height: 90,
+            x: 5,
+            y: 5
         };
-    };
+    }
 
-    const makeAspectCrop = (
-        crop: { unit: "px" | "%"; width: number },
-        aspect: number,
-        width: number,
-        height: number
-    ): Crop => {
-        const cropWidth = crop.width;
-        const cropHeight = (cropWidth / aspect) * (height / width);
-        return {
-            unit: crop.unit,
-            width: cropWidth,
-            height: cropHeight,
-            x: 0,
-            y: 0
-        };
-    };
+    // Calculate dimensions of the crop in percentage
+    let width = 90;
+    let height;
 
-    return centerCrop(
-        makeAspectCrop(
-            {
-                unit: "%",
-                width: 90
-            },
-            aspect || 1,
-            mediaWidth,
-            mediaHeight
-        ),
-        mediaWidth,
-        mediaHeight
-    );
+    // Determine if we should constrain by width or height based on image and aspect ratio
+    const imageAspect = mediaWidth / mediaHeight;
+
+    if (aspect > imageAspect) {
+        // Wider aspect ratio than the image - constrain by width
+        width = 90;
+        height = (width / aspect) * imageAspect;
+    } else {
+        // Taller or equal aspect ratio - constrain by height
+        height = 90;
+        width = (height * aspect) / imageAspect;
+    }
+
+    // Center the crop
+    const x = (100 - width) / 2;
+    const y = (100 - height) / 2;
+
+    return {
+        unit: "%",
+        width,
+        height,
+        x,
+        y
+    };
 }
 
 // Function to get image data from a canvas

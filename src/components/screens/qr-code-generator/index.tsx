@@ -236,29 +236,29 @@ export function QRCodeGeneratorComponent() {
     };
 
     // Create a canvas with the QR code for downloading
-    const createQRCanvas = () => {
-        const canvas = document.createElement("canvas");
-        const qrSvg = qrCodeRef.current?.querySelector("svg");
-        if (!qrSvg) return null;
-
-        const svgData = new XMLSerializer().serializeToString(qrSvg);
-        const img = new Image();
-        img.src = "data:image/svg+xml;base64," + btoa(svgData);
-
-        return new Promise<HTMLCanvasElement>((resolve) => {
-            img.onload = () => {
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext("2d");
-                if (ctx) {
-                    ctx.fillStyle = bgColor;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    resolve(canvas);
-                }
-            };
-        });
-    };
+    // const createQRCanvas = () => {
+    //     const canvas = document.createElement("canvas");
+    //     const qrSvg = qrCodeRef.current?.querySelector("svg");
+    //     if (!qrSvg) return null;
+    //
+    //     const svgData = new XMLSerializer().serializeToString(qrSvg);
+    //     const img = new Image();
+    //     img.src = "data:image/svg+xml;base64," + btoa(svgData);
+    //
+    //     return new Promise<HTMLCanvasElement>((resolve) => {
+    //         img.onload = () => {
+    //             canvas.width = size;
+    //             canvas.height = size;
+    //             const ctx = canvas.getContext("2d");
+    //             if (ctx) {
+    //                 ctx.fillStyle = bgColor;
+    //                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    //                 resolve(canvas);
+    //             }
+    //         };
+    //     });
+    // };
 
     return (
         <Card className="w-full">
@@ -737,7 +737,7 @@ export function QRCodeGeneratorComponent() {
                                 bgColor={bgColor}
                                 fgColor={fgColor}
                                 level={errorCorrection}
-                                includeMargin={includeMargin}
+                                // includeMargin={includeMargin}
                                 imageSettings={
                                     logoUrl
                                         ? {

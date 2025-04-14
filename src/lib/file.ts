@@ -1,0 +1,67 @@
+import type { TFileType } from "@/types/image-generator";
+
+export const changeExtension = (fileName: string, extension: string): string => {
+    if (!extension.startsWith(".")) {
+        extension = "." + extension;
+    }
+
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return fileName + extension;
+    }
+
+    return fileName.substring(0, lastDotIndex) + extension;
+};
+
+export const getFileNameWithoutExtension = (fileName: string): string => {
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return fileName;
+    }
+    return fileName.substring(0, lastDotIndex);
+};
+
+export const getExtensionByFileName = (fileName: string, defaultValue?: string): string => {
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return defaultValue || "";
+    }
+    return fileName.substring(lastDotIndex + 1).toLowerCase();
+};
+
+export const getExtensionByFileType = (fileType: TFileType, defaultValue?: string): string => {
+    const extensions: Record<TFileType, string> = {
+        "image/png": "png",
+        "image/jpeg": "jpeg",
+        "image/webp": "webp"
+    };
+
+    return extensions[fileType] || defaultValue || "";
+};
+
+export const getFileTypeByExtension = (extension: string): TFileType => {
+    const fileTypes: Record<string, TFileType> = {
+        png: "image/png",
+        jpg: "image/jpeg",
+        jpeg: "image/jpeg",
+        webp: "image/webp"
+    };
+
+    // Normalize extension by removing any leading dot and converting to lowercase
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return fileTypes[normalizedExtension] || "image/png";
+};
+
+export const isValidExtension = (extension: string): boolean => {
+    const validExtensions = ["png", "jpg", "jpeg", "webp"];
+
+    // Normalize extension by removing any leading dot and converting to lowercase
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return validExtensions.includes(normalizedExtension);
+};

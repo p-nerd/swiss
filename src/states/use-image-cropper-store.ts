@@ -1,18 +1,9 @@
-import type { TFileType } from "@/types/image-generator";
+import type { TAspectRatioKey, TFileType } from "@/types/image-generator";
 import type { Crop, PixelCrop } from "react-image-crop";
 
-import { changeExtension, getExtension } from "@/lib/utils";
+import { changeExtension, getExtensionByFileType } from "@/lib/file";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-
-export const aspectRatios = {
-    free: undefined,
-    "1:1": 1,
-    "4:3": 4 / 3,
-    "16:9": 16 / 9,
-    "3:4": 3 / 4,
-    "9:16": 9 / 16
-};
 
 export const useImageCropperStore = create<{
     imgSrc: string;
@@ -24,8 +15,8 @@ export const useImageCropperStore = create<{
     completedCrop: PixelCrop | undefined;
     setCompletedCrop: (completedCrop: PixelCrop | undefined) => void;
 
-    aspectRatio: keyof typeof aspectRatios;
-    setAspectRatio: (aspectRatio: keyof typeof aspectRatios) => void;
+    aspectRatio: TAspectRatioKey;
+    setAspectRatio: (aspectRatio: TAspectRatioKey) => void;
 
     scale: number;
     setScale: (scale: number) => void;
@@ -48,7 +39,7 @@ export const useImageCropperStore = create<{
     previewUrl: string;
     setPreviewUrl: (previewUrl: string) => void;
 
-    resetCropper: () => void;
+    clearCropper: () => void;
 }>()(
     immer((set) => ({
         imgSrc: "",
@@ -79,7 +70,7 @@ export const useImageCropperStore = create<{
         setFileType: (fileType) => {
             set((state) => {
                 state.fileType = fileType;
-                state.fileName = changeExtension(state.fileName, getExtension(fileType));
+                state.fileName = changeExtension(state.fileName, getExtensionByFileType(fileType));
             });
         },
 
@@ -89,7 +80,7 @@ export const useImageCropperStore = create<{
         previewUrl: "",
         setPreviewUrl: (previewUrl) => set({ previewUrl }),
 
-        resetCropper: () =>
+        clearCropper: () =>
             set((state) => {
                 state.imgSrc = "";
                 state.crop = undefined;
