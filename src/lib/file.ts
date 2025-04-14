@@ -1,24 +1,59 @@
 import type { TFileType } from "@/types/image-generator";
 
-export const changeExtension = (filename: string, newExtension: string): string => {
-    if (!newExtension.startsWith(".")) {
-        newExtension = "." + newExtension;
+export const changeExtension = (fileName: string, extension: string): string => {
+    if (!extension.startsWith(".")) {
+        extension = "." + extension;
     }
 
-    const lastDotIndex = filename.lastIndexOf(".");
+    const lastDotIndex = fileName.lastIndexOf(".");
     if (lastDotIndex === -1) {
-        return filename + newExtension;
+        return fileName + extension;
     }
 
-    return filename.substring(0, lastDotIndex) + newExtension;
+    return fileName.substring(0, lastDotIndex) + extension;
 };
 
-export const getExtension = (fileType: TFileType) => {
+export const getFileNameWithoutExtension = (fileName: string): string => {
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return fileName;
+    }
+    return fileName.substring(0, lastDotIndex);
+};
+
+export const getExtensionByFileName = (fileName: string, defaultValue?: string): string => {
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return defaultValue || "";
+    }
+    return fileName.substring(lastDotIndex + 1).toLowerCase();
+};
+
+export const getExtensionByFileType = (fileType: TFileType, defaultValue?: string): string => {
     const extensions: Record<TFileType, string> = {
         "image/png": "png",
         "image/jpeg": "jpeg",
         "image/webp": "webp"
     };
 
-    return extensions[fileType];
+    return extensions[fileType] || defaultValue || "";
+};
+
+export const getFileTypeByExtension = (
+    extension: string,
+    defaultValue?: string
+): TFileType | string => {
+    const fileTypes: Record<string, TFileType> = {
+        png: "image/png",
+        jpg: "image/jpeg",
+        jpeg: "image/jpeg",
+        webp: "image/webp"
+    };
+
+    // Normalize extension by removing any leading dot and converting to lowercase
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return fileTypes[normalizedExtension] || defaultValue || "";
 };

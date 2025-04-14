@@ -1,15 +1,24 @@
+import type { TFileType } from "@/types/image-generator";
+
+import { getExtensionByFileName, getFileNameWithoutExtension } from "@/lib/file";
 import { useImageCropperStore } from "./use-image-cropper-store";
 
 export const UploadImageInput = ({ id }: { id: string }) => {
-    const { setImgSrc, setCrop, setScale, setRotate, setFileName } = useImageCropperStore();
+    const { setImgSrc, setCrop, setScale, setRotate, setFileName, setFileType } =
+        useImageCropperStore();
 
     const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
 
-            const originalName = file.name.split(".").slice(0, -1).join(".");
-            file.type;
-            setFileName(`${originalName}-cropped.png`);
+            const fileName = file.name;
+            const fileType = file.type;
+
+            const originalName = getFileNameWithoutExtension(fileName);
+            const originalExtension = getExtensionByFileName(fileName);
+
+            setFileType(fileType as TFileType);
+            setFileName(`${originalName}-cropped.${originalExtension}`);
 
             const reader = new FileReader();
 
