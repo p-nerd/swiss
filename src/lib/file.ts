@@ -39,10 +39,7 @@ export const getExtensionByFileType = (fileType: TFileType, defaultValue?: strin
     return extensions[fileType] || defaultValue || "";
 };
 
-export const getFileTypeByExtension = (
-    extension: string,
-    defaultValue?: string
-): TFileType | string => {
+export const getFileTypeByExtension = (extension: string): TFileType => {
     const fileTypes: Record<string, TFileType> = {
         png: "image/png",
         jpg: "image/jpeg",
@@ -55,5 +52,16 @@ export const getFileTypeByExtension = (
         ? extension.substring(1).toLowerCase()
         : extension.toLowerCase();
 
-    return fileTypes[normalizedExtension] || defaultValue || "";
+    return fileTypes[normalizedExtension] || "image/png";
+};
+
+export const isValidExtension = (extension: string): boolean => {
+    const validExtensions = ["png", "jpg", "jpeg", "webp"];
+
+    // Normalize extension by removing any leading dot and converting to lowercase
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return validExtensions.includes(normalizedExtension);
 };

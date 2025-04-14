@@ -1,5 +1,6 @@
 import type { RefObject } from "react";
 
+import { getExtensionByFileType, getFileNameWithoutExtension } from "@/lib/file";
 import { getImageData } from "@/lib/image";
 import { useImageCropperStore } from "@/states/use-image-cropper-store";
 import { useState } from "react";
@@ -31,7 +32,7 @@ export const DownloadButton = ({ imgRef }: { imgRef: RefObject<HTMLImageElement 
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement("a");
                     link.href = url;
-                    link.download = fileName;
+                    link.download = `${getFileNameWithoutExtension(fileName)}.${getExtensionByFileType(fileType)}`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
