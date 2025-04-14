@@ -1,7 +1,8 @@
 import type { TAspectRatioKey } from "@/types/image-generator";
 import type { RefObject } from "react";
+import type { Crop } from "react-image-crop";
 
-import { aspectRatios, centerAspectCrop } from "@/lib/image";
+import { aspectRatios, calculatePixelCrop, centerAspectCrop, defaultCrop } from "@/lib/image";
 import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 import { Label } from "@/components/ui/label";
@@ -12,16 +13,22 @@ export const AspectRatioSelection = ({
 }: {
     imgRef: RefObject<HTMLImageElement | null>;
 }) => {
-    const { aspectRatio, setAspectRatio, setCrop } = useImageCropperStore();
+    const { aspectRatio, setAspectRatio, setCrop, setCompletedCrop } = useImageCropperStore();
 
     const handleAspectRatio = (aspectRatio: TAspectRatioKey) => {
         setAspectRatio(aspectRatio);
 
-        if (imgRef.current && aspectRatio !== "free") {
-            const { width, height } = imgRef.current;
-            const newCrop = centerAspectCrop(width, height, aspectRatios[aspectRatio]);
-            setCrop(newCrop);
-        }
+        if (!imgRef.current) return;
+
+        const image = imgRef.current;
+
+        let crop: Crop =
+            aspectRatio === "free"
+                ? defaultCrop
+                : centerAspectCrop(image.width, image.height, aspectRatios[aspectRatio]);
+
+        setCrop(crop);
+        setCompletedCrop(calculatePixelCrop(crop, image));
     };
 
     return (
@@ -35,7 +42,11 @@ export const AspectRatioSelection = ({
             >
                 <TabsList className="grid grid-cols-3 md:grid-cols-6 h-auto">
                     {Object.keys(aspectRatios).map((aspectRatio) => (
-                        <TabsTrigger value={aspectRatio} className="capitalize text-xs">
+                        <TabsTrigger
+                            key={aspectRatio}
+                            value={aspectRatio}
+                            className="capitalize text-xs"
+                        >
                             {aspectRatio}
                         </TabsTrigger>
                     ))}
