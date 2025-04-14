@@ -1,8 +1,94 @@
 import type { Crop, PixelCrop } from "react-image-crop";
 
-// Function to create a centered crop with a specific aspect ratio
+export const defaultCrop: Crop = {
+    unit: "%" as const,
+    x: 10,
+    y: 10,
+    width: 80,
+    height: 80
+};
 
-// Function to get image data from a canvas
+export const aspectRatios = {
+    free: undefined,
+    "1:1": 1,
+    "4:3": 4 / 3,
+    "16:9": 16 / 9,
+    "3:4": 3 / 4,
+    "9:16": 9 / 16
+};
+
+export const calculatePixelCrop = (crop: Crop, image: HTMLImageElement): PixelCrop => {
+    if (crop.unit === "px") {
+        return crop as PixelCrop;
+    }
+
+    const { width, height } = image;
+
+    // Calculate the raw pixel values for all four edges
+    const rawX = (crop.x * width) / 100;
+    const rawY = (crop.y * height) / 100;
+    const rawRight = ((crop.x + crop.width) * width) / 100;
+    const rawBottom = ((crop.y + crop.height) * height) / 100;
+
+    // Round the edges
+    const x = Math.round(rawX);
+    const y = Math.round(rawY);
+    const right = Math.round(rawRight);
+    const bottom = Math.round(rawBottom);
+
+    // Calculate width and height from the rounded edges
+    const calcWidth = right - x;
+    const calcHeight = bottom - y;
+
+    return {
+        unit: "px" as const,
+        x,
+        y,
+        width: calcWidth,
+        height: calcHeight
+    };
+};
+
+export function centerAspectCrop(
+    mediaWidth: number,
+    mediaHeight: number,
+    aspect: number | undefined
+): Crop {
+    if (!aspect) {
+        return {
+            unit: "%",
+            width: 90,
+            height: 90,
+            x: 5,
+            y: 5
+        };
+    }
+
+    let width = 90;
+    let height;
+
+    const imageAspect = mediaWidth / mediaHeight;
+
+    if (aspect > imageAspect) {
+        width = 90;
+        height = (width / aspect) * imageAspect;
+    } else {
+        height = 90;
+        width = (height * aspect) / imageAspect;
+    }
+
+    const x = (100 - width) / 2;
+    const y = (100 - height) / 2;
+
+    return {
+        unit: "%",
+        width,
+        height,
+        x,
+        y
+    };
+}
+
 export function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotate = 0) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -56,75 +142,4 @@ export function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1
     ctx.restore();
 
     return canvas;
-}
-
-// --------------- + ----------------
-
-export const defaultCrop: Crop = {
-    unit: "%" as const,
-    x: 10,
-    y: 10,
-    width: 80,
-    height: 80
-};
-
-export const aspectRatios = {
-    free: undefined,
-    "1:1": 1,
-    "4:3": 4 / 3,
-    "16:9": 16 / 9,
-    "3:4": 3 / 4,
-    "9:16": 9 / 16
-};
-
-export const calculatePixelCrop = (crop: Crop, image: HTMLImageElement): PixelCrop => {
-    const { width, height } = image;
-
-    return {
-        unit: "px" as const,
-        x: Math.round((crop.x * width) / 100),
-        y: Math.round((crop.y * height) / 100),
-        width: Math.round((crop.width * width) / 100),
-        height: Math.round((crop.height * height) / 100)
-    };
-};
-
-export function centerAspectCrop(
-    mediaWidth: number,
-    mediaHeight: number,
-    aspect: number | undefined
-): Crop {
-    if (!aspect) {
-        return {
-            unit: "%",
-            width: 90,
-            height: 90,
-            x: 5,
-            y: 5
-        };
-    }
-
-    let width = 90;
-    let height;
-
-    const imageAspect = mediaWidth / mediaHeight;
-
-    if (aspect > imageAspect) {
-        width = 90;
-        height = (width / aspect) * imageAspect;
-    } else {
-        height = 90;
-        width = (height * aspect) / imageAspect;
-    }
-
-    const x = (100 - width) / 2;
-    const y = (100 - height) / 2;
-
-    return {
-        unit: "%",
-        width,
-        height,
-        x,
-        y
-    };
 }
