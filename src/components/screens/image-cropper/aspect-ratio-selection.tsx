@@ -35,7 +35,7 @@ export const AspectRatioSelection = ({
             >
                 <TabsList className="grid grid-cols-3 md:grid-cols-6 h-auto">
                     {Object.keys(aspectRatios).map((aspectRatio) => (
-                        <TabsTrigger value={aspectRatio} className="text-xs">
+                        <TabsTrigger value={aspectRatio} className="capitalize text-xs">
                             {aspectRatio}
                         </TabsTrigger>
                     ))}
