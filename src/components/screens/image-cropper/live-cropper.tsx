@@ -2,12 +2,16 @@ import ReactCrop from "react-image-crop";
 
 import "react-image-crop/dist/ReactCrop.css";
 
-import { useCallback, type RefObject } from "react";
-import { centerAspectCrop } from "./manipulation-utils";
-import { aspectRatios, useImageCropperStore } from "./use-image-cropper-store";
+import {
+    aspectRatios,
+    centerAspectCrop,
+    getImageData,
+    useImageCropperStore
+} from "@/states/use-image-cropper-store";
 
-import { useEffect } from "react";
-import { getImageData } from "./manipulation-utils";
+import type { RefObject } from "react";
+
+import { useCallback, useEffect } from "react";
 
 export const LiveCropper = ({ imgRef }: { imgRef: RefObject<HTMLImageElement | null> }) => {
     const {

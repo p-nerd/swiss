@@ -1,6 +1,6 @@
 import type { TFileType } from "@/types/image-generator";
 
-import { useImageCropperStore } from "./use-image-cropper-store";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";

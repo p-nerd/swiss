@@ -1,7 +1,7 @@
 import type { TFileType } from "@/types/image-generator";
 
 import { getExtensionByFileName, getFileNameWithoutExtension } from "@/lib/file";
-import { useImageCropperStore } from "./use-image-cropper-store";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 export const UploadImageInput = ({ id }: { id: string }) => {
     const { setImgSrc, setCrop, setScale, setRotate, setFileName, setFileType } =

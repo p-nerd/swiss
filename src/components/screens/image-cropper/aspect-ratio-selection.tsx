@@ -1,6 +1,12 @@
-import { useEffect, type RefObject } from "react";
-import { centerAspectCrop } from "./manipulation-utils";
-import { aspectRatios, useImageCropperStore } from "./use-image-cropper-store";
+import {
+    aspectRatios,
+    centerAspectCrop,
+    useImageCropperStore
+} from "@/states/use-image-cropper-store";
+
+import type { RefObject } from "react";
+
+import { useEffect } from "react";
 
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";

@@ -1,4 +1,4 @@
-import { useImageCropperStore } from "./use-image-cropper-store";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
