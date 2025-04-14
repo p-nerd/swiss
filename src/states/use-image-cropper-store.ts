@@ -39,7 +39,7 @@ export const useImageCropperStore = create<{
     previewUrl: string;
     setPreviewUrl: (previewUrl: string) => void;
 
-    resetCropper: () => void;
+    clearCropper: () => void;
 }>()(
     immer((set) => ({
         imgSrc: "",
@@ -80,7 +80,7 @@ export const useImageCropperStore = create<{
         previewUrl: "",
         setPreviewUrl: (previewUrl) => set({ previewUrl }),
 
-        resetCropper: () =>
+        clearCropper: () =>
             set((state) => {
                 state.imgSrc = "";
                 state.crop = undefined;

@@ -4,8 +4,7 @@ import { getExtensionByFileName, getFileNameWithoutExtension } from "@/lib/file"
 import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 export const UploadImageInput = ({ id }: { id: string }) => {
-    const { setImgSrc, setCrop, setScale, setRotate, setFileName, setFileType } =
-        useImageCropperStore();
+    const { setImgSrc, setFileName, setFileType, clearCropper } = useImageCropperStore();
 
     const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -24,10 +23,8 @@ export const UploadImageInput = ({ id }: { id: string }) => {
 
             reader.addEventListener("load", () => {
                 if (typeof reader.result === "string") {
+                    clearCropper();
                     setImgSrc(reader.result);
-                    setCrop(undefined);
-                    setScale(1);
-                    setRotate(0);
                 }
             });
 

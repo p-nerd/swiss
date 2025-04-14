@@ -7,7 +7,7 @@ export const ChangeImageButton = () => {
         <label htmlFor="change-image" className="cursor-pointer">
             <Button variant="outline" asChild>
                 <div className="gap-2">
-                    <UploadIcon className="h-4 w-4" />
+                    <UploadIcon className="size-4" />
                     Change Image
                 </div>
             </Button>

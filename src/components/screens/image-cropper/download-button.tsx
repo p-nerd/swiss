@@ -40,7 +40,7 @@ export const DownloadButton = ({ imgRef }: { imgRef: RefObject<HTMLImageElement 
 
     return (
         <Button onClick={downloadCroppedImage} disabled={!completedCrop} className="gap-2">
-            <DownloadIcon className="h-4 w-4" />
+            <DownloadIcon className="size-4" />
             Download
         </Button>
     );
