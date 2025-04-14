@@ -1,6 +1,7 @@
 import type { RefObject } from "react";
 
-import { getImageData, useImageCropperStore } from "@/states/use-image-cropper-store";
+import { getImageData } from "@/lib/image";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "lucide-react";
