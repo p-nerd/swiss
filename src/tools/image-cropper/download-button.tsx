@@ -1,5 +1,3 @@
-import type { TFileType } from "./types";
-
 import { useState } from "react";
 import { getExtensionByFileType, getFileNameWithoutExtension } from "./files";
 import { useImageCropperStore } from "./store";
@@ -10,15 +8,12 @@ import { DownloadIcon, Loader2Icon } from "lucide-react";
 export const DownloadButton = () => {
     const [isDownloading, setIsDownloading] = useState(false);
 
-    const { previewImageUrl } = useImageCropperStore();
+    const { previewImageUrl, fileName, fileType } = useImageCropperStore();
 
     const downloadCroppedImage = () => {
         if (!previewImageUrl) {
             return;
         }
-
-        const fileName = "hello";
-        const fileType: TFileType = "image/png";
 
         try {
             setIsDownloading(true);
