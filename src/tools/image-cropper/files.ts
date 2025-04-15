@@ -1,21 +1,28 @@
 import type { TFileType } from "./types";
 
-export const getExtensionByFileType = (fileType: TFileType, defaultValue?: string): string => {
-    const extensions: Record<TFileType, string> = {
-        "image/png": "png",
-        "image/jpeg": "jpeg",
-        "image/webp": "webp"
-    };
-
-    return extensions[fileType] || defaultValue || "";
-};
-
-export const getFileNameWithoutExtension = (fileName: string): string => {
+export const getFileName = (fileName: string): string => {
     const lastDotIndex = fileName.lastIndexOf(".");
     if (lastDotIndex === -1) {
         return fileName;
     }
     return fileName.substring(0, lastDotIndex);
+};
+
+export const getExtension = (fileName: string): string | null => {
+    const lastDotIndex = fileName.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+        return null;
+    }
+    return fileName.substring(lastDotIndex + 1).toLowerCase();
+};
+
+export const getExtensionByFileType = (fileType: TFileType): string => {
+    const extensions: Record<TFileType, string> = {
+        "image/png": "png",
+        "image/jpeg": "jpeg",
+        "image/webp": "webp"
+    };
+    return extensions[fileType] || "png";
 };
 
 export const changeExtension = (fileName: string, extension: string): string => {

@@ -5,13 +5,13 @@ import { ClearButton } from "./clear-button";
 import { DownloadButton } from "./download-button";
 import { LiveCropper } from "./live-cropper";
 import { PreviewImage } from "./preview-image";
+import { UploadImageArea } from "./upload-image-area";
+import { UploadImageButton } from "./upload-image-button";
 
 import { AspectRatioSelection } from "./old/aspect-ratio-selection";
-import { ChangeImageButton } from "./old/change-image-button";
 import { FilenameInput } from "./old/filename-input";
 import { OuputputSettings } from "./old/output-settings";
 import { RotationControl } from "./old/rotation-control";
-import { UploadImage } from "./old/upload-image";
 import { ZoomControl } from "./old/zoom-control";
 
 export const ImageCropperComponent = () => {
@@ -21,7 +21,7 @@ export const ImageCropperComponent = () => {
 
     return (
         <div className="space-y-6">
-            {!originalImageUrl && <UploadImage />}
+            {!originalImageUrl && <UploadImageArea />}
             {originalImageUrl && (
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -41,7 +41,7 @@ export const ImageCropperComponent = () => {
                     </div>
                     <div className="flex flex-wrap gap-3 justify-center">
                         <DownloadButton />
-                        <ChangeImageButton />
+                        <UploadImageButton />
                         <ClearButton />
                     </div>
                 </div>

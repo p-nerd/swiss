@@ -1,7 +1,7 @@
 import { UploadIcon } from "lucide-react";
 import { UploadImageInput } from "./upload-image-input";
 
-export const UploadImage = () => {
+export const UploadImageArea = () => {
     return (
         <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-12 text-center">
             <UploadIcon className="h-12 w-12 text-purple-500 dark:text-purple-400 mb-4" />
