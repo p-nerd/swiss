@@ -18,7 +18,7 @@ export const AspectRatioSelection = () => {
                 onValueChange={(value: string) => setAspectRatio(value as TAspectRatioKey)}
                 className="w-full"
             >
-                <TabsList className="grid grid-cols-3 md:grid-cols-6 h-auto">
+                <TabsList className="">
                     {Object.keys(aspectRatios).map((aspectRatio) => (
                         <TabsTrigger
                             key={aspectRatio}

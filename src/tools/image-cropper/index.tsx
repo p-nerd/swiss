@@ -33,10 +33,10 @@ export const ImageCropperComponent = () => {
                         </div>
                     </div>
                     <div className="flex flex-col lg:flex-row gap-6">
-                        <div className="flex-1">
+                        <div className="w-full md:w-1/2">
                             <LiveCropper />
                         </div>
-                        <div className="flex-1">
+                        <div className="w-full md:w-1/2">
                             <PreviewImage />
                         </div>
                     </div>
