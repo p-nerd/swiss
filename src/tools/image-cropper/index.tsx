@@ -21,23 +21,28 @@ export const ImageCropperComponent = () => {
 
     return (
         <div className="space-y-6">
-            {!originalImageUrl && <UploadImageArea />}
-            {originalImageUrl && (
+            {!originalImageUrl ? (
+                <UploadImageArea />
+            ) : (
                 <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row gap-6">
+                        <div className="w-full space-y-4">
                             <AspectRatioSelection imgRef={imgRef} />
                             <ZoomControl />
                             <RotationControl />
                         </div>
-                        <div className="space-y-4">
+                        <div className="w-full space-y-4">
                             <OuputputFormat />
                             <FilenameInput />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <LiveCropper />
-                        <PreviewImage />
+                    <div className="flex flex-col lg:flex-row gap-6">
+                        <div className="flex-1">
+                            <LiveCropper />
+                        </div>
+                        <div className="flex-1">
+                            <PreviewImage />
+                        </div>
                     </div>
                     <div className="flex flex-wrap gap-3 justify-center">
                         <DownloadButton />
