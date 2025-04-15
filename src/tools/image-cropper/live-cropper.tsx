@@ -15,14 +15,18 @@ export const LiveCropper = () => {
 
         if (!canvas) return;
 
-        setPreviewImageUrl(null);
+        // setPreviewImageUrl(null);
         getPreviewImageUrl(canvas, fileType, fileQuality, setPreviewImageUrl);
     };
 
     return (
         <div className="border rounded-lg p-2 bg-background">
-            <div className="overflow-auto">
-                <Cropper src={originalImageUrl} onChange={onChange} className="cropper" />
+            <div className="overflow-auto h-125">
+                <Cropper
+                    src={originalImageUrl}
+                    onChange={onChange}
+                    className="cropper w-full max-w-full h-full max-h-full"
+                />
             </div>
         </div>
     );
