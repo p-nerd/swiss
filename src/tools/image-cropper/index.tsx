@@ -10,7 +10,6 @@ import { LiveCropper } from "./live-cropper";
 import { OuputputSettings } from "./output-settings";
 import { PreviewImage } from "./preview-image";
 import { RotationControl } from "./rotation-control";
-import { UploadImage } from "./upload-image";
 import { ZoomControl } from "./zoom-control";
 
 export const ImageCropperComponent = () => {
@@ -32,31 +31,31 @@ export const ImageCropperComponent = () => {
 
     return (
         <div className="space-y-6">
-            {!imgSrc && <UploadImage />}
-            {imgSrc && (
-                <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-4">
-                            <AspectRatioSelection imgRef={imgRef} />
-                            <ZoomControl />
-                            <RotationControl />
-                        </div>
-                        <div className="space-y-4">
-                            <OuputputSettings />
-                            <FilenameInput />
-                        </div>
+            {/* {!imgSrc && <UploadImage />} */}
+            {/* {imgSrc && ( */}
+            <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                        <AspectRatioSelection imgRef={imgRef} />
+                        <ZoomControl />
+                        <RotationControl />
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <LiveCropper imgRef={imgRef} />
-                        <PreviewImage imgRef={imgRef} />
-                    </div>
-                    <div className="flex flex-wrap gap-3 justify-center">
-                        <DownloadButton imgRef={imgRef} />
-                        <ChangeImageButton />
-                        <ClearButton />
+                    <div className="space-y-4">
+                        <OuputputSettings />
+                        <FilenameInput />
                     </div>
                 </div>
-            )}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <LiveCropper />
+                    <PreviewImage imgRef={imgRef} />
+                </div>
+                <div className="flex flex-wrap gap-3 justify-center">
+                    <DownloadButton imgRef={imgRef} />
+                    <ChangeImageButton />
+                    <ClearButton />
+                </div>
+            </div>
+            {/* )} */}
         </div>
     );
 };
