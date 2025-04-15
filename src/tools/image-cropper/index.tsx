@@ -3,13 +3,13 @@ import { useImageCropperStore } from "./store";
 
 import { ClearButton } from "./clear-button";
 import { DownloadButton } from "./download-button";
+import { FilenameInput } from "./filename-input";
 import { LiveCropper } from "./live-cropper";
 import { PreviewImage } from "./preview-image";
 import { UploadImageArea } from "./upload-image-area";
 import { UploadImageButton } from "./upload-image-button";
 
 import { AspectRatioSelection } from "./old/aspect-ratio-selection";
-import { FilenameInput } from "./old/filename-input";
 import { OuputputSettings } from "./old/output-settings";
 import { RotationControl } from "./old/rotation-control";
 import { ZoomControl } from "./old/zoom-control";

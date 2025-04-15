@@ -25,6 +25,31 @@ export const getExtensionByFileType = (fileType: TFileType): string => {
     return extensions[fileType] || "png";
 };
 
+export const getFileTypeByExtension = (extension: string): TFileType => {
+    const fileTypes: Record<string, TFileType> = {
+        png: "image/png",
+        jpg: "image/jpeg",
+        jpeg: "image/jpeg",
+        webp: "image/webp"
+    };
+
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return fileTypes[normalizedExtension] || "image/png";
+};
+
+export const isValidExtension = (extension: string): boolean => {
+    const validExtensions = ["png", "jpg", "jpeg", "webp"];
+
+    const normalizedExtension = extension.startsWith(".")
+        ? extension.substring(1).toLowerCase()
+        : extension.toLowerCase();
+
+    return validExtensions.includes(normalizedExtension);
+};
+
 export const changeExtension = (fileName: string, extension: string): string => {
     if (!extension.startsWith(".")) {
         extension = "." + extension;
