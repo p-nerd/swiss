@@ -7,11 +7,10 @@ import { FilenameInput } from "./filename-input";
 import { LiveCropper } from "./live-cropper";
 import { OuputputFormat } from "./output-format";
 import { PreviewImage } from "./preview-image";
+import { RotationControl } from "./rotation-control";
 import { UploadImageArea } from "./upload-image-area";
 import { UploadImageButton } from "./upload-image-button";
-
-import { RotationControl } from "./old/rotation-control";
-import { ZoomControl } from "./old/zoom-control";
+import { ZoomControl } from "./zoom-control";
 
 export const ImageCropperComponent = () => {
     const { originalImageUrl } = useImageCropperStore();

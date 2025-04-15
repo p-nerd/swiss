@@ -1,4 +1,4 @@
-import { useImageCropperStore } from "@/states/use-image-cropper-store";
+import { useImageCropperStore } from "./store";
 
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
