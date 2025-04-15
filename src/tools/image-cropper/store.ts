@@ -1,4 +1,4 @@
-import type { TFileType } from "./types";
+import type { TAspectRatioKey, TFileType } from "./types";
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -6,13 +6,18 @@ import { immer } from "zustand/middleware/immer";
 const url = "https://images.unsplash.com/photo-1599140849279-1014532882fe?fit=crop&w=1300&q=80";
 
 const defaultOriginalImageUrl = url;
+const defaultAspectRatio = "free";
 const defaultPreviewImageUrl = null;
 const defaultFileName = "cropped-image.png";
 const defaultFileType = "image/png";
+const defaultFileQuality = 0.92;
 
 export const useImageCropperStore = create<{
     originalImageUrl: string | null;
     setOriginalImageUrl: (originalImageUrl: string | null) => void;
+
+    aspectRatio: TAspectRatioKey;
+    setAspectRatio: (aspectRatio: TAspectRatioKey) => void;
 
     previewImageUrl: string | null;
     setPreviewImageUrl: (previewImageUrl: string | null) => void;
@@ -32,6 +37,9 @@ export const useImageCropperStore = create<{
         originalImageUrl: defaultOriginalImageUrl,
         setOriginalImageUrl: (originalImageUrl) => set({ originalImageUrl }),
 
+        aspectRatio: defaultAspectRatio,
+        setAspectRatio: (aspectRatio) => set({ aspectRatio }),
+
         previewImageUrl: defaultPreviewImageUrl,
         setPreviewImageUrl: (previewImageUrl) => set({ previewImageUrl }),
 
@@ -41,15 +49,17 @@ export const useImageCropperStore = create<{
         fileType: defaultFileType,
         setFileType: (fileType) => set({ fileType }),
 
-        fileQuality: 0.92,
+        fileQuality: defaultFileQuality,
         setFileQuality: (fileQuality) => set({ fileQuality }),
 
         clear: () => {
             return set({
                 originalImageUrl: defaultOriginalImageUrl,
+                aspectRatio: defaultAspectRatio,
                 previewImageUrl: defaultPreviewImageUrl,
                 fileName: defaultFileName,
-                fileType: defaultFileType
+                fileType: defaultFileType,
+                fileQuality: defaultFileQuality
             });
         }
     }))
