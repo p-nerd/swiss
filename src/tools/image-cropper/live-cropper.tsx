@@ -2,8 +2,8 @@ import "react-advanced-cropper/dist/style.css";
 
 import { Cropper, type CropperRef } from "react-advanced-cropper";
 
+import { getPreviewImageUrl } from "./images";
 import { useImageCropperStore } from "./store";
-import { getPreviewImageUrl } from "./utility";
 
 export const LiveCropper = () => {
     const { originalImageUrl, setPreviewImageUrl } = useImageCropperStore();

@@ -1,13 +1,13 @@
-import { useImageCropperStore } from "@/states/use-image-cropper-store";
+import { useImageCropperStore } from "./store";
 
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 
 export const ClearButton = () => {
-    const { clearCropper } = useImageCropperStore();
+    const { clear } = useImageCropperStore();
 
     return (
-        <Button variant="outline" onClick={clearCropper} className="gap-2">
+        <Button variant="outline" onClick={clear} className="gap-2">
             <TrashIcon className="size-4" />
             Clear
         </Button>

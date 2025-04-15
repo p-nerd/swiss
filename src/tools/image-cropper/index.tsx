@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { useImageCropperStore } from "./store";
 
+import { ClearButton } from "./clear-button";
+import { DownloadButton } from "./download-button";
 import { LiveCropper } from "./live-cropper";
 import { PreviewImage } from "./preview-image";
 
 import { AspectRatioSelection } from "./old/aspect-ratio-selection";
 import { ChangeImageButton } from "./old/change-image-button";
-import { ClearButton } from "./old/clear-button";
-import { DownloadButton } from "./old/download-button";
 import { FilenameInput } from "./old/filename-input";
 import { OuputputSettings } from "./old/output-settings";
 import { RotationControl } from "./old/rotation-control";
@@ -40,7 +40,7 @@ export const ImageCropperComponent = () => {
                         <PreviewImage />
                     </div>
                     <div className="flex flex-wrap gap-3 justify-center">
-                        <DownloadButton imgRef={imgRef} />
+                        <DownloadButton />
                         <ChangeImageButton />
                         <ClearButton />
                     </div>
