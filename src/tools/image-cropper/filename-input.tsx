@@ -1,6 +1,6 @@
 import type { TFileType } from "@/types/image-generator";
 
-import { getExtension, getFileTypeByExtension, isValidExtension } from "./files";
+import { getExtensionByFileName, getFileTypeByExtension, isValidExtension } from "./files";
 import { useImageCropperStore } from "./store";
 
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ export const FilenameInput = () => {
                     value={fileName}
                     onChange={(e) => {
                         const fileName = e.target.value;
-                        const extension = getExtension(fileName);
+                        const extension = getExtensionByFileName(fileName);
                         if (extension && isValidExtension(extension)) {
                             setFileType(getFileTypeByExtension(extension) as TFileType);
                         }

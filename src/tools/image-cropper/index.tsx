@@ -5,12 +5,12 @@ import { ClearButton } from "./clear-button";
 import { DownloadButton } from "./download-button";
 import { FilenameInput } from "./filename-input";
 import { LiveCropper } from "./live-cropper";
+import { OuputputFormat } from "./output-format";
 import { PreviewImage } from "./preview-image";
 import { UploadImageArea } from "./upload-image-area";
 import { UploadImageButton } from "./upload-image-button";
 
 import { AspectRatioSelection } from "./old/aspect-ratio-selection";
-import { OuputputSettings } from "./old/output-settings";
 import { RotationControl } from "./old/rotation-control";
 import { ZoomControl } from "./old/zoom-control";
 
@@ -31,7 +31,7 @@ export const ImageCropperComponent = () => {
                             <RotationControl />
                         </div>
                         <div className="space-y-4">
-                            <OuputputSettings />
+                            <OuputputFormat />
                             <FilenameInput />
                         </div>
                     </div>

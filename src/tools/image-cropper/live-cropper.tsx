@@ -1,21 +1,22 @@
 import "react-advanced-cropper/dist/style.css";
 
-import { Cropper, type CropperRef } from "react-advanced-cropper";
+import type { CropperRef } from "react-advanced-cropper";
+
+import { Cropper } from "react-advanced-cropper";
 
 import { getPreviewImageUrl } from "./images";
 import { useImageCropperStore } from "./store";
 
 export const LiveCropper = () => {
-    const { originalImageUrl, setPreviewImageUrl } = useImageCropperStore();
+    const { originalImageUrl, fileType, fileQuality, setPreviewImageUrl } = useImageCropperStore();
 
     const onChange = (cropper: CropperRef) => {
-        const coordinates = cropper.getCoordinates();
         const canvas = cropper.getCanvas();
-        console.log(coordinates, canvas);
 
         if (!canvas) return;
 
-        getPreviewImageUrl(canvas, "image/png", 0.92, setPreviewImageUrl);
+        setPreviewImageUrl(null);
+        getPreviewImageUrl(canvas, fileType, fileQuality, setPreviewImageUrl);
     };
 
     return (

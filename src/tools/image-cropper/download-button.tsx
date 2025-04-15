@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getExtensionByFileType, getFileName } from "./files";
+import { getExtensionByFileType, getFileNameWithoutExtension } from "./files";
 import { useImageCropperStore } from "./store";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ export const DownloadButton = () => {
             const link = document.createElement("a");
             link.href = previewImageUrl;
 
-            link.download = `${getFileName(fileName)}.${getExtensionByFileType(fileType)}`;
+            link.download = `${getFileNameWithoutExtension(fileName)}.${getExtensionByFileType(fileType)}`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

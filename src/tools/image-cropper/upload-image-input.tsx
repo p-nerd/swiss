@@ -1,6 +1,6 @@
 import type { TFileType } from "./types";
 
-import { getExtensionByFileType, getFileName } from "./files";
+import { getExtensionByFileType, getFileNameWithoutExtension } from "./files";
 import { useImageCropperStore } from "./store";
 
 export const UploadImageInput = ({ id }: { id: string }) => {
@@ -17,7 +17,7 @@ export const UploadImageInput = ({ id }: { id: string }) => {
                     clear();
 
                     const fileType = file.type as TFileType;
-                    const fileName = `${getFileName(file.name)}-cropped.${getExtensionByFileType(fileType)}`;
+                    const fileName = `${getFileNameWithoutExtension(file.name)}-cropped.${getExtensionByFileType(fileType)}`;
 
                     setFileType(fileType);
                     setFileName(fileName);

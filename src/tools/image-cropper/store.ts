@@ -23,6 +23,9 @@ export const useImageCropperStore = create<{
     fileType: TFileType;
     setFileType: (fileType: TFileType) => void;
 
+    fileQuality: number;
+    setFileQuality: (fileQuality: number) => void;
+
     clear: () => void;
 }>()(
     immer((set) => ({
@@ -37,6 +40,9 @@ export const useImageCropperStore = create<{
 
         fileType: defaultFileType,
         setFileType: (fileType) => set({ fileType }),
+
+        fileQuality: 0.92,
+        setFileQuality: (fileQuality) => set({ fileQuality }),
 
         clear: () => {
             return set({

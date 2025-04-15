@@ -1,6 +1,24 @@
-import type { TFileType } from "./types";
+import type { TFileType, TFileTypeOption } from "./types";
 
-export const getFileName = (fileName: string): string => {
+export const fileTypeOptions: TFileTypeOption[] = [
+    {
+        label: "PNG",
+        extension: "png",
+        value: "image/png"
+    },
+    {
+        label: "JPEG",
+        extension: "jpeg",
+        value: "image/jpeg"
+    },
+    {
+        label: "WebP",
+        extension: "webp",
+        value: "image/webp"
+    }
+];
+
+export const getFileNameWithoutExtension = (fileName: string): string => {
     const lastDotIndex = fileName.lastIndexOf(".");
     if (lastDotIndex === -1) {
         return fileName;
@@ -8,7 +26,7 @@ export const getFileName = (fileName: string): string => {
     return fileName.substring(0, lastDotIndex);
 };
 
-export const getExtension = (fileName: string): string | null => {
+export const getExtensionByFileName = (fileName: string): string | null => {
     const lastDotIndex = fileName.lastIndexOf(".");
     if (lastDotIndex === -1) {
         return null;
@@ -38,6 +56,10 @@ export const getFileTypeByExtension = (extension: string): TFileType => {
         : extension.toLowerCase();
 
     return fileTypes[normalizedExtension] || "image/png";
+};
+
+export const getFileName = (fileName: string, fileType: TFileType): string => {
+    return `${getFileNameWithoutExtension(fileName)}.${getExtensionByFileType(fileType)}`;
 };
 
 export const isValidExtension = (extension: string): boolean => {
