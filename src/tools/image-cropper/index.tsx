@@ -1,61 +1,51 @@
-import { useImageCropperStore } from "@/states/use-image-cropper-store";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useImageCropperStore } from "./store";
 
-import { AspectRatioSelection } from "./aspect-ratio-selection";
-import { ChangeImageButton } from "./change-image-button";
-import { ClearButton } from "./clear-button";
-import { DownloadButton } from "./download-button";
-import { FilenameInput } from "./filename-input";
 import { LiveCropper } from "./live-cropper";
-import { OuputputSettings } from "./output-settings";
 import { PreviewImage } from "./preview-image";
-import { RotationControl } from "./rotation-control";
-import { ZoomControl } from "./zoom-control";
+
+import { AspectRatioSelection } from "./old/aspect-ratio-selection";
+import { ChangeImageButton } from "./old/change-image-button";
+import { ClearButton } from "./old/clear-button";
+import { DownloadButton } from "./old/download-button";
+import { FilenameInput } from "./old/filename-input";
+import { OuputputSettings } from "./old/output-settings";
+import { RotationControl } from "./old/rotation-control";
+import { UploadImage } from "./old/upload-image";
+import { ZoomControl } from "./old/zoom-control";
 
 export const ImageCropperComponent = () => {
-    const { imgSrc, previewUrl } = useImageCropperStore();
+    const { originalImageUrl } = useImageCropperStore();
 
     const imgRef = useRef<HTMLImageElement>(null);
 
-    // Clean up object URLs when component unmounts
-    useEffect(() => {
-        return () => {
-            if (imgSrc.startsWith("blob:")) {
-                URL.revokeObjectURL(imgSrc);
-            }
-            if (previewUrl) {
-                URL.revokeObjectURL(previewUrl);
-            }
-        };
-    }, [imgSrc, previewUrl]);
-
     return (
         <div className="space-y-6">
-            {/* {!imgSrc && <UploadImage />} */}
-            {/* {imgSrc && ( */}
-            <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                        <AspectRatioSelection imgRef={imgRef} />
-                        <ZoomControl />
-                        <RotationControl />
+            {!originalImageUrl && <UploadImage />}
+            {originalImageUrl && (
+                <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                            <AspectRatioSelection imgRef={imgRef} />
+                            <ZoomControl />
+                            <RotationControl />
+                        </div>
+                        <div className="space-y-4">
+                            <OuputputSettings />
+                            <FilenameInput />
+                        </div>
                     </div>
-                    <div className="space-y-4">
-                        <OuputputSettings />
-                        <FilenameInput />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <LiveCropper />
+                        <PreviewImage />
+                    </div>
+                    <div className="flex flex-wrap gap-3 justify-center">
+                        <DownloadButton imgRef={imgRef} />
+                        <ChangeImageButton />
+                        <ClearButton />
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <LiveCropper />
-                    <PreviewImage imgRef={imgRef} />
-                </div>
-                <div className="flex flex-wrap gap-3 justify-center">
-                    <DownloadButton imgRef={imgRef} />
-                    <ChangeImageButton />
-                    <ClearButton />
-                </div>
-            </div>
-            {/* )} */}
+            )}
         </div>
     );
 };
