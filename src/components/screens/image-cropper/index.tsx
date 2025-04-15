@@ -48,7 +48,7 @@ export const ImageCropperComponent = () => {
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <LiveCropper imgRef={imgRef} />
-                        <PreviewImage />
+                        <PreviewImage imgRef={imgRef} />
                     </div>
                     <div className="flex flex-wrap gap-3 justify-center">
                         <DownloadButton imgRef={imgRef} />

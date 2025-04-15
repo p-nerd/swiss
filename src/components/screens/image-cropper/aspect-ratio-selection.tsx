@@ -1,8 +1,7 @@
 import type { TAspectRatioKey } from "@/types/image-generator";
 import type { RefObject } from "react";
-import type { Crop } from "react-image-crop";
 
-import { aspectRatios, calculatePixelCrop, centerAspectCrop, defaultCrop } from "@/lib/image";
+import { aspectRatios, getCompletedCrop, getCrop } from "@/lib/image";
 import { useImageCropperStore } from "@/states/use-image-cropper-store";
 
 import { Label } from "@/components/ui/label";
@@ -18,17 +17,17 @@ export const AspectRatioSelection = ({
     const handleAspectRatio = (aspectRatio: TAspectRatioKey) => {
         setAspectRatio(aspectRatio);
 
-        if (!imgRef.current) return;
+        if (!imgRef.current) {
+            return;
+        }
 
         const image = imgRef.current;
 
-        let crop: Crop =
-            aspectRatio === "free"
-                ? defaultCrop
-                : centerAspectCrop(image.width, image.height, aspectRatios[aspectRatio]);
+        const crop = getCrop(image, aspectRatio);
+        const completedCrop = getCompletedCrop(crop, image);
 
         setCrop(crop);
-        setCompletedCrop(calculatePixelCrop(crop, image));
+        setCompletedCrop(completedCrop);
     };
 
     return (

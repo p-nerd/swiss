@@ -1,7 +1,40 @@
-import { useImageCropperStore } from "@/states/use-image-cropper-store";
+import type { RefObject } from "react";
 
-export const PreviewImage = () => {
-    const { previewUrl } = useImageCropperStore();
+import { getPreviewUrl } from "@/lib/image";
+import { useImageCropperStore } from "@/states/use-image-cropper-store";
+import { useEffect } from "react";
+
+export const PreviewImage = ({ imgRef }: { imgRef: RefObject<HTMLImageElement | null> }) => {
+    const { completedCrop, previewUrl, setPreviewUrl, scale, rotate, fileType, fileQuality } =
+        useImageCropperStore();
+
+    useEffect(() => {
+        if (completedCrop && imgRef.current) {
+            updatePreview();
+        }
+    }, [completedCrop]);
+
+    const updatePreview = async () => {
+        if (!imgRef.current) {
+            return;
+        }
+        if (!completedCrop) {
+            return;
+        }
+        const url = await getPreviewUrl(
+            imgRef.current,
+            previewUrl,
+            completedCrop,
+            scale,
+            rotate,
+            fileType,
+            fileQuality
+        );
+        if (!url) {
+            return;
+        }
+        setPreviewUrl(url);
+    };
 
     return (
         <div className="border rounded-lg p-2 bg-background flex flex-col">

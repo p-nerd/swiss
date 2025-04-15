@@ -1,3 +1,4 @@
+import type { TAspectRatioKey, TFileType } from "@/types/image-generator";
 import type { Crop, PixelCrop } from "react-image-crop";
 
 export const defaultCrop: Crop = {
@@ -17,7 +18,44 @@ export const aspectRatios = {
     "9:16": 9 / 16
 };
 
-export const calculatePixelCrop = (crop: Crop, image: HTMLImageElement): PixelCrop => {
+export const centerAspectCrop = (image: HTMLImageElement, aspectRatio: TAspectRatioKey): Crop => {
+    const aspect = aspectRatios[aspectRatio];
+
+    const mediaWidth = image.width;
+    const mediaHeight = image.height;
+
+    if (!aspect) return defaultCrop;
+
+    let width = 90;
+    let height;
+
+    const imageAspect = mediaWidth / mediaHeight;
+
+    if (aspect > imageAspect) {
+        width = 90;
+        height = (width / aspect) * imageAspect;
+    } else {
+        height = 90;
+        width = (height * aspect) / imageAspect;
+    }
+
+    const x = (100 - width) / 2;
+    const y = (100 - height) / 2;
+
+    return {
+        unit: "%",
+        width,
+        height,
+        x,
+        y
+    };
+};
+
+export const getCrop = (image: HTMLImageElement, aspectRatio: TAspectRatioKey): Crop => {
+    return aspectRatio === "free" ? defaultCrop : centerAspectCrop(image, aspectRatio);
+};
+
+export const getCompletedCrop = (crop: Crop, image: HTMLImageElement): PixelCrop => {
     if (crop.unit === "px") {
         return crop as PixelCrop;
     }
@@ -49,47 +87,7 @@ export const calculatePixelCrop = (crop: Crop, image: HTMLImageElement): PixelCr
     };
 };
 
-export function centerAspectCrop(
-    mediaWidth: number,
-    mediaHeight: number,
-    aspect: number | undefined
-): Crop {
-    if (!aspect) {
-        return {
-            unit: "%",
-            width: 90,
-            height: 90,
-            x: 5,
-            y: 5
-        };
-    }
-
-    let width = 90;
-    let height;
-
-    const imageAspect = mediaWidth / mediaHeight;
-
-    if (aspect > imageAspect) {
-        width = 90;
-        height = (width / aspect) * imageAspect;
-    } else {
-        height = 90;
-        width = (height * aspect) / imageAspect;
-    }
-
-    const x = (100 - width) / 2;
-    const y = (100 - height) / 2;
-
-    return {
-        unit: "%",
-        width,
-        height,
-        x,
-        y
-    };
-}
-
-export function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1, rotate = 0) {
+export const getImageData = (image: HTMLImageElement, crop: PixelCrop, scale = 1, rotate = 0) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
@@ -142,4 +140,40 @@ export function getImageData(image: HTMLImageElement, crop: PixelCrop, scale = 1
     ctx.restore();
 
     return canvas;
-}
+};
+
+export const getPreviewUrl = (
+    image: HTMLImageElement,
+    previewUrl: string,
+    completedCrop: PixelCrop,
+    scale: number,
+    rotate: number,
+    fileType: TFileType,
+    fileQuality: number
+): Promise<string | undefined> => {
+    return new Promise<string | undefined>((resolve) => {
+        if (!image || !completedCrop) {
+            resolve(undefined);
+            return;
+        }
+
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+        }
+
+        const canvas = getImageData(image, completedCrop, scale, rotate);
+
+        canvas.toBlob(
+            (blob) => {
+                if (!blob) {
+                    resolve(undefined);
+                    return;
+                }
+                const url = URL.createObjectURL(blob);
+                resolve(url);
+            },
+            fileType,
+            fileQuality
+        );
+    });
+};
