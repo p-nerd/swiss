@@ -12,7 +12,7 @@ export const PreviewImage = ({ imgRef }: { imgRef: RefObject<HTMLImageElement | 
         if (completedCrop && imgRef.current) {
             updatePreview();
         }
-    }, [completedCrop]);
+    }, [completedCrop, scale, rotate, fileType, fileQuality]);
 
     const updatePreview = async () => {
         if (!imgRef.current) {
