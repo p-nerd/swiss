@@ -19,6 +19,7 @@ import { ArrowRightLeftIcon } from "lucide-react";
 
 import { AboutSection } from "./about-section";
 import { CategorySelection } from "./category-selection";
+import { ToUnitInput } from "./to-unit-input";
 
 export const UnitConverterComponent = () => {
     const {
@@ -158,23 +159,7 @@ export const UnitConverterComponent = () => {
                         </Button>
                     </div>
 
-                    <div className="space-y-2">
-                        <Label htmlFor="to-unit">To</Label>
-                        <Select value={toUnit} onValueChange={setToUnit}>
-                            <SelectTrigger id="to-unit">
-                                <SelectValue placeholder="Select unit" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {conversionUnits[category as keyof typeof conversionUnits]?.map(
-                                    (unit) => (
-                                        <SelectItem key={unit.value} value={unit.value}>
-                                            {unit.label}
-                                        </SelectItem>
-                                    )
-                                )}
-                            </SelectContent>
-                        </Select>
-                    </div>
+                    <ToUnitInput />
                 </div>
 
                 {/* Result Section */}
