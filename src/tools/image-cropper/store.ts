@@ -20,6 +20,9 @@ export const useImageCropperStore = create<{
     aspectRatio: TAspectRatioKey;
     setAspectRatio: (aspectRatio: TAspectRatioKey) => void;
 
+    zoom: number;
+    setZoom: (zoom: number) => void;
+
     fileName: string;
     setFileName: (fileName: string) => void;
 
@@ -37,6 +40,9 @@ export const useImageCropperStore = create<{
 
         aspectRatio: defaultAspectRatio,
         setAspectRatio: (aspectRatio) => set({ aspectRatio }),
+
+        zoom: 0,
+        setZoom: (zoom) => set({ zoom }),
 
         fileName: defaultFileName,
         setFileName: (fileName) => set({ fileName }),
