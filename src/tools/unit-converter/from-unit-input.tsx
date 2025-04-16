@@ -7,17 +7,24 @@ import {
 } from "@/components/ui/select";
 
 import { conversionUnits } from "./conversion-units";
+import { convertValue } from "./convert-value";
 import { useUnitConverterStore } from "./store";
 
 import { Label } from "@/components/ui/label";
 
 export const FromUnitInput = () => {
-    const { category, fromUnit, setFromUnit } = useUnitConverterStore();
+    const { isValidInput, inputValue, category, fromUnit, toUnit, setFromUnit, setResult } =
+        useUnitConverterStore();
+
+    const handleFromUnit = (value: string) => {
+        setFromUnit(value);
+        setResult(convertValue(isValidInput, inputValue, category, fromUnit, toUnit));
+    };
 
     return (
         <div className="space-y-2">
             <Label htmlFor="from-unit">From</Label>
-            <Select value={fromUnit} onValueChange={setFromUnit}>
+            <Select value={fromUnit} onValueChange={handleFromUnit}>
                 <SelectTrigger id="from-unit">
                     <SelectValue placeholder="Select unit" />
                 </SelectTrigger>

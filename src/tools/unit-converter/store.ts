@@ -2,13 +2,17 @@ import type { TCategory } from "./category-options";
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { conversionUnits } from "./conversion-units";
 
 const defaultCategory: TCategory = "length";
 const defaultIsValidInput: boolean = true;
 const defaultInputValue: number | string = 1;
 const defaultResult: number | string = 0;
-const defaultFormUnit: string = "";
-const defaultToUnit: string = "";
+
+const conversionUnit = conversionUnits[defaultCategory as keyof typeof conversionUnits];
+
+const defaultFormUnit: string = conversionUnit[0].value;
+const defaultToUnit: string = conversionUnit[1].value;
 
 export const useUnitConverterStore = create<{
     category: TCategory;
