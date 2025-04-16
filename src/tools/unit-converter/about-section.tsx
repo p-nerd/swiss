@@ -15,8 +15,8 @@ const getDescription = (category: TCategory): ReactNode => {
         case "area":
             return (
                 <>
-                    Area conversion helps you convert between different units of surface
-                    measurement, from square millimeters to square miles.
+                    Convert between different surface measurement units, from square millimeters to
+                    square miles.
                 </>
             );
         case "volume":
@@ -50,8 +50,8 @@ const getDescription = (category: TCategory): ReactNode => {
         case "speed":
             return (
                 <>
-                    Speed conversion allows you to convert between different units of velocity, from
-                    meters per second to miles per hour.
+                    Speed conversion allows you to Convert between velocity units, from meters per
+                    second to miles per hour.
                 </>
             );
         case "data":
