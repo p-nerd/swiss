@@ -9,6 +9,8 @@ const url = "https://images.unsplash.com/photo-1599140849279-1014532882fe?fit=cr
 
 const defaultOriginalImageUrl = url;
 const defaultAspectRatio = "free";
+const defaultZoom = 0;
+const defaultRotate = 0;
 const defaultFileName = "cropped-image.png";
 const defaultFileType = "image/png";
 const defaultFileQuality = 0.92;
@@ -22,6 +24,9 @@ export const useImageCropperStore = create<{
 
     zoom: number;
     setZoom: (zoom: number) => void;
+
+    rotate: number;
+    setRotate: (rotate: number) => void;
 
     fileName: string;
     setFileName: (fileName: string) => void;
@@ -41,8 +46,11 @@ export const useImageCropperStore = create<{
         aspectRatio: defaultAspectRatio,
         setAspectRatio: (aspectRatio) => set({ aspectRatio }),
 
-        zoom: 0,
+        zoom: defaultZoom,
         setZoom: (zoom) => set({ zoom }),
+
+        rotate: defaultRotate,
+        setRotate: (rotate) => set({ rotate }),
 
         fileName: defaultFileName,
         setFileName: (fileName) => set({ fileName }),
@@ -57,6 +65,8 @@ export const useImageCropperStore = create<{
             return set({
                 originalImageUrl: defaultOriginalImageUrl,
                 aspectRatio: defaultAspectRatio,
+                zoom: defaultZoom,
+                rotate: defaultRotate,
                 fileName: defaultFileName,
                 fileType: defaultFileType,
                 fileQuality: defaultFileQuality

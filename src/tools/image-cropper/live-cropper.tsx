@@ -15,7 +15,7 @@ export const LiveCropper = ({
     cropperRef: TCropperRef;
     previewRef: TPreviewRef;
 }) => {
-    const { originalImageUrl, aspectRatio, setZoom } = useImageCropperStore();
+    const { originalImageUrl, aspectRatio, setZoom, setRotate } = useImageCropperStore();
 
     return (
         <div className="border rounded-lg p-2 bg-background">
@@ -26,7 +26,9 @@ export const LiveCropper = ({
                     ref={cropperRef}
                     onUpdate={(cropper) => {
                         previewRef.current?.update(cropper);
-                        setZoom(getAbsoluteZoom(cropper.getState(), cropper.getSettings()));
+                        const state = cropper.getState();
+                        setZoom(getAbsoluteZoom(state, cropper.getSettings()));
+                        setRotate(state?.transforms.rotate || 0);
                     }}
                     stencilProps={{
                         aspectRatio: getAspectRatioValue(aspectRatio),
