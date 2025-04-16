@@ -36,8 +36,9 @@ export const CategorySelection = () => {
                 defaultValue="length"
                 value={category}
                 onValueChange={(value) => handleUpdateCategory(value as TCategory)}
+                className="w-full"
             >
-                <TabsList className="grid grid-cols-4 md:grid-cols-8 h-auto">
+                <TabsList className="grid w-full grid-cols-4 md:grid-cols-8 h-auto">
                     {categoryOptions.map((option) => (
                         <TabsTrigger
                             key={option.value}

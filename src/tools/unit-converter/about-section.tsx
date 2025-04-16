@@ -71,9 +71,6 @@ export const AboutSection = () => {
 
     return (
         <div className="bg-muted rounded-lg p-4 text-sm">
-            <h4 className="font-medium mb-1">
-                About {category.charAt(0).toUpperCase() + category.slice(1)} Conversion
-            </h4>
             <p className="text-muted-foreground">{getDescription(category)}</p>
         </div>
     );
