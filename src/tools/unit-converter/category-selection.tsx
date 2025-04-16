@@ -1,36 +1,33 @@
-import type { TCategory } from "./category-options";
+import type { TCategory, TConversionUnitKey } from "./convert-value";
 
-import { categoryOptions } from "./category-options";
-import { conversionUnits } from "./conversion-units";
-import { convertValue } from "./convert-value";
+import { categoryOptions, conversionUnits, convertValue } from "./convert-value";
 import { useUnitConverterStore } from "./store";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const CategorySelection = () => {
-    const {
-        isValidInput,
-        inputValue,
-        category,
-        fromUnit,
-        toUnit,
-        setCategory,
-        setFromUnit,
-        setToUnit,
-        setResult
-    } = useUnitConverterStore();
+    const { isValidInput, inputValue, category, setCategory, setFromUnit, setToUnit, setResult } =
+        useUnitConverterStore();
 
     const handleUpdateCategory = (category: TCategory) => {
         setCategory(category);
 
-        const conversionUnit = conversionUnits[category as keyof typeof conversionUnits];
+        const conversionUnit = conversionUnits[category as TConversionUnitKey];
 
         if (conversionUnit) {
             setFromUnit(conversionUnit[0].value);
             setToUnit(conversionUnit[1].value);
         }
 
-        setResult(convertValue(isValidInput, inputValue, category, fromUnit, toUnit));
+        setResult(
+            convertValue(
+                isValidInput,
+                inputValue,
+                category,
+                conversionUnit[0].value,
+                conversionUnit[1].value
+            )
+        );
     };
 
     return (

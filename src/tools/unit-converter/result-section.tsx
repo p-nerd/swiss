@@ -1,4 +1,6 @@
-import { conversionUnits } from "./conversion-units";
+import type { TConversionUnitKey } from "./convert-value";
+
+import { conversionUnits } from "./convert-value";
 import { useUnitConverterStore } from "./store";
 
 import { CalculatorIcon } from "lucide-react";
@@ -18,13 +20,13 @@ export const ResultSection = () => {
                 <p className="text-sm text-muted-foreground mt-2">
                     {inputValue}{" "}
                     {
-                        conversionUnits[category as keyof typeof conversionUnits]?.find(
+                        conversionUnits[category as TConversionUnitKey]?.find(
                             (u) => u.value === fromUnit
                         )?.label
                     }{" "}
                     = {result}{" "}
                     {
-                        conversionUnits[category as keyof typeof conversionUnits]?.find(
+                        conversionUnits[category as TConversionUnitKey]?.find(
                             (u) => u.value === toUnit
                         )?.label
                     }

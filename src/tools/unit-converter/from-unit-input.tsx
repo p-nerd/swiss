@@ -6,8 +6,7 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
-import { conversionUnits } from "./conversion-units";
-import { convertValue } from "./convert-value";
+import { conversionUnits, convertValue } from "./convert-value";
 import { useUnitConverterStore } from "./store";
 
 import { Label } from "@/components/ui/label";
@@ -18,7 +17,7 @@ export const FromUnitInput = () => {
 
     const handleFromUnit = (value: string) => {
         setFromUnit(value);
-        setResult(convertValue(isValidInput, inputValue, category, fromUnit, toUnit));
+        setResult(convertValue(isValidInput, inputValue, category, value, toUnit));
     };
 
     return (

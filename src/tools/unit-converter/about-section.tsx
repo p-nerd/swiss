@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { TCategory } from "./category-options";
+import type { TCategory } from "./convert-value";
 
 import { useUnitConverterStore } from "./store";
 

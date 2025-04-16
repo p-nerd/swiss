@@ -1,15 +1,15 @@
-import type { TCategory } from "./category-options";
+import type { TCategory, TConversionUnitKey } from "./convert-value";
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { conversionUnits } from "./conversion-units";
+import { conversionUnits } from "./convert-value";
 
 const defaultCategory: TCategory = "length";
 const defaultIsValidInput: boolean = true;
 const defaultInputValue: number | string = 1;
 const defaultResult: number | string = 0;
 
-const conversionUnit = conversionUnits[defaultCategory as keyof typeof conversionUnits];
+const conversionUnit = conversionUnits[defaultCategory as TConversionUnitKey];
 
 const defaultFormUnit: string = conversionUnit[0].value;
 const defaultToUnit: string = conversionUnit[1].value;
