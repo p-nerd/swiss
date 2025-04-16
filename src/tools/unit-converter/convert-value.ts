@@ -113,7 +113,13 @@ export const conversionUnits = {
 
 export type TConversionUnitKey = keyof typeof conversionUnits;
 
-const conversionFactors = {
+type TUnitValueType<T extends TCategory> = (typeof conversionUnits)[T][number]["value"];
+
+const conversionFactors: {
+    [Category in TCategory]: {
+        [Unit in TUnitValueType<Category>]: number;
+    };
+} = {
     length: {
         mm: 0.001,
         cm: 0.01,
@@ -156,6 +162,9 @@ const conversionFactors = {
         lb: 0.453592,
         st: 6.35029,
         ton: 907.185
+    },
+    temperature: {
+        //
     },
     time: {
         ms: 0.001,
