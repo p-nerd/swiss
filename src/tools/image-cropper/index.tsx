@@ -31,7 +31,7 @@ export const ImageCropperComponent = () => {
                         <div className="w-full space-y-4">
                             <AspectRatioSelection />
                             <ZoomControl cropperRef={cropperRef} />
-                            <RotationControl />
+                            <RotationControl cropperRef={cropperRef} />
                         </div>
                         <div className="w-full space-y-4">
                             <OuputputFormat />

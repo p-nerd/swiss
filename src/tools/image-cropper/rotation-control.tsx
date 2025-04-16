@@ -1,11 +1,24 @@
-import { useImageCropperStore } from "./store";
+import type { TCropperRef } from "./types";
+
+import { useEffect, useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { RotateCwIcon } from "lucide-react";
 
-export const RotationControl = () => {
-    const { rotate, setRotate } = useImageCropperStore();
+export const RotationControl = ({ cropperRef }: { cropperRef: TCropperRef }) => {
+    const [rotate, setRotate] = useState<number>(0);
+
+    const handleRotate = (angle: number) => {
+        const cropper = cropperRef.current;
+        if (cropper) {
+            cropper.rotateImage(angle);
+        }
+    };
+
+    useEffect(() => {
+        handleRotate(rotate);
+    }, [rotate]);
 
     return (
         <div className="space-y-2">
