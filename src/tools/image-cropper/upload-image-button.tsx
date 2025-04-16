@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { UploadIcon } from "lucide-react";
 import { UploadImageInput } from "./upload-image-input";
 
-export const ChangeImageButton = () => {
+export const UploadImageButton = () => {
     return (
         <label htmlFor="change-image" className="cursor-pointer">
             <Button variant="outline" asChild>
