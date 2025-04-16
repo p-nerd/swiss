@@ -113,9 +113,13 @@ export const conversionUnits = {
 
 export type TConversionUnitKey = keyof typeof conversionUnits;
 
-// Conversion factors and formulas
-const conversionFactors = {
-    // Length conversions (to meters)
+type TUnitValueType<T extends TCategory> = (typeof conversionUnits)[T][number]["value"];
+
+const conversionFactors: {
+    [Category in TCategory]: {
+        [Unit in TUnitValueType<Category>]: number;
+    };
+} = {
     length: {
         mm: 0.001,
         cm: 0.01,
@@ -126,7 +130,6 @@ const conversionFactors = {
         yd: 0.9144,
         mi: 1609.344
     },
-    // Area conversions (to square meters)
     area: {
         mm2: 0.000001,
         cm2: 0.0001,
@@ -138,7 +141,6 @@ const conversionFactors = {
         ac: 4046.8564224,
         mi2: 2589988.110336
     },
-    // Volume conversions (to liters)
     volume: {
         ml: 0.001,
         l: 1,
@@ -151,7 +153,6 @@ const conversionFactors = {
         tbsp: 0.0147868,
         tsp: 0.00492892
     },
-    // Weight conversions (to kilograms)
     weight: {
         mg: 0.000001,
         g: 0.001,
@@ -162,7 +163,19 @@ const conversionFactors = {
         st: 6.35029,
         ton: 907.185
     },
-    // Speed conversions (to meters per second)
+    temperature: {
+        //
+    },
+    time: {
+        ms: 0.001,
+        s: 1,
+        min: 60,
+        h: 3600,
+        d: 86400,
+        wk: 604800,
+        mo: 2592000,
+        yr: 31536000
+    },
     speed: {
         mps: 1,
         kph: 0.277778,
@@ -170,7 +183,6 @@ const conversionFactors = {
         mph: 0.44704,
         kn: 0.514444
     },
-    // Data conversions (to bytes)
     data: {
         b: 1,
         kb: 1024,
@@ -181,9 +193,7 @@ const conversionFactors = {
     }
 };
 
-// Special case for temperature conversions
 const convertTemperature = (value: number, from: string, to: string): number => {
-    // Convert to Kelvin first (as the intermediate unit)
     let kelvin: number;
 
     switch (from) {
@@ -200,7 +210,6 @@ const convertTemperature = (value: number, from: string, to: string): number => 
             return 0;
     }
 
-    // Convert from Kelvin to the target unit
     switch (to) {
         case "c":
             return kelvin - 273.15;
@@ -235,8 +244,6 @@ export const convertValue = (
     // For other units, use conversion factors
     const factors = conversionFactors[category as keyof typeof conversionFactors];
     if (!factors) return "";
-
-    console.log(factors, fromUnit, toUnit);
 
     // Convert to base unit, then to target unit
     const baseValue = value * factors[fromUnit as keyof typeof factors];
