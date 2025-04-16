@@ -7,13 +7,16 @@ import {
 } from "@/components/ui/select";
 
 import { useEffect, useState } from "react";
+import { useUnitConverterStore } from "./store";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRightLeft, Calculator } from "lucide-react";
+
+import { AboutSection } from "./about-section";
+import { CategorySelection } from "./category-selection";
 
 // Conversion units by category
 const conversionUnits = {
@@ -193,7 +196,8 @@ const convertTemperature = (value: number, from: string, to: string): number => 
 };
 
 export function UnitConverterComponent() {
-    const [category, setCategory] = useState("length");
+    const { category } = useUnitConverterStore();
+
     const [inputValue, setInputValue] = useState<number | string>(1);
     const [fromUnit, setFromUnit] = useState("");
     const [toUnit, setToUnit] = useState("");
@@ -277,39 +281,7 @@ export function UnitConverterComponent() {
             <CardContent className="p-6">
                 <div className="space-y-6">
                     {/* Category Selection */}
-                    <Tabs
-                        defaultValue="length"
-                        value={category}
-                        onValueChange={setCategory}
-                        className="w-full"
-                    >
-                        <TabsList className="grid grid-cols-4 md:grid-cols-8 h-auto">
-                            <TabsTrigger value="length" className="text-xs sm:text-sm">
-                                Length
-                            </TabsTrigger>
-                            <TabsTrigger value="area" className="text-xs sm:text-sm">
-                                Area
-                            </TabsTrigger>
-                            <TabsTrigger value="volume" className="text-xs sm:text-sm">
-                                Volume
-                            </TabsTrigger>
-                            <TabsTrigger value="weight" className="text-xs sm:text-sm">
-                                Weight
-                            </TabsTrigger>
-                            <TabsTrigger value="temperature" className="text-xs sm:text-sm">
-                                Temperature
-                            </TabsTrigger>
-                            <TabsTrigger value="time" className="text-xs sm:text-sm">
-                                Time
-                            </TabsTrigger>
-                            <TabsTrigger value="speed" className="text-xs sm:text-sm">
-                                Speed
-                            </TabsTrigger>
-                            <TabsTrigger value="data" className="text-xs sm:text-sm">
-                                Data
-                            </TabsTrigger>
-                        </TabsList>
-                    </Tabs>
+                    <CategorySelection />
 
                     {/* Converter Interface */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -406,30 +378,7 @@ export function UnitConverterComponent() {
                                 )}
                             </div>
 
-                            <div className="bg-muted rounded-lg p-4 text-sm">
-                                <h4 className="font-medium mb-1">
-                                    About {category.charAt(0).toUpperCase() + category.slice(1)}{" "}
-                                    Conversion
-                                </h4>
-                                <p className="text-muted-foreground">
-                                    {category === "length" &&
-                                        "Length conversion allows you to convert between different units of distance, from millimeters to miles."}
-                                    {category === "area" &&
-                                        "Area conversion helps you convert between different units of surface measurement, from square millimeters to square miles."}
-                                    {category === "volume" &&
-                                        "Volume conversion lets you convert between different units of capacity, from milliliters to gallons."}
-                                    {category === "weight" &&
-                                        "Weight conversion allows you to convert between different units of mass, from milligrams to tons."}
-                                    {category === "temperature" &&
-                                        "Temperature conversion helps you convert between Celsius, Fahrenheit, and Kelvin scales."}
-                                    {category === "time" &&
-                                        "Time conversion lets you convert between different units of time, from milliseconds to years."}
-                                    {category === "speed" &&
-                                        "Speed conversion allows you to convert between different units of velocity, from meters per second to miles per hour."}
-                                    {category === "data" &&
-                                        "Data conversion helps you convert between different digital storage units, from bytes to petabytes."}
-                                </p>
-                            </div>
+                            <AboutSection />
                         </div>
                     </div>
                 </div>
