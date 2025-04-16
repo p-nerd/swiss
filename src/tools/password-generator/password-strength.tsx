@@ -1,4 +1,4 @@
-import { usePasswordGeneratorStore } from "@/states/use-password-generator-store";
+import { usePasswordGeneratorStore } from "./store";
 
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
