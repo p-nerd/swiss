@@ -35,7 +35,6 @@ export const categoryOptions = [
 
 export type TCategory = (typeof categoryOptions)[number]["value"];
 
-// Conversion units by category
 export const conversionUnits = {
     length: [
         { value: "mm", label: "Millimeters (mm)" },
@@ -115,7 +114,7 @@ export const conversionUnits = {
 export type TConversionUnitKey = keyof typeof conversionUnits;
 
 // Conversion factors and formulas
-export const conversionFactors = {
+const conversionFactors = {
     // Length conversions (to meters)
     length: {
         mm: 0.001,
@@ -183,7 +182,7 @@ export const conversionFactors = {
 };
 
 // Special case for temperature conversions
-export const convertTemperature = (value: number, from: string, to: string): number => {
+const convertTemperature = (value: number, from: string, to: string): number => {
     // Convert to Kelvin first (as the intermediate unit)
     let kelvin: number;
 
