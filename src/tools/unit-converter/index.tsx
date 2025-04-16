@@ -13,6 +13,7 @@ export const UnitConverterComponent = () => {
             <CardContent>
                 <div className="space-y-6">
                     <CategorySelection />
+                    <AboutSection />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <ValueInput />
@@ -22,7 +23,6 @@ export const UnitConverterComponent = () => {
                         </div>
                         <div className="flex flex-col justify-center space-y-4">
                             <ResultSection />
-                            <AboutSection />
                         </div>
                     </div>
                 </div>

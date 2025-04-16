@@ -15,8 +15,8 @@ const getDescription = (category: TCategory): ReactNode => {
         case "area":
             return (
                 <>
-                    Convert between different surface measurement units, from square millimeters to
-                    square miles.
+                    Area conversion helps you convert between different units of surface
+                    measurement, from square millimeters to square miles.
                 </>
             );
         case "volume":
@@ -50,8 +50,8 @@ const getDescription = (category: TCategory): ReactNode => {
         case "speed":
             return (
                 <>
-                    Speed conversion allows you to Convert between velocity units, from meters per
-                    second to miles per hour.
+                    Speed conversion allows you to convert between different units of velocity, from
+                    meters per second to miles per hour.
                 </>
             );
         case "data":
@@ -71,9 +71,6 @@ export const AboutSection = () => {
 
     return (
         <div className="bg-muted rounded-lg p-4 text-sm">
-            <h4 className="font-medium mb-1">
-                About {category.charAt(0).toUpperCase() + category.slice(1)} Conversion
-            </h4>
             <p className="text-muted-foreground">{getDescription(category)}</p>
         </div>
     );
