@@ -1,13 +1,8 @@
-import type { RefObject } from "react";
-import type { CropperPreviewRef } from "react-advanced-cropper";
+import type { TPreviewRef } from "./types";
 
 import { CropperPreview } from "react-advanced-cropper";
 
-export const PreviewImage = ({
-    previewRef
-}: {
-    previewRef: RefObject<CropperPreviewRef | null>;
-}) => {
+export const PreviewImage = ({ previewRef }: { previewRef: TPreviewRef }) => {
     return (
         <div className="border rounded-lg p-2 bg-background">
             <div className="overflow-auto h-125">

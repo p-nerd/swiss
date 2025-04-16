@@ -1,11 +1,13 @@
-import { useImageCropperStore } from "./store";
+import type { TCropperRef } from "./types";
+
+import { useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { ZoomInIcon } from "lucide-react";
 
-export const ZoomControl = () => {
-    const { scale, setScale } = useImageCropperStore();
+export const ZoomControl = ({ cropperRef }: { cropperRef: TCropperRef }) => {
+    const [scale, setScale] = useState<number>(1);
 
     return (
         <div className="space-y-2">
@@ -21,7 +23,22 @@ export const ZoomControl = () => {
                     max={3}
                     step={0.01}
                     value={[scale]}
-                    onValueChange={(value) => setScale(value[0])}
+                    onValueChange={(value) => {
+                        const scale = value[0];
+                        setScale(scale);
+
+                        // const cropper = cropperRef.current;
+                        //
+                        // if (!cropper) {
+                        //     return;
+                        // }
+                        //
+                        // const state = cropper.getState();
+                        // const settings = cropper.getSettings();
+                        // const absoluteZoom = getAbsoluteZoom(state, settings);
+                        //
+                        // cropper.zoomImage(getZoomFactor(state, settings, absoluteZoom));
+                    }}
                 />
             </div>
         </div>

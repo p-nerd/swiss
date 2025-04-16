@@ -30,7 +30,7 @@ export const ImageCropperComponent = () => {
                     <div className="flex flex-col md:flex-row gap-6">
                         <div className="w-full space-y-4">
                             <AspectRatioSelection />
-                            <ZoomControl />
+                            <ZoomControl cropperRef={cropperRef} />
                             <RotationControl />
                         </div>
                         <div className="w-full space-y-4">

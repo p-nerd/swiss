@@ -1,7 +1,6 @@
 import "react-advanced-cropper/dist/style.css";
 
-import type { RefObject } from "react";
-import type { CropperPreviewRef, CropperRef } from "react-advanced-cropper";
+import type { TCropperRef, TPreviewRef } from "./types";
 
 import { getAspectRatioValue } from "./images";
 import { useImageCropperStore } from "./store";
@@ -12,8 +11,8 @@ export const LiveCropper = ({
     cropperRef,
     previewRef
 }: {
-    cropperRef: RefObject<CropperRef | null>;
-    previewRef: RefObject<CropperPreviewRef | null>;
+    cropperRef: TCropperRef;
+    previewRef: TPreviewRef;
 }) => {
     const { originalImageUrl, aspectRatio } = useImageCropperStore();
 
@@ -29,7 +28,9 @@ export const LiveCropper = ({
                         aspectRatio: getAspectRatioValue(aspectRatio),
                         grid: true,
                         movable: true,
-                        resizable: true
+                        resizable: true,
+                        handlers: true,
+                        lines: true
                     }}
                 />
             </div>

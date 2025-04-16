@@ -1,3 +1,4 @@
+import type { ChangeEvent } from "react";
 import type { TFileType } from "./types";
 
 import { getExtensionByFileType, getFileNameWithoutExtension } from "./files";
@@ -6,7 +7,7 @@ import { useImageCropperStore } from "./store";
 export const UploadImageInput = ({ id }: { id: string }) => {
     const { setOriginalImageUrl, setFileName, setFileType, clear } = useImageCropperStore();
 
-    const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
 

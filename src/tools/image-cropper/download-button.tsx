@@ -1,5 +1,4 @@
-import type { RefObject } from "react";
-import type { CropperRef } from "react-advanced-cropper";
+import type { TCropperRef } from "./types";
 
 import { useState } from "react";
 import { getFileName } from "./files";
@@ -8,7 +7,7 @@ import { useImageCropperStore } from "./store";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon, Loader2Icon } from "lucide-react";
 
-export const DownloadButton = ({ cropperRef }: { cropperRef: RefObject<CropperRef | null> }) => {
+export const DownloadButton = ({ cropperRef }: { cropperRef: TCropperRef }) => {
     const [isDownloading, setIsDownloading] = useState(false);
 
     const { fileName, fileType, fileQuality } = useImageCropperStore();
