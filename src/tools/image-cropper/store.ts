@@ -1,9 +1,11 @@
-import type { TAspectRatioKey, TFileType } from "./types";
+import type { TAspectRatioKey } from "./images";
+import type { TFileType } from "./types";
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-const url = "https://images.unsplash.com/photo-1599140849279-1014532882fe?fit=crop&w=1300&q=80";
+// const url = "https://images.unsplash.com/photo-1599140849279-1014532882fe?fit=crop&w=1300&q=80";
+const url = null;
 
 const defaultOriginalImageUrl = url;
 const defaultAspectRatio = "free";

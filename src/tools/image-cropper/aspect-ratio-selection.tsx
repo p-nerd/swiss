@@ -1,4 +1,4 @@
-import type { TAspectRatioKey } from "./types";
+import type { TAspectRatioKey } from "./images";
 
 import { aspectRatios } from "./images";
 import { useImageCropperStore } from "./store";

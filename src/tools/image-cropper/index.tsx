@@ -1,3 +1,6 @@
+import type { CropperPreviewRef, CropperRef } from "react-advanced-cropper";
+
+import { useRef } from "react";
 import { useImageCropperStore } from "./store";
 
 import { AspectRatioSelection } from "./aspect-ratio-selection";
@@ -14,6 +17,9 @@ import { ZoomControl } from "./zoom-control";
 
 export const ImageCropperComponent = () => {
     const { originalImageUrl } = useImageCropperStore();
+
+    const cropperRef = useRef<CropperRef>(null);
+    const previewRef = useRef<CropperPreviewRef>(null);
 
     return (
         <div className="space-y-6">
@@ -34,14 +40,14 @@ export const ImageCropperComponent = () => {
                     </div>
                     <div className="flex flex-col lg:flex-row gap-6">
                         <div className="w-full md:w-1/2">
-                            <LiveCropper />
+                            <LiveCropper cropperRef={cropperRef} previewRef={previewRef} />
                         </div>
                         <div className="w-full md:w-1/2">
-                            <PreviewImage />
+                            <PreviewImage previewRef={previewRef} />
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-3 justify-center">
-                        <DownloadButton />
+                        <DownloadButton cropperRef={cropperRef} />
                         <UploadImageButton />
                         <ClearButton />
                     </div>

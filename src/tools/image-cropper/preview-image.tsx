@@ -1,20 +1,20 @@
-import { useImageCropperStore } from "./store";
+import type { RefObject } from "react";
+import type { CropperPreviewRef } from "react-advanced-cropper";
 
-export const PreviewImage = () => {
-    const { previewImageUrl } = useImageCropperStore();
+import { CropperPreview } from "react-advanced-cropper";
 
+export const PreviewImage = ({
+    previewRef
+}: {
+    previewRef: RefObject<CropperPreviewRef | null>;
+}) => {
     return (
         <div className="border rounded-lg p-2 bg-background">
-            <div className="h-125 flex items-center justify-center overflow-hidden">
-                {previewImageUrl ? (
-                    <img
-                        src={previewImageUrl}
-                        alt="Preview"
-                        className="w-full max-w-full h-full max-h-full object-contain"
-                    />
-                ) : (
-                    <div className="text-sm text-muted-foreground">Adjust crop to see preview</div>
-                )}
+            <div className="overflow-auto h-125">
+                <CropperPreview
+                    ref={previewRef}
+                    className="preview w-full max-w-full h-full max-h-full"
+                />
             </div>
         </div>
     );
