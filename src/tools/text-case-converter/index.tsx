@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 
+import { CopyButton } from "@/components/elements/copy-button";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Copy } from "lucide-react";
 
 export const TextCaseConverterComponent = () => {
     const [text, setText] = useState("");
     const [convertedText, setConvertedText] = useState("");
     const [activeTab, setActiveTab] = useState("uppercase");
-    const [copied, setCopied] = useState(false);
     const [stats, setStats] = useState({
         characters: 0,
         words: 0,
@@ -107,17 +106,6 @@ export const TextCaseConverterComponent = () => {
         setConvertedText(result);
     };
 
-    const copyToClipboard = () => {
-        if (!convertedText) return;
-
-        navigator.clipboard.writeText(convertedText);
-        setCopied(true);
-
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000);
-    };
-
     const handleTabChange = (value: string) => {
         setActiveTab(value);
     };
@@ -209,16 +197,7 @@ export const TextCaseConverterComponent = () => {
                         <label htmlFor="output-text" className="text-sm font-medium">
                             Converted text
                         </label>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={copyToClipboard}
-                            disabled={!convertedText}
-                            className="h-8 gap-1"
-                        >
-                            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                            {copied ? "Copied" : "Copy"}
-                        </Button>
+                        <CopyButton text={convertedText} />
                     </div>
                     <Textarea
                         id="output-text"

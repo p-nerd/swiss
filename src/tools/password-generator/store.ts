@@ -30,9 +30,6 @@ export const usePasswordGeneratorStore = create<{
     strength: number;
     setStrength: (strength: number) => void;
 
-    copied: boolean;
-    setCopied: (copied: boolean) => void;
-
     generatePassword: () => void;
 }>()(
     immer((set, get) => ({
@@ -86,11 +83,6 @@ export const usePasswordGeneratorStore = create<{
         strength: 0,
         setStrength: (strength) => {
             set({ strength });
-        },
-
-        copied: false,
-        setCopied: (copied) => {
-            set({ copied });
         },
 
         generatePassword: () => {
