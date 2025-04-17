@@ -1,11 +1,13 @@
 export const unitOptions = [
     {
         value: "metric",
-        heightLabel: "Metric (cm)"
+        heightLabel: "Metric (cm)",
+        weightLabel: "Metric (kg)"
     },
     {
         value: "imperial",
-        heightLabel: "Imperial (ft, in)"
+        heightLabel: "Imperial (ft, in)",
+        weightLabel: "Metric (lb)"
     }
 ];
 

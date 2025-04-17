@@ -1,15 +1,15 @@
 /**
  * Calculates Body Mass Index (BMI) based on weight in kilograms and height in meters.
- * @param weightKg Weight in kilograms
- * @param heightMeter Height in meters
+ * @param weightKilograms Weight in kilograms
+ * @param heightMeters Height in meters
  * @returns The calculated BMI value rounded to one decimal place
  */
-export const calculateBMI = (weightKg: number, heightMeter: number): number => {
-    if (weightKg <= 0 || heightMeter <= 0) {
+export const calculateBMI = (weightKilograms: number, heightMeters: number): number => {
+    if (weightKilograms <= 0 || heightMeters <= 0) {
         return 0;
     }
 
-    const bmi = weightKg / (heightMeter * heightMeter);
+    const bmi = weightKilograms / (heightMeters * heightMeters);
 
     return Math.round(bmi * 10) / 10;
 };
@@ -89,4 +89,26 @@ export const feetAndInchesToMeters = (feet: number, inches: number): number => {
 
     const totalInches = feet * 12 + inches;
     return inchesToMeters(totalInches);
+};
+
+/**
+ * Converts from kilograms to pounds (lb)
+ */
+export const kilogramsToPounds = (kilograms: number): number => {
+    if (typeof kilograms !== "number" || isNaN(kilograms) || kilograms < 0) {
+        return 0;
+    }
+    // 1 kg = 2.20462 pounds (lb)
+    return Math.round(kilograms * 2.20462 * 10) / 10;
+};
+
+/**
+ * Converts from pounds (lb) to kilograms
+ */
+export const poundsToKilograms = (pounds: number): number => {
+    if (typeof pounds !== "number" || isNaN(pounds) || pounds < 0) {
+        return 0;
+    }
+    // 1 pound (lb) = 0.453592 kg
+    return Math.round(pounds * 0.453592 * 10) / 10;
 };

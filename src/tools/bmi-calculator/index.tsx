@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { InfoIcon } from "lucide-react";
 import { HeightInput } from "./height-input";
+import { WeightInput } from "./weight-input";
 
 export const BMICalculatorComponent = () => {
     // State for unit system
@@ -141,39 +142,7 @@ export const BMICalculatorComponent = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid gap-4 md:grid-cols-2">
                         <HeightInput />
-                        {unitSystem === "metric" ? (
-                            <>
-                                {/* Metric Weight */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="weight-kg">Weight (kg)</Label>
-                                    <Input
-                                        id="weight-kg"
-                                        type="number"
-                                        min="20"
-                                        max="300"
-                                        value={weightKg}
-                                        onChange={(e) => setWeightKg(e.target.value)}
-                                        placeholder="Weight in kilograms"
-                                    />
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                {/* Imperial Weight */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="weight-lbs">Weight (lb)</Label>
-                                    <Input
-                                        id="weight-lbs"
-                                        type="number"
-                                        min="40"
-                                        max="700"
-                                        value={weightLbs}
-                                        onChange={(e) => setWeightLbs(e.target.value)}
-                                        placeholder="Weight in pounds"
-                                    />
-                                </div>
-                            </>
-                        )}
+                        <WeightInput />
                     </div>
 
                     {/* Additional Information */}
