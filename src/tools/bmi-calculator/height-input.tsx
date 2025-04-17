@@ -1,4 +1,11 @@
 import {
+    centimetersToMeters,
+    feetAndInchesToMeters,
+    metersToCentimeters,
+    metersToFeetAndInches
+} from "./utils";
+
+import {
     Select,
     SelectContent,
     SelectItem,
@@ -8,11 +15,9 @@ import {
 
 import type { TUnitType } from "./options";
 
-import { unitOptions } from "./options";
-
 import { useState } from "react";
+import { unitOptions } from "./options";
 import { useBMICalculatorStore } from "./store";
-import { centimetersToMeters, metersToCentimeters } from "./utils";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,17 +27,7 @@ export const HeightInput = () => {
 
     const { heightMeter, setHeightMeter } = useBMICalculatorStore();
 
-    // Calculate feet and inches from meters
-    const totalInches = metersToCentimeters(heightMeter) / 2.54;
-    const feet = Math.floor(totalInches / 12);
-    const inches = Math.round(totalInches % 12);
-
-    // Update height in meters from feet and inches
-    const updateFromImperial = (newFeet: number, newInches: number) => {
-        const totalInches = newFeet * 12 + newInches;
-        const heightCm = totalInches * 2.54;
-        setHeightMeter(centimetersToMeters(heightCm));
-    };
+    const { feet, inches } = metersToFeetAndInches(heightMeter);
 
     return (
         <div className="space-y-4">
@@ -51,7 +46,6 @@ export const HeightInput = () => {
                     </SelectContent>
                 </Select>
             </div>
-
             {heightUnit === "metric" ? (
                 <div className="space-y-2">
                     <Label htmlFor="height-cm">Height (cm)</Label>
@@ -76,7 +70,11 @@ export const HeightInput = () => {
                             min="0"
                             max="8"
                             value={feet}
-                            onChange={(e) => updateFromImperial(Number(e.target.value), inches)}
+                            onChange={(e) =>
+                                setHeightMeter(
+                                    feetAndInchesToMeters(Number(e.target.value), inches)
+                                )
+                            }
                             placeholder="Feet"
                         />
                         <Input
@@ -84,7 +82,9 @@ export const HeightInput = () => {
                             min="0"
                             max="11"
                             value={inches}
-                            onChange={(e) => updateFromImperial(feet, Number(e.target.value))}
+                            onChange={(e) =>
+                                setHeightMeter(feetAndInchesToMeters(feet, Number(e.target.value)))
+                            }
                             placeholder="Inches"
                         />
                     </div>

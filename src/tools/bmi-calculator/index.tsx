@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InfoIcon } from "lucide-react";
 import { HeightInput } from "./height-input";
 
@@ -140,22 +139,6 @@ export const BMICalculatorComponent = () => {
         <Card className="w-full">
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Unit System Selection */}
-                    <div className="space-y-2">
-                        <Label>Unit System</Label>
-                        <Tabs
-                            defaultValue={unitSystem}
-                            onValueChange={(value) => setUnitSystem(value as "metric" | "imperial")}
-                            className="w-full"
-                        >
-                            <TabsList className="grid w-full grid-cols-2">
-                                <TabsTrigger value="metric">Metric (cm, kg)</TabsTrigger>
-                                <TabsTrigger value="imperial">Imperial (ft, lb)</TabsTrigger>
-                            </TabsList>
-                        </Tabs>
-                    </div>
-
-                    {/* Height and Weight Inputs */}
                     <div className="grid gap-4 md:grid-cols-2">
                         <HeightInput />
                         {unitSystem === "metric" ? (
@@ -176,8 +159,6 @@ export const BMICalculatorComponent = () => {
                             </>
                         ) : (
                             <>
-                                {/* Imperial Height */}
-
                                 {/* Imperial Weight */}
                                 <div className="space-y-2">
                                     <Label htmlFor="weight-lbs">Weight (lb)</Label>
