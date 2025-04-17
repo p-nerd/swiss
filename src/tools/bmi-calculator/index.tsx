@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InfoIcon } from "lucide-react";
+import { HeightInput } from "./height-input";
 
 export const BMICalculatorComponent = () => {
     // State for unit system
@@ -156,21 +157,9 @@ export const BMICalculatorComponent = () => {
 
                     {/* Height and Weight Inputs */}
                     <div className="grid gap-4 md:grid-cols-2">
+                        <HeightInput />
                         {unitSystem === "metric" ? (
                             <>
-                                {/* Metric Height */}
-                                <div className="space-y-2">
-                                    <Label htmlFor="height-cm">Height (cm)</Label>
-                                    <Input
-                                        id="height-cm"
-                                        type="number"
-                                        min="50"
-                                        max="250"
-                                        value={heightCm}
-                                        onChange={(e) => setHeightCm(e.target.value)}
-                                        placeholder="Height in centimeters"
-                                    />
-                                </div>
                                 {/* Metric Weight */}
                                 <div className="space-y-2">
                                     <Label htmlFor="weight-kg">Weight (kg)</Label>
@@ -188,27 +177,7 @@ export const BMICalculatorComponent = () => {
                         ) : (
                             <>
                                 {/* Imperial Height */}
-                                <div className="space-y-2">
-                                    <Label>Height (ft, in)</Label>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            type="number"
-                                            min="0"
-                                            max="8"
-                                            value={heightFt}
-                                            onChange={(e) => setHeightFt(e.target.value)}
-                                            placeholder="Feet"
-                                        />
-                                        <Input
-                                            type="number"
-                                            min="0"
-                                            max="11"
-                                            value={heightIn}
-                                            onChange={(e) => setHeightIn(e.target.value)}
-                                            placeholder="Inches"
-                                        />
-                                    </div>
-                                </div>
+
                                 {/* Imperial Weight */}
                                 <div className="space-y-2">
                                     <Label htmlFor="weight-lbs">Weight (lb)</Label>
