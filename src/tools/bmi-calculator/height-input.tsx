@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const HeightInput = () => {
-    const [heightUnit, setHeightUnit] = useState<TUnitType>("metric");
+    const [heightUnit, setHeightUnit] = useState<TUnitType>("imperial");
 
     const { heightMeter, setHeightMeter } = useBMICalculatorStore();
 
@@ -34,7 +34,7 @@ export const HeightInput = () => {
             <div className="space-y-2">
                 <Label htmlFor="height-unit">Height Unit</Label>
                 <Select value={heightUnit} onValueChange={setHeightUnit}>
-                    <SelectTrigger id="height-unit">
+                    <SelectTrigger id="height-unit" className="w-full">
                         <SelectValue placeholder="Select unit" />
                     </SelectTrigger>
                     <SelectContent>

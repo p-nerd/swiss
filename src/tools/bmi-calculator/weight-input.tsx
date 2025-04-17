@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const WeightInput = () => {
-    const [weightUnit, setWeightUnit] = useState<TUnitType>("imperial");
+    const [weightUnit, setWeightUnit] = useState<TUnitType>("metric");
 
     const { weightKilograms, setWeightKilograms } = useBMICalculatorStore();
 
@@ -26,7 +26,7 @@ export const WeightInput = () => {
             <div className="space-y-2">
                 <Label htmlFor="weight-unit">Weight Unit</Label>
                 <Select value={weightUnit} onValueChange={setWeightUnit}>
-                    <SelectTrigger id="weight-unit">
+                    <SelectTrigger id="weight-unit" className="w-full">
                         <SelectValue placeholder="Select unit" />
                     </SelectTrigger>
                     <SelectContent>
