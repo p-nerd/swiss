@@ -23,3 +23,18 @@ export const bmiCategories = [
     { range: [35, 40], name: "Obese Class II", color: "bg-red-500", textColor: "text-red-500" },
     { range: [40, 100], name: "Obese Class III", color: "bg-red-700", textColor: "text-red-700" }
 ];
+
+export const getBMICategory = (bmi: number) => {
+    return bmiCategories.find((cat) => bmi >= cat.range[0] && bmi < cat.range[1]);
+};
+
+// Get BMI gauge position (0-100%)
+export const getBmiGaugePosition = (bmi: number) => {
+    if (bmi === null) return 0;
+
+    // Clamp BMI between 10 and 40 for the gauge
+    const clampedBmi = Math.max(10, Math.min(bmi, 40));
+
+    // Convert to percentage (10 = 0%, 40 = 100%)
+    return ((clampedBmi - 10) / 30) * 100;
+};

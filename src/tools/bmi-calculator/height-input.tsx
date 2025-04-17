@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 export const HeightInput = () => {
     const [heightUnit, setHeightUnit] = useState<TUnitType>("imperial");
 
-    const { heightMeter, setHeightMeter } = useBMICalculatorStore();
+    const { heightMeters: heightMeter, setHeightMeter } = useBMICalculatorStore();
 
     const { feet, inches } = metersToFeetAndInches(heightMeter);
 

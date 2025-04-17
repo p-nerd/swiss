@@ -4,9 +4,9 @@
  * @param heightMeters Height in meters
  * @returns The calculated BMI value rounded to one decimal place
  */
-export const calculateBMI = (weightKilograms: number, heightMeters: number): number => {
+export const getBMI = (weightKilograms: number, heightMeters: number): number => {
     if (weightKilograms <= 0 || heightMeters <= 0) {
-        return 0;
+        throw new Error("Please enter valid height and weight values");
     }
 
     const bmi = weightKilograms / (heightMeters * heightMeters);
