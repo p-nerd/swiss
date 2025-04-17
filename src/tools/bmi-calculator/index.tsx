@@ -1,11 +1,6 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
+import { bmiCategories } from "./bmi-categories";
 
 import { useEffect, useState } from "react";
 
@@ -17,34 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InfoIcon } from "lucide-react";
 
-// BMI Categories
-const BMI_CATEGORIES = [
-    { range: [0, 16], name: "Severe Thinness", color: "bg-red-500", textColor: "text-red-500" },
-    {
-        range: [16, 17],
-        name: "Moderate Thinness",
-        color: "bg-orange-500",
-        textColor: "text-orange-500"
-    },
-    {
-        range: [17, 18.5],
-        name: "Mild Thinness",
-        color: "bg-yellow-500",
-        textColor: "text-yellow-500"
-    },
-    { range: [18.5, 25], name: "Normal", color: "bg-green-500", textColor: "text-green-500" },
-    { range: [25, 30], name: "Overweight", color: "bg-yellow-500", textColor: "text-yellow-500" },
-    {
-        range: [30, 35],
-        name: "Obese Class I",
-        color: "bg-orange-500",
-        textColor: "text-orange-500"
-    },
-    { range: [35, 40], name: "Obese Class II", color: "bg-red-500", textColor: "text-red-500" },
-    { range: [40, 100], name: "Obese Class III", color: "bg-red-700", textColor: "text-red-700" }
-];
-
-export function BMICalculatorComponent() {
+export const BMICalculatorComponent = () => {
     // State for unit system
     const [unitSystem, setUnitSystem] = useState<"metric" | "imperial">("metric");
 
@@ -63,7 +31,7 @@ export function BMICalculatorComponent() {
 
     // State for results
     const [bmi, setBmi] = useState<number | null>(null);
-    const [bmiCategory, setBmiCategory] = useState<(typeof BMI_CATEGORIES)[0] | null>(null);
+    const [bmiCategory, setBmiCategory] = useState<(typeof bmiCategories)[0] | null>(null);
     const [showResults, setShowResults] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -123,7 +91,7 @@ export function BMICalculatorComponent() {
             setBmi(calculatedBMI);
 
             // Find BMI category
-            const category = BMI_CATEGORIES.find(
+            const category = bmiCategories.find(
                 (cat) => calculatedBMI >= cat.range[0] && calculatedBMI < cat.range[1]
             );
 
@@ -169,13 +137,6 @@ export function BMICalculatorComponent() {
 
     return (
         <Card className="w-full">
-            <CardHeader>
-                <CardTitle>BMI Calculator</CardTitle>
-                <CardDescription>
-                    Calculate your Body Mass Index (BMI) to assess if your weight is healthy for
-                    your height
-                </CardDescription>
-            </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Unit System Selection */}
@@ -415,4 +376,4 @@ export function BMICalculatorComponent() {
             </CardFooter>
         </Card>
     );
-}
+};
