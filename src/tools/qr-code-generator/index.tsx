@@ -1,23 +1,15 @@
 import {
-    Calendar,
-    CreditCard,
-    Download,
-    FileText,
-    Info,
-    Link,
-    Mail,
-    MapPin,
-    Phone,
-    Wifi
+    CalendarIcon,
+    CreditCardIcon,
+    DownloadIcon,
+    FileTextIcon,
+    LinkIcon,
+    MailIcon,
+    MapPinIcon,
+    PhoneIcon,
+    WifiIcon
 } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
-import { useEffect, useRef, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
     Select,
     SelectContent,
@@ -25,21 +17,30 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+
+import { useEffect, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { QRCodeSVG } from "qrcode.react";
+import { AboutSection } from "./about-section";
 
 // QR Code types
 const QR_TYPES = [
-    { id: "url", label: "URL", icon: Link },
-    { id: "text", label: "Text", icon: FileText },
-    { id: "wifi", label: "Wi-Fi", icon: Wifi },
-    { id: "email", label: "Email", icon: Mail },
-    { id: "phone", label: "Phone", icon: Phone },
-    { id: "vcard", label: "Contact", icon: CreditCard },
-    { id: "event", label: "Event", icon: Calendar },
-    { id: "location", label: "Location", icon: MapPin }
+    { id: "url", label: "URL", icon: LinkIcon },
+    { id: "text", label: "Text", icon: FileTextIcon },
+    { id: "wifi", label: "Wi-Fi", icon: WifiIcon },
+    { id: "email", label: "Email", icon: MailIcon },
+    { id: "phone", label: "Phone", icon: PhoneIcon },
+    { id: "vcard", label: "Contact", icon: CreditCardIcon },
+    { id: "event", label: "Event", icon: CalendarIcon },
+    { id: "location", label: "Location", icon: MapPinIcon }
 ];
 
 // Error correction levels
@@ -236,34 +237,34 @@ export function QRCodeGeneratorComponent() {
     };
 
     // Create a canvas with the QR code for downloading
-    // const createQRCanvas = () => {
-    //     const canvas = document.createElement("canvas");
-    //     const qrSvg = qrCodeRef.current?.querySelector("svg");
-    //     if (!qrSvg) return null;
-    //
-    //     const svgData = new XMLSerializer().serializeToString(qrSvg);
-    //     const img = new Image();
-    //     img.src = "data:image/svg+xml;base64," + btoa(svgData);
-    //
-    //     return new Promise<HTMLCanvasElement>((resolve) => {
-    //         img.onload = () => {
-    //             canvas.width = size;
-    //             canvas.height = size;
-    //             const ctx = canvas.getContext("2d");
-    //             if (ctx) {
-    //                 ctx.fillStyle = bgColor;
-    //                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-    //                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    //                 resolve(canvas);
-    //             }
-    //         };
-    //     });
-    // };
+    const createQRCanvas = () => {
+        const canvas = document.createElement("canvas");
+        const qrSvg = qrCodeRef.current?.querySelector("svg");
+        if (!qrSvg) return null;
+
+        const svgData = new XMLSerializer().serializeToString(qrSvg);
+        const img = new Image();
+        img.src = "data:image/svg+xml;base64," + btoa(svgData);
+
+        return new Promise<HTMLCanvasElement>((resolve) => {
+            img.onload = () => {
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext("2d");
+                if (ctx) {
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas);
+                }
+            };
+        });
+    };
 
     return (
-        <Card className="w-full">
-            <CardContent className="space-x-8 flex">
-                <div className="grid w-2/3 gap-6 md:grid-cols-2">
+        <div className="space-y-6">
+            <div className="w-full flex flex-col md:flex-row gap-6">
+                <div className="flex w-full flex-col gap-6">
                     {/* QR Code Type Selection and Content Forms */}
                     <div className="space-y-6">
                         <div className="space-y-2">
@@ -723,89 +724,64 @@ export function QRCodeGeneratorComponent() {
                     </div>
                 </div>
 
-                {/* QR Code Preview and Download */}
-                <div className="flex w-1/3 flex-col items-center justify-start space-y-6">
-                    <div className="rounded-lg border bg-card p-6 w-full flex flex-col items-center">
-                        <h3 className="mb-4 text-lg font-medium">QR Code Preview</h3>
-                        <div
-                            ref={qrCodeRef}
-                            className="flex items-center justify-center bg-white p-4 rounded-lg"
-                        >
-                            <QRCodeSVG
-                                value={qrContent}
-                                size={size}
-                                bgColor={bgColor}
-                                fgColor={fgColor}
-                                level={errorCorrection}
-                                // includeMargin={includeMargin}
-                                imageSettings={
-                                    logoUrl
-                                        ? {
-                                              src: logoUrl,
-                                              height: logoSize,
-                                              width: logoSize,
-                                              excavate: true
-                                          }
-                                        : undefined
-                                }
-                            />
-                        </div>
-                        <div className="mt-6 space-y-4 w-full">
-                            <h4 className="text-sm font-medium">Download Options</h4>
-                            <div className="flex flex-wrap gap-2">
-                                <Button onClick={() => downloadQRCode("png")} className="gap-2">
-                                    <Download className="h-4 w-4" />
-                                    PNG
-                                </Button>
-                                <Button
-                                    onClick={() => downloadQRCode("svg")}
-                                    variant="outline"
-                                    className="gap-2"
-                                >
-                                    <Download className="h-4 w-4" />
-                                    SVG
-                                </Button>
-                                <Button
-                                    onClick={() => downloadQRCode("jpeg")}
-                                    variant="outline"
-                                    className="gap-2"
-                                >
-                                    <Download className="h-4 w-4" />
-                                    JPEG
-                                </Button>
+                <div className="flex w-full flex-col gap-6">
+                    {/* QR Code Preview and Download */}
+                    <div className="flex w-full flex-col items-center justify-start space-y-6">
+                        <div className="rounded-lg border bg-card p-6 w-full flex flex-col items-center">
+                            <h3 className="mb-4 text-lg font-medium">QR Code Preview</h3>
+                            <div
+                                ref={qrCodeRef}
+                                className="flex items-center justify-center bg-white p-4 rounded-lg"
+                            >
+                                <QRCodeSVG
+                                    value={qrContent}
+                                    size={size}
+                                    bgColor={bgColor}
+                                    fgColor={fgColor}
+                                    level={errorCorrection}
+                                    includeMargin={includeMargin}
+                                    imageSettings={
+                                        logoUrl
+                                            ? {
+                                                  src: logoUrl,
+                                                  height: logoSize,
+                                                  width: logoSize,
+                                                  excavate: true
+                                              }
+                                            : undefined
+                                    }
+                                />
+                            </div>
+                            <div className="mt-6 space-y-4 w-full">
+                                <h4 className="text-sm font-medium">Download Options</h4>
+                                <div className="flex flex-wrap gap-2">
+                                    <Button onClick={() => downloadQRCode("png")} className="gap-2">
+                                        <DownloadIcon className="h-4 w-4" />
+                                        PNG
+                                    </Button>
+                                    <Button
+                                        onClick={() => downloadQRCode("svg")}
+                                        variant="outline"
+                                        className="gap-2"
+                                    >
+                                        <DownloadIcon className="h-4 w-4" />
+                                        SVG
+                                    </Button>
+                                    <Button
+                                        onClick={() => downloadQRCode("jpeg")}
+                                        variant="outline"
+                                        className="gap-2"
+                                    >
+                                        <DownloadIcon className="h-4 w-4" />
+                                        JPEG
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <AboutSection />
                 </div>
-            </CardContent>
-            <CardFooter className="flex flex-col items-start text-sm text-muted-foreground">
-                <div className="rounded-lg border bg-muted p-4 w-full">
-                    <div className="flex items-start gap-2">
-                        <Info className="mt-0.5 h-5 w-5 text-muted-foreground" />
-                        <div className="text-sm">
-                            <p className="mb-2">
-                                <strong>About QR Codes:</strong> QR (Quick Response) codes are
-                                two-dimensional barcodes that can be scanned with a smartphone
-                                camera to quickly access information.
-                            </p>
-                            <p className="mb-2">
-                                <strong>Scanning:</strong> Most modern smartphones can scan QR codes
-                                directly with the camera app. Simply open your camera and point it
-                                at the QR code to scan.
-                            </p>
-                            <p>
-                                <strong>Tips:</strong> For best scanning results, ensure good
-                                lighting and hold your device steady. Higher error correction levels
-                                make QR codes more reliable in less-than-ideal conditions.
-                            </p>
-                            <p>
-                                <strong>Note:</strong> All QR code generation happens in your
-                                browser. No data is sent to our servers, ensuring your privacy.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </CardFooter>
-        </Card>
+            </div>
+        </div>
     );
 }
