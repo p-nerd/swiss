@@ -34,7 +34,7 @@ export const BMIResults = () => {
                             </div>
                             <div className="relative h-6">
                                 <div
-                                    className="absolute h-6 w-0.5 bg-black"
+                                    className="absolute h-6 w-0.5 bg-black dark:bg-white"
                                     style={{
                                         left: `${getBmiGaugePosition(bmi)}%`,
                                         transform: "translateX(-50%)"
