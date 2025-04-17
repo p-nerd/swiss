@@ -1,5 +1,6 @@
+import { getBMICategory } from "./options";
 import { useBMICalculatorStore } from "./store";
-import { getBMICategory, getBmiGaugePosition } from "./utils-2";
+import { getBmiGaugePosition } from "./utils";
 
 import { InfoIcon } from "lucide-react";
 

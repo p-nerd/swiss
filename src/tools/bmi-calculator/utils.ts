@@ -14,6 +14,17 @@ export const getBMI = (weightKilograms: number, heightMeters: number): number =>
     return Math.round(bmi * 10) / 10;
 };
 
+// Get BMI gauge position (0-100%)
+export const getBmiGaugePosition = (bmi: number) => {
+    if (bmi === null) return 0;
+
+    // Clamp BMI between 10 and 40 for the gauge
+    const clampedBmi = Math.max(10, Math.min(bmi, 40));
+
+    // Convert to percentage (10 = 0%, 40 = 100%)
+    return ((clampedBmi - 10) / 30) * 100;
+};
+
 /**
  * Converts from centimeters to meters.
  */
