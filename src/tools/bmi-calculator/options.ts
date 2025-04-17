@@ -1,4 +1,19 @@
-export const bmiCategories = [
+export const unitOptions = [
+    {
+        value: "metric",
+        heightLabel: "Metric (cm)",
+        weightLabel: "Metric (kg)"
+    },
+    {
+        value: "imperial",
+        heightLabel: "Imperial (ft, in)",
+        weightLabel: "Metric (lb)"
+    }
+];
+
+export type TUnitType = (typeof unitOptions)[number]["value"];
+
+const bmiCategories = [
     { range: [0, 16], name: "Severe Thinness", color: "bg-red-500", textColor: "text-red-500" },
     {
         range: [16, 17],
@@ -23,3 +38,7 @@ export const bmiCategories = [
     { range: [35, 40], name: "Obese Class II", color: "bg-red-500", textColor: "text-red-500" },
     { range: [40, 100], name: "Obese Class III", color: "bg-red-700", textColor: "text-red-700" }
 ];
+
+export const getBMICategory = (bmi: number) => {
+    return bmiCategories.find((cat) => bmi >= cat.range[0] && bmi < cat.range[1]);
+};
