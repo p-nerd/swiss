@@ -56,3 +56,20 @@ A versatile collection of web tools designed to simplify your digital life and h
 ## License
 
 [MIT](LICENSE)
+
+<!--
+
+Lorem Ipsum Generator
+JSON to CSV converter
+Image Converter
+Image Compressor
+UUID Generator
+Color Converter
+Markdown Editor
+URL Parser
+QR Code Scanner
+Regex Tester
+Favicon Generator
+Meta Tags Generator
+Diff Checker
+-->
