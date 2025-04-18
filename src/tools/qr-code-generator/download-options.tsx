@@ -53,6 +53,21 @@ export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
 
         downloadFile(url, `${fileName}.jpg`);
     };
+
+    const downloadWEBP = () => {
+        const canvas = getCanvasElement(qrCodeRef);
+        if (!canvas) return;
+
+        // Check if the browser supports WebP
+        if (canvas.toDataURL("image/webp").indexOf("data:image/webp") === 0) {
+            const url = canvas.toDataURL("image/webp", 0.9);
+            downloadFile(url, `${fileName}.webp`);
+        } else {
+            alert("Your browser doesn't support WebP format. Downloading as PNG instead.");
+            downloadPNG();
+        }
+    };
+
     return (
         <div className="mt-6 flex flex-col items-center space-y-4 w-full">
             <h4 className="text-sm font-medium">Download Options</h4>
@@ -64,6 +79,10 @@ export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
                 <Button onClick={downloadJPEG} variant="outline" className="gap-2">
                     <DownloadIcon className="h-4 w-4" />
                     JPEG
+                </Button>
+                <Button onClick={downloadWEBP} variant="outline" className="gap-2">
+                    <DownloadIcon className="h-4 w-4" />
+                    WebP
                 </Button>
             </div>
         </div>
