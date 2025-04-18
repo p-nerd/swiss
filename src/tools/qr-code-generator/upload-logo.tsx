@@ -36,7 +36,7 @@ export const UploadLogo = () => {
         <div className="space-y-4">
             <div className="space-y-2">
                 <Label htmlFor="logo-upload">Upload Logo (Optional)</Label>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                     <Input
                         id="logo-upload"
                         type="file"
@@ -48,7 +48,6 @@ export const UploadLogo = () => {
                     {logoUrl && (
                         <Button
                             variant="outline"
-                            size="sm"
                             onClick={handleClearLogo}
                             className="whitespace-nowrap"
                         >
@@ -56,9 +55,6 @@ export const UploadLogo = () => {
                         </Button>
                     )}
                 </div>
-                {fileName && (
-                    <p className="text-xs text-muted-foreground mt-1">Uploaded: {fileName}</p>
-                )}
             </div>
             {logoUrl && (
                 <div className="space-y-2">
