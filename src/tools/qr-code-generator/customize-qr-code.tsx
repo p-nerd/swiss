@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { UploadLogo } from "./upload-logo";
 
 export const CustomizeQRCode = () => {
     const {
@@ -30,11 +31,7 @@ export const CustomizeQRCode = () => {
         fgColor,
         setFgColor,
         includeMargin,
-        setIncludeMargin,
-        logoUrl,
-        setLogoUrl,
-        logoSize,
-        setLogoSize
+        setIncludeMargin
     } = useQrCodeGeneratorStore();
 
     return (
@@ -162,32 +159,7 @@ export const CustomizeQRCode = () => {
                 />
                 <Label htmlFor="include-margin">Include Margin</Label>
             </div>
-
-            <div className="space-y-2">
-                <Label htmlFor="logo-url">Logo URL (Optional)</Label>
-                <Input
-                    id="logo-url"
-                    placeholder="https://example.com/logo.png"
-                    value={logoUrl}
-                    onChange={(e) => setLogoUrl(e.target.value)}
-                />
-                {logoUrl && (
-                    <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                            <Label htmlFor="logo-size">Logo Size</Label>
-                            <span className="text-xs text-muted-foreground">{logoSize}px</span>
-                        </div>
-                        <Slider
-                            id="logo-size"
-                            min={20}
-                            max={100}
-                            step={5}
-                            value={[logoSize]}
-                            onValueChange={(value) => setLogoSize(value[0])}
-                        />
-                    </div>
-                )}
-            </div>
+            <UploadLogo />
         </div>
     );
 };
