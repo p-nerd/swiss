@@ -9,6 +9,11 @@ const defaultUrl: string = "https://";
 
 const defaultText: string = "";
 
+const defaultWifiName: string = "";
+const defaultWifiPassword: string = "";
+const defaultWifiEncryption: string = "WPA";
+const defaultWifiHidden: boolean = false;
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -18,6 +23,15 @@ export const useQrCodeGeneratorStore = create<{
 
     text: string;
     setText: (text: string) => void;
+
+    wifiName: string;
+    setWifiName: (wifiName: string) => void;
+    wifiPassword: string;
+    setWifiPassword: (wifiPassword: string) => void;
+    wifiEncryption: string;
+    setWifiEncryption: (wifiEncryption: string) => void;
+    wifiHidden: boolean;
+    setWifiHidden: (wifiHidden: boolean) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -27,6 +41,15 @@ export const useQrCodeGeneratorStore = create<{
         setUrl: (url) => set({ url }),
 
         text: defaultText,
-        setText: (text) => set({ text })
+        setText: (text) => set({ text }),
+
+        wifiName: defaultWifiName,
+        setWifiName: (wifiName) => set({ wifiName }),
+        wifiPassword: defaultWifiPassword,
+        setWifiPassword: (wifiPassword) => set({ wifiPassword }),
+        wifiEncryption: defaultWifiEncryption,
+        setWifiEncryption: (wifiEncryption) => set({ wifiEncryption }),
+        wifiHidden: defaultWifiHidden,
+        setWifiHidden: (wifiHidden) => set({ wifiHidden })
     }))
 );

@@ -6,7 +6,7 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,10 +19,16 @@ const WIFI_ENCRYPTION_TYPES = [
 ] as const;
 
 export const SelectionContentWifi = () => {
-    const [wifiName, setWifiName] = useState<string>("");
-    const [wifiPassword, setWifiPassword] = useState<string>("");
-    const [wifiEncryption, setWifiEncryption] = useState<string>("WPA");
-    const [wifiHidden, setWifiHidden] = useState<boolean>(false);
+    const {
+        wifiName,
+        setWifiName,
+        wifiPassword,
+        setWifiPassword,
+        wifiEncryption,
+        setWifiEncryption,
+        wifiHidden,
+        setWifiHidden
+    } = useQrCodeGeneratorStore();
 
     return (
         <>
