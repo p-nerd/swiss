@@ -1,47 +1,23 @@
-import {
-    CalendarIcon,
-    CreditCardIcon,
-    FileTextIcon,
-    LinkIcon,
-    MailIcon,
-    MapPinIcon,
-    PhoneIcon,
-    WifiIcon
-} from "lucide-react";
+import type { TQRType } from "./qr-types";
 
-import { useState } from "react";
+import { qrTypes } from "./qr-types";
+import { useQRCodeGeneratorStore } from "./store";
 
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { SelectionContentContact } from "./selection-content-contact";
-import { SelectionContentEmail } from "./selection-content-email";
-import { SelectionContentEvent } from "./selection-content-event";
-import { SelectionContentLocation } from "./selection-content-location";
-import { SelectionContentPhone } from "./selection-content-phone";
-import { SelectionContentText } from "./selection-content-text";
-import { SelectionContentURL } from "./selection-content-url";
-import { SelectionContentWifi } from "./selection-content-wifi";
-
-const qrTypes = [
-    { id: "url", label: "URL", icon: LinkIcon, content: SelectionContentURL },
-    { id: "text", label: "Text", icon: FileTextIcon, content: SelectionContentText },
-    { id: "wifi", label: "Wi-Fi", icon: WifiIcon, content: SelectionContentWifi },
-    { id: "email", label: "Email", icon: MailIcon, content: SelectionContentEmail },
-    { id: "phone", label: "Phone", icon: PhoneIcon, content: SelectionContentPhone },
-    { id: "contact", label: "Contact", icon: CreditCardIcon, content: SelectionContentContact },
-    { id: "event", label: "Event", icon: CalendarIcon, content: SelectionContentEvent },
-    { id: "location", label: "Location", icon: MapPinIcon, content: SelectionContentLocation }
-];
-
 export const SelectionAndContent = () => {
-    const [qrType, setQrType] = useState<string>("url");
+    const { qrType, setQRType } = useQRCodeGeneratorStore();
 
     return (
         <div className="space-y-6">
             <div className="space-y-2">
                 <Label>QR Code Type</Label>
-                <Tabs defaultValue={qrType} onValueChange={setQrType} className="w-full">
+                <Tabs
+                    defaultValue={qrType}
+                    onValueChange={(v: string) => setQRType(v as TQRType)}
+                    className="w-full"
+                >
                     <TabsList className="grid grid-cols-4 h-auto">
                         {qrTypes.slice(0, 4).map((type) => (
                             <TabsTrigger
