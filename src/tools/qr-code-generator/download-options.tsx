@@ -54,27 +54,31 @@ const createImageFromSVG = (svg: SVGElement) => {
     return URL.createObjectURL(svgBlob);
 };
 
+const getImageURLFromSVG = (qrCodeRef: TQRCodeRef): string | null => {
+    const svg = getSVGElement(qrCodeRef);
+    if (!svg) return null;
+    return createImageFromSVG(svg);
+};
+
 export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     const { fileName: sFileName } = useQrCodeGeneratorStore();
 
     const fileName = sFileName || "my-qrcode";
 
     const downloadSVG = () => {
-        const svg = getSVGElement(qrCodeRef);
-        if (!svg) return;
+        const url = getImageURLFromSVG(qrCodeRef);
+        if (!url) return;
 
-        const url = createImageFromSVG(svg);
         downloadFile(url, fileName + ".svg");
-        return;
     };
 
     const downloadPNG = () => {
-        const canvas = getCanvasElement(qrCodeRef);
-        if (!canvas) return;
+        const url = getImageURLFromSVG(qrCodeRef);
+        if (!url) return;
 
-        const url = canvas.toDataURL("image/png");
-        downloadFile(url, `${fileName}.png`);
-        return;
+        console.log(url);
+
+        // downloadFile(url, `${fileName}.png`);
     };
 
     const downloadJPEG = () => {
