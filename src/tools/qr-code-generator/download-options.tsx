@@ -17,127 +17,61 @@ const downloadFile = (url: string, fileName: string) => {
     }
     return;
 };
-
 const getSVGElement = (qrCodeRef: TQRCodeRef) => {
     if (!qrCodeRef.current) {
         console.error("QR code reference is not available");
         return null;
     }
-
     const svg = qrCodeRef.current.querySelector("svg");
     if (!svg) {
         console.error("SVG element not found in QR code");
         return null;
     }
-
     return svg;
 };
-
+const getCanvasElement = (qrCodeRef: TQRCodeRef) => {
+    if (!qrCodeRef.current) {
+        console.error("QR code reference is not available");
+        return null;
+    }
+    const canvas = qrCodeRef.current.querySelector("canvas");
+    if (!canvas) {
+        console.error("Canvas element not found in QR code");
+        return null;
+    }
+    return canvas;
+};
 const createImageFromSVG = (svg: SVGElement) => {
     const svgData = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     return URL.createObjectURL(svgBlob);
 };
-
-const getImageURLFromSVG = (qrCodeRef: TQRCodeRef): string | null => {
-    const svg = getSVGElement(qrCodeRef);
-    if (!svg) return null;
-
-    return createImageFromSVG(svg);
-};
-
 export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     const { fileName: sFileName } = useQrCodeGeneratorStore();
-
     const fileName = sFileName || "my-qrcode";
-
     const downloadSVG = () => {
-        const url = getImageURLFromSVG(qrCodeRef);
-        if (!url) return;
-
+        const svg = getSVGElement(qrCodeRef);
+        if (!svg) return;
+        const url = createImageFromSVG(svg);
         downloadFile(url, fileName + ".svg");
+        return;
     };
-
-    const downloadPNG = async () => {
-        const url = getImageURLFromSVG(qrCodeRef);
-        if (!url) return;
-
-        try {
-            // Convert the SVG URL to an image
-            const img = new Image();
-            img.src = url;
-
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-
-            // Create canvas and draw image
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext("2d");
-
-            if (ctx) {
-                // Fill with white background
-                ctx.fillStyle = "white";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                // Draw the image
-                ctx.drawImage(img, 0, 0);
-
-                // Get PNG data URL and download
-                const pngUrl = canvas.toDataURL("image/png");
-                downloadFile(pngUrl, `${fileName}.png`);
-            }
-
-            // Clean up
-            URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error("Error converting to PNG:", error);
-        }
+    const downloadPNG = () => {
+        const canvas = getCanvasElement(qrCodeRef);
+        if (!canvas) return;
+        const url = canvas.toDataURL("image/png");
+        downloadFile(url, `${fileName}.png`);
+        return;
     };
-
-    const downloadJPEG = async () => {
-        const url = getImageURLFromSVG(qrCodeRef);
-        if (!url) return;
-
-        try {
-            // Convert the SVG URL to an image
-            const img = new Image();
-            img.src = url;
-
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-
-            // Create canvas and draw image
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext("2d");
-
-            if (ctx) {
-                // Fill with white background
-                ctx.fillStyle = "white";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                // Draw the image
-                ctx.drawImage(img, 0, 0);
-
-                // Get JPEG data URL and download
-                const jpegUrl = canvas.toDataURL("image/jpeg", 0.9);
-                downloadFile(jpegUrl, `${fileName}.jpg`);
-            }
-
-            // Clean up
-            URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error("Error converting to JPEG:", error);
-        }
+    const downloadJPEG = () => {
+        const canvas = getCanvasElement(qrCodeRef);
+        if (!canvas) return;
+        const url = canvas.toDataURL("image/jpeg", 0.9);
+        downloadFile(url, `${fileName}.jpg`);
+        return;
     };
-
     return (
-        <div className="mt-6 flex flex-col items-center space-y-4 w-full">
+        <div className="mt-6 space-y-4 w-full">
             <h4 className="text-sm font-medium">Download Options</h4>
             <div className="flex flex-wrap gap-2">
                 <Button onClick={downloadSVG} className="gap-2">

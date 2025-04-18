@@ -2,7 +2,7 @@ import type { TQRCodeRef } from "./types";
 
 import { useQrCodeGeneratorStore } from "./store";
 
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
 import { DownloadOptions } from "./download-options";
 
 export const QRCodePreview = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
@@ -17,6 +17,24 @@ export const QRCodePreview = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
                     ref={qrCodeRef}
                     className="flex items-center justify-center bg-white p-4 rounded-lg"
                 >
+                    <QRCodeCanvas
+                        value={qrContent}
+                        size={size}
+                        bgColor={bgColor}
+                        fgColor={fgColor}
+                        level={errorCorrection}
+                        marginSize={includeMargin ? 4 : undefined}
+                        imageSettings={
+                            logoUrl
+                                ? {
+                                      src: logoUrl,
+                                      height: logoSize,
+                                      width: logoSize,
+                                      excavate: true
+                                  }
+                                : undefined
+                        }
+                    />
                     <QRCodeSVG
                         value={qrContent}
                         size={size}
