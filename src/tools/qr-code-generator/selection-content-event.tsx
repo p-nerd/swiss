@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export const SelectionContentEvent = () => {
-    const [eventTitle, setEventTitle] = useState<string>("");
-    const [eventLocation, setEventLocation] = useState<string>("");
-    const [eventStart, setEventStart] = useState<string>("");
-    const [eventEnd, setEventEnd] = useState<string>("");
-    const [eventDescription, setEventDescription] = useState<string>("");
+    const {
+        eventTitle,
+        setEventTitle,
+        eventLocation,
+        setEventLocation,
+        eventStart,
+        setEventStart,
+        eventEnd,
+        setEventEnd,
+        eventDescription,
+        setEventDescription
+    } = useQrCodeGeneratorStore();
 
     return (
         <>

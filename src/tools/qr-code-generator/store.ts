@@ -28,6 +28,12 @@ const defaultContactEmail: string = "";
 const defaultContactAddress: string = "";
 const defaultContactWebsite: string = "";
 
+const defaultEventTitle: string = "";
+const defaultEventLocation: string = "";
+const defaultEventStart: string = "";
+const defaultEventEnd: string = "";
+const defaultEventDescription: string = "";
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -71,6 +77,17 @@ export const useQrCodeGeneratorStore = create<{
     setContactAddress: (contactAddress: string) => void;
     contactWebsite: string;
     setContactWebsite: (contactWebsite: string) => void;
+
+    eventTitle: string;
+    setEventTitle: (eventTitle: string) => void;
+    eventLocation: string;
+    setEventLocation: (eventLocation: string) => void;
+    eventStart: string;
+    setEventStart: (eventStart: string) => void;
+    eventEnd: string;
+    setEventEnd: (eventEnd: string) => void;
+    eventDescription: string;
+    setEventDescription: (eventDescription: string) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -114,6 +131,17 @@ export const useQrCodeGeneratorStore = create<{
         contactAddress: defaultContactAddress,
         setContactAddress: (contactAddress) => set({ contactAddress }),
         contactWebsite: defaultContactWebsite,
-        setContactWebsite: (contactWebsite) => set({ contactWebsite })
+        setContactWebsite: (contactWebsite) => set({ contactWebsite }),
+
+        eventTitle: defaultEventTitle,
+        setEventTitle: (eventTitle) => set({ eventTitle }),
+        eventLocation: defaultEventLocation,
+        setEventLocation: (eventLocation) => set({ eventLocation }),
+        eventStart: defaultEventStart,
+        setEventStart: (eventStart) => set({ eventStart }),
+        eventEnd: defaultEventEnd,
+        setEventEnd: (eventEnd) => set({ eventEnd }),
+        eventDescription: defaultEventDescription,
+        setEventDescription: (eventDescription) => set({ eventDescription })
     }))
 );
