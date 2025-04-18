@@ -32,7 +32,7 @@ export const useUpdateQrContent = () => {
     } = useQrCodeGeneratorStore();
 
     useEffect(() => {
-        updateQRContent();
+        setQrContent(getQrContent());
     }, [
         qrType,
         url,
@@ -62,27 +62,20 @@ export const useUpdateQrContent = () => {
     ]);
 
     // Generate QR code content based on type
-    const updateQRContent = () => {
-        let content = "";
-
+    const getQrContent = (): string => {
         switch (qrType) {
             case "url":
-                content = url;
-                break;
+                return url;
             case "text":
-                content = text;
-                break;
+                return text;
             case "wifi":
-                content = `WIFI:S:${wifiName};T:${wifiEncryption};P:${wifiPassword};H:${wifiHidden ? "true" : "false"};`;
-                break;
+                return `WIFI:S:${wifiName};T:${wifiEncryption};P:${wifiPassword};H:${wifiHidden ? "true" : "false"};`;
             case "email":
-                content = `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-                break;
+                return `mailto:${email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             case "phone":
-                content = `tel:${phone}`;
-                break;
+                return `tel:${phone}`;
             case "contact":
-                content = [
+                return [
                     "BEGIN:VCARD",
                     "VERSION:3.0",
                     `FN:${contactName}`,
@@ -96,7 +89,6 @@ export const useUpdateQrContent = () => {
                 ]
                     .filter(Boolean)
                     .join("\n");
-                break;
             case "event":
                 // Format dates for iCalendar
                 const formatDate = (dateString: string) => {
@@ -108,7 +100,7 @@ export const useUpdateQrContent = () => {
                 const startDate = formatDate(eventStart);
                 const endDate = formatDate(eventEnd);
 
-                content = [
+                return [
                     "BEGIN:VEVENT",
                     `SUMMARY:${eventTitle}`,
                     startDate ? `DTSTART:${startDate}` : "",
@@ -119,14 +111,10 @@ export const useUpdateQrContent = () => {
                 ]
                     .filter(Boolean)
                     .join("\n");
-                break;
             case "location":
-                content = `geo:${latitude},${longitude}`;
-                break;
+                return `geo:${latitude},${longitude}`;
             default:
-                content = "";
+                return "";
         }
-
-        setQrContent(content);
     };
 };
