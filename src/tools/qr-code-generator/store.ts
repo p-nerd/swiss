@@ -6,6 +6,7 @@ import { immer } from "zustand/middleware/immer";
 const defaultQrContent: string = "";
 const defaultQrType: TQRType = "url";
 
+const defaultFileName: string = "";
 const defaultSize: number = 200;
 const defaultErrorCorrection: TErrorCorrectionLevel = "M";
 const defaultBgColor: string = "#FFFFFF";
@@ -52,6 +53,8 @@ export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
 
+    fileName: string;
+    setFileName: (fileName: string) => void;
     size: number;
     setSize: (size: number) => void;
     errorCorrection: TErrorCorrectionLevel;
@@ -129,6 +132,8 @@ export const useQrCodeGeneratorStore = create<{
         qrType: defaultQrType,
         setQrType: (qrType) => set({ qrType }),
 
+        fileName: defaultFileName,
+        setFileName: (fileName) => set({ fileName }),
         size: defaultSize,
         setSize: (size) => set({ size }),
         errorCorrection: defaultErrorCorrection,

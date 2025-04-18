@@ -19,6 +19,8 @@ import { Switch } from "@/components/ui/switch";
 
 export const CustomizeQRCode = () => {
     const {
+        fileName,
+        setFileName,
         size,
         setSize,
         errorCorrection,
@@ -38,6 +40,16 @@ export const CustomizeQRCode = () => {
     return (
         <div className="space-y-4">
             <h3 className="text-lg font-medium">Customize QR Code</h3>
+
+            <div className="space-y-2">
+                <Label htmlFor="logo-url">Download File Name (Optional)</Label>
+                <Input
+                    id="fileName"
+                    placeholder="my-qrcode"
+                    value={fileName}
+                    onChange={(e) => setFileName(e.target.value)}
+                />
+            </div>
 
             <div className="space-y-2">
                 <div className="flex items-center justify-between">

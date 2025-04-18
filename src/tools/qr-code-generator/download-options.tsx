@@ -2,22 +2,25 @@ import type { TQRCodeRef } from "./types";
 
 import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "lucide-react";
+import { useQrCodeGeneratorStore } from "./store";
+
+const downloadFile = (url: string, fileName: string) => {
+    if (url) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+    }
+};
 
 export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
-    const downloadFile = (url: string, fileName: string) => {
-        if (url) {
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+    const { fileName: sFileName } = useQrCodeGeneratorStore();
 
-            URL.revokeObjectURL(url);
-        }
-    };
-
-    const fileName = "qrcode";
+    const fileName = sFileName || "my-qrcode";
 
     const downloadSVG = () => {
         if (!qrCodeRef.current) {
