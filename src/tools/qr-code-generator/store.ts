@@ -20,6 +20,14 @@ const defaultEmailBody: string = "";
 
 const defaultPhone: string = "";
 
+const defaultContactName: string = "";
+const defaultContactOrg: string = "";
+const defaultContactTitle: string = "";
+const defaultContactPhone: string = "";
+const defaultContactEmail: string = "";
+const defaultContactAddress: string = "";
+const defaultContactWebsite: string = "";
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -48,6 +56,21 @@ export const useQrCodeGeneratorStore = create<{
 
     phone: string;
     setPhone: (phone: string) => void;
+
+    contactName: string;
+    setContactName: (contactName: string) => void;
+    contactOrg: string;
+    setContactOrg: (contactOrg: string) => void;
+    contactTitle: string;
+    setContactTitle: (contactTitle: string) => void;
+    contactPhone: string;
+    setContactPhone: (contactPhone: string) => void;
+    contactEmail: string;
+    setContactEmail: (contactEmail: string) => void;
+    contactAddress: string;
+    setContactAddress: (contactAddress: string) => void;
+    contactWebsite: string;
+    setContactWebsite: (contactWebsite: string) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -76,6 +99,21 @@ export const useQrCodeGeneratorStore = create<{
         setEmailBody: (emailBody) => set({ emailBody }),
 
         phone: defaultPhone,
-        setPhone: (phone) => set({ phone })
+        setPhone: (phone) => set({ phone }),
+
+        contactName: defaultContactName,
+        setContactName: (contactName) => set({ contactName }),
+        contactOrg: defaultContactOrg,
+        setContactOrg: (contactOrg) => set({ contactOrg }),
+        contactTitle: defaultContactTitle,
+        setContactTitle: (contactTitle) => set({ contactTitle }),
+        contactPhone: defaultContactPhone,
+        setContactPhone: (contactPhone) => set({ contactPhone }),
+        contactEmail: defaultContactEmail,
+        setContactEmail: (contactEmail) => set({ contactEmail }),
+        contactAddress: defaultContactAddress,
+        setContactAddress: (contactAddress) => set({ contactAddress }),
+        contactWebsite: defaultContactWebsite,
+        setContactWebsite: (contactWebsite) => set({ contactWebsite })
     }))
 );

@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const SelectionContentContact = () => {
-    const [contactName, setContactName] = useState<string>("");
-    const [contactOrg, setContactOrg] = useState<string>("");
-    const [contactTitle, setContactTitle] = useState<string>("");
-    const [contactPhone, setContactPhone] = useState<string>("");
-    const [contactEmail, setContactEmail] = useState<string>("");
-    const [contactAddress, setContactAddress] = useState<string>("");
-    const [contactWebsite, setContactWebsite] = useState<string>("");
+    const {
+        contactName,
+        setContactName,
+        contactOrg,
+        setContactOrg,
+        contactTitle,
+        setContactTitle,
+        contactPhone,
+        setContactPhone,
+        contactEmail,
+        setContactEmail,
+        contactAddress,
+        setContactAddress,
+        contactWebsite,
+        setContactWebsite
+    } = useQrCodeGeneratorStore();
 
     return (
         <>
