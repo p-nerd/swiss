@@ -59,15 +59,15 @@ A versatile collection of web tools designed to simplify your digital life and h
 
 <!--
 
+QR Code Scanner
+Image Compressor
+Image Converter
 Lorem Ipsum Generator
 JSON to CSV converter
-Image Converter
-Image Compressor
 UUID Generator
 Color Converter
 Markdown Editor
 URL Parser
-QR Code Scanner
 Regex Tester
 Favicon Generator
 Meta Tags Generator
