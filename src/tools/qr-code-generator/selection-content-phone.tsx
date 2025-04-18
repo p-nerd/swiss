@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const SelectionContentPhone = () => {
-    const [phone, setPhone] = useState<string>("");
+    const { phone, setPhone } = useQrCodeGeneratorStore();
 
     return (
         <div className="space-y-2">

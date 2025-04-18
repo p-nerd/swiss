@@ -18,6 +18,8 @@ const defaultEmail: string = "";
 const defaultEmailSubject: string = "";
 const defaultEmailBody: string = "";
 
+const defaultPhone: string = "";
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -43,6 +45,9 @@ export const useQrCodeGeneratorStore = create<{
     setEmailSubject: (emailSubject: string) => void;
     emailBody: string;
     setEmailBody: (emailBody: string) => void;
+
+    phone: string;
+    setPhone: (phone: string) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -68,6 +73,9 @@ export const useQrCodeGeneratorStore = create<{
         emailSubject: defaultEmailSubject,
         setEmailSubject: (emailSubject) => set({ emailSubject }),
         emailBody: defaultEmailBody,
-        setEmailBody: (emailBody) => set({ emailBody })
+        setEmailBody: (emailBody) => set({ emailBody }),
+
+        phone: defaultPhone,
+        setPhone: (phone) => set({ phone })
     }))
 );
