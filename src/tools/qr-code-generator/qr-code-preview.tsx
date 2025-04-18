@@ -2,12 +2,22 @@ import type { TQRCodeRef } from "./types";
 
 import { useQrCodeGeneratorStore } from "./store";
 
-import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 import { DownloadOptions } from "./download-options";
 
 export const QRCodePreview = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     const { qrContent, size, errorCorrection, bgColor, fgColor, includeMargin, logoUrl, logoSize } =
         useQrCodeGeneratorStore();
+
+    const marginSize = includeMargin ? 4 : undefined;
+    const imageSettings = logoUrl
+        ? {
+              src: logoUrl,
+              height: logoSize,
+              width: logoSize,
+              excavate: true
+          }
+        : undefined;
 
     return (
         <div className="flex w-full flex-col items-center justify-start space-y-6">
@@ -23,35 +33,8 @@ export const QRCodePreview = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
                         bgColor={bgColor}
                         fgColor={fgColor}
                         level={errorCorrection}
-                        marginSize={includeMargin ? 4 : undefined}
-                        imageSettings={
-                            logoUrl
-                                ? {
-                                      src: logoUrl,
-                                      height: logoSize,
-                                      width: logoSize,
-                                      excavate: true
-                                  }
-                                : undefined
-                        }
-                    />
-                    <QRCodeSVG
-                        value={qrContent}
-                        size={size}
-                        bgColor={bgColor}
-                        fgColor={fgColor}
-                        level={errorCorrection}
-                        marginSize={includeMargin ? 4 : undefined}
-                        imageSettings={
-                            logoUrl
-                                ? {
-                                      src: logoUrl,
-                                      height: logoSize,
-                                      width: logoSize,
-                                      excavate: true
-                                  }
-                                : undefined
-                        }
+                        marginSize={marginSize}
+                        imageSettings={imageSettings}
                     />
                 </div>
                 <DownloadOptions qrCodeRef={qrCodeRef} />
