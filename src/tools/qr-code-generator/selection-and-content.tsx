@@ -1,13 +1,13 @@
 import type { TQRType } from "./qr-types";
 
 import { qrTypes } from "./qr-types";
-import { useQRCodeGeneratorStore } from "./store";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const SelectionAndContent = () => {
-    const { qrType, setQRType } = useQRCodeGeneratorStore();
+    const { qrType, setQrType } = useQrCodeGeneratorStore();
 
     return (
         <div className="space-y-6">
@@ -15,7 +15,7 @@ export const SelectionAndContent = () => {
                 <Label>QR Code Type</Label>
                 <Tabs
                     defaultValue={qrType}
-                    onValueChange={(v: string) => setQRType(v as TQRType)}
+                    onValueChange={(v: string) => setQrType(v as TQRType)}
                     className="w-full"
                 >
                     <TabsList className="grid grid-cols-4 h-auto">
