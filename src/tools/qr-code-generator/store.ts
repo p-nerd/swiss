@@ -34,6 +34,9 @@ const defaultEventStart: string = "";
 const defaultEventEnd: string = "";
 const defaultEventDescription: string = "";
 
+const defaultLatitude: string = "";
+const defaultLongitude: string = "";
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -88,6 +91,11 @@ export const useQrCodeGeneratorStore = create<{
     setEventEnd: (eventEnd: string) => void;
     eventDescription: string;
     setEventDescription: (eventDescription: string) => void;
+
+    latitude: string;
+    setLatitude: (latitude: string) => void;
+    longitude: string;
+    setLongitude: (longitude: string) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -142,6 +150,11 @@ export const useQrCodeGeneratorStore = create<{
         eventEnd: defaultEventEnd,
         setEventEnd: (eventEnd) => set({ eventEnd }),
         eventDescription: defaultEventDescription,
-        setEventDescription: (eventDescription) => set({ eventDescription })
+        setEventDescription: (eventDescription) => set({ eventDescription }),
+
+        latitude: defaultLatitude,
+        setLatitude: (latitude) => set({ latitude }),
+        longitude: defaultLongitude,
+        setLongitude: (longitude) => set({ longitude })
     }))
 );

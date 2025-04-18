@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const SelectionContentLocation = () => {
-    const [latitude, setLatitude] = useState<string>("");
-    const [longitude, setLongitude] = useState<string>("");
+    const { latitude, setLatitude, longitude, setLongitude } = useQrCodeGeneratorStore();
 
     return (
         <>
