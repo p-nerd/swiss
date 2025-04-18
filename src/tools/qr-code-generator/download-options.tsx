@@ -33,21 +33,6 @@ const getSVGElement = (qrCodeRef: TQRCodeRef) => {
     return svg;
 };
 
-const getCanvasElement = (qrCodeRef: TQRCodeRef) => {
-    if (!qrCodeRef.current) {
-        console.error("QR code reference is not available");
-        return null;
-    }
-
-    const canvas = qrCodeRef.current.querySelector("canvas");
-    if (!canvas) {
-        console.error("Canvas element not found in QR code");
-        return null;
-    }
-
-    return canvas;
-};
-
 const createImageFromSVG = (svg: SVGElement) => {
     const svgData = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -82,12 +67,12 @@ export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     };
 
     const downloadJPEG = () => {
-        const canvas = getCanvasElement(qrCodeRef);
-        if (!canvas) return;
+        const url = getImageURLFromSVG(qrCodeRef);
+        if (!url) return;
 
-        const url = canvas.toDataURL("image/jpeg", 0.9);
-        downloadFile(url, `${fileName}.jpg`);
-        return;
+        console.log(url);
+
+        // downloadFile(url, `${fileName}.jpg`);
     };
 
     return (
