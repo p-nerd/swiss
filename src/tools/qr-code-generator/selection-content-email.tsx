@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export const SelectionContentEmail = () => {
-    const [email, setEmail] = useState<string>("");
-    const [emailSubject, setEmailSubject] = useState<string>("");
-    const [emailBody, setEmailBody] = useState<string>("");
+    const { email, setEmail, emailSubject, setEmailSubject, emailBody, setEmailBody } =
+        useQrCodeGeneratorStore();
 
     return (
         <>

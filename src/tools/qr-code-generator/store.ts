@@ -14,6 +14,10 @@ const defaultWifiPassword: string = "";
 const defaultWifiEncryption: string = "WPA";
 const defaultWifiHidden: boolean = false;
 
+const defaultEmail: string = "";
+const defaultEmailSubject: string = "";
+const defaultEmailBody: string = "";
+
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
@@ -32,6 +36,13 @@ export const useQrCodeGeneratorStore = create<{
     setWifiEncryption: (wifiEncryption: string) => void;
     wifiHidden: boolean;
     setWifiHidden: (wifiHidden: boolean) => void;
+
+    email: string;
+    setEmail: (email: string) => void;
+    emailSubject: string;
+    setEmailSubject: (emailSubject: string) => void;
+    emailBody: string;
+    setEmailBody: (emailBody: string) => void;
 }>()(
     immer((set) => ({
         qrType: defaultQRType,
@@ -50,6 +61,13 @@ export const useQrCodeGeneratorStore = create<{
         wifiEncryption: defaultWifiEncryption,
         setWifiEncryption: (wifiEncryption) => set({ wifiEncryption }),
         wifiHidden: defaultWifiHidden,
-        setWifiHidden: (wifiHidden) => set({ wifiHidden })
+        setWifiHidden: (wifiHidden) => set({ wifiHidden }),
+
+        email: defaultEmail,
+        setEmail: (email) => set({ email }),
+        emailSubject: defaultEmailSubject,
+        setEmailSubject: (emailSubject) => set({ emailSubject }),
+        emailBody: defaultEmailBody,
+        setEmailBody: (emailBody) => set({ emailBody })
     }))
 );
