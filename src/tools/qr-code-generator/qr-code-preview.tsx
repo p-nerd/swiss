@@ -1,17 +1,13 @@
 import type { TQRCodeRef } from "./types";
 
+import { useQrCodeGeneratorStore } from "./store";
+
 import { QRCodeSVG } from "qrcode.react";
 import { DownloadOptions } from "./download-options";
 
 export const QRCodePreview = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
-    const qrContent = "";
-    const size = undefined;
-    const bgColor = undefined;
-    const fgColor = undefined;
-    const errorCorrection = undefined;
-    const includeMargin = undefined;
-    const logoUrl = undefined;
-    const logoSize = 50;
+    const { qrContent, size, errorCorrection, bgColor, fgColor, includeMargin, logoUrl, logoSize } =
+        useQrCodeGeneratorStore();
 
     return (
         <div className="flex w-full flex-col items-center justify-start space-y-6">

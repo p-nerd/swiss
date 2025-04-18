@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useUpdateQrContent } from "./hooks";
 
 import { AboutSection } from "./about-section";
 import { CustomizeQRCode } from "./customize-qr-code";
@@ -7,6 +8,8 @@ import { SelectionAndContent } from "./selection-and-content";
 
 export const QRCodeGeneratorComponent = () => {
     const qrCodeRef = useRef<HTMLDivElement>(null);
+
+    useUpdateQrContent();
 
     return (
         <div className="space-y-6">

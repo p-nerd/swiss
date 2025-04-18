@@ -3,7 +3,8 @@ import type { TErrorCorrectionLevel, TQRType } from "./options";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-const defaultQRType: TQRType = "url";
+const defaultQrContent: string = "";
+const defaultQrType: TQRType = "url";
 
 const defaultSize: number = 200;
 const defaultErrorCorrection: TErrorCorrectionLevel = "M";
@@ -46,6 +47,8 @@ const defaultLatitude: string = "";
 const defaultLongitude: string = "";
 
 export const useQrCodeGeneratorStore = create<{
+    qrContent: string;
+    setQrContent: (qrContent: string) => void;
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
 
@@ -121,7 +124,9 @@ export const useQrCodeGeneratorStore = create<{
     setLongitude: (longitude: string) => void;
 }>()(
     immer((set) => ({
-        qrType: defaultQRType,
+        qrContent: defaultQrContent,
+        setQrContent: (qrContent) => set({ qrContent }),
+        qrType: defaultQrType,
         setQrType: (qrType) => set({ qrType }),
 
         size: defaultSize,
