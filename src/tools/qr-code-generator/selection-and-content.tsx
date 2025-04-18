@@ -44,7 +44,7 @@ export const SelectionAndContent = () => {
                     </TabsList>
                     <div className="h-2"></div>
                     {QR_TYPES.map(({ id, content: Content }) => (
-                        <TabsContent value={id} className="mt-4 space-y-4">
+                        <TabsContent key={id} value={id} className="mt-4 space-y-4">
                             <Content />
                         </TabsContent>
                     ))}
