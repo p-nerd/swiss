@@ -33,33 +33,30 @@ const getSVGElement = (qrCodeRef: TQRCodeRef) => {
     return svg;
 };
 
+const getCanvasElement = (qrCodeRef: TQRCodeRef) => {
+    if (!qrCodeRef.current) {
+        console.error("QR code reference is not available");
+        return null;
+    }
+
+    const canvas = qrCodeRef.current.querySelector("canvas");
+    if (!canvas) {
+        console.error("Canvas element not found in QR code");
+        return null;
+    }
+
+    return canvas;
+};
+
 const createImageFromSVG = (svg: SVGElement) => {
     const svgData = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     return URL.createObjectURL(svgBlob);
 };
 
-const createCanvas = (width: number, height: number, withBackground: boolean = false) => {
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-        console.error("Could not get canvas context");
-        return null;
-    }
-
-    if (withBackground) {
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
-    return { canvas, ctx };
-};
-
 export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     const { fileName: sFileName } = useQrCodeGeneratorStore();
+
     const fileName = sFileName || "my-qrcode";
 
     const downloadSVG = () => {
@@ -72,74 +69,20 @@ export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
     };
 
     const downloadPNG = () => {
-        const svg = getSVGElement(qrCodeRef);
-        if (!svg) return;
+        const canvas = getCanvasElement(qrCodeRef);
+        if (!canvas) return;
 
-        const svgRect = svg.getBoundingClientRect();
-        const canvasSetup = createCanvas(svgRect.width, svgRect.height);
-        if (!canvasSetup) return;
-
-        const { canvas, ctx } = canvasSetup;
-        const img = new Image();
-        const svgUrl = createImageFromSVG(svg);
-
-        img.onload = () => {
-            ctx.drawImage(img, 0, 0);
-
-            canvas.toBlob((blob) => {
-                if (!blob) {
-                    console.error("Failed to create blob from canvas");
-                    return;
-                }
-
-                const url = URL.createObjectURL(blob);
-                downloadFile(url, `${fileName}.png`);
-                return;
-            }, "image/png");
-
-            URL.revokeObjectURL(svgUrl);
-            return;
-        };
-
-        img.src = svgUrl;
+        const url = canvas.toDataURL("image/png");
+        downloadFile(url, `${fileName}.png`);
         return;
     };
 
     const downloadJPEG = () => {
-        const svg = getSVGElement(qrCodeRef);
-        if (!svg) return;
+        const canvas = getCanvasElement(qrCodeRef);
+        if (!canvas) return;
 
-        const svgRect = svg.getBoundingClientRect();
-        const canvasSetup = createCanvas(svgRect.width, svgRect.height, true);
-        if (!canvasSetup) return;
-
-        const { canvas, ctx } = canvasSetup;
-        const img = new Image();
-        const svgUrl = createImageFromSVG(svg);
-
-        img.onload = () => {
-            ctx.drawImage(img, 0, 0);
-
-            canvas.toBlob(
-                (blob) => {
-                    if (!blob) {
-                        console.error("Failed to create blob from canvas");
-                        return;
-                    }
-
-                    const url = URL.createObjectURL(blob);
-                    downloadFile(url, `${fileName}.jpg`);
-                    return;
-                },
-                "image/jpeg",
-                0.9
-            );
-
-            URL.revokeObjectURL(svgUrl);
-            return;
-        };
-
-        img.src = svgUrl;
+        const url = canvas.toDataURL("image/jpeg", 0.9);
+        downloadFile(url, `${fileName}.jpg`);
         return;
     };
 
