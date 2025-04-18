@@ -1,6 +1,6 @@
-import type { TQRType } from "./qr-types";
+import type { TQRType } from "./options";
 
-import { QR_TYPES } from "./qr-types";
+import { QR_TYPES } from "./options";
 import { useQrCodeGeneratorStore } from "./store";
 
 import { Label } from "@/components/ui/label";

@@ -6,7 +6,9 @@ import {
     SelectValue
 } from "@/components/ui/select";
 
-import { useState } from "react";
+import { ERROR_CORRECTION_LEVELS } from "./options";
+
+import { useQrCodeGeneratorStore } from "./store";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,22 +17,23 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 
-// Error correction levels
-const ERROR_CORRECTION_LEVELS = [
-    { value: "L", label: "Low (7%)" },
-    { value: "M", label: "Medium (15%)" },
-    { value: "Q", label: "Quartile (25%)" },
-    { value: "H", label: "High (30%)" }
-];
-
 export const CustomizeQRCode = () => {
-    const [size, setSize] = useState<number>(200);
-    const [errorCorrection, setErrorCorrection] = useState<"L" | "M" | "Q" | "H">("M");
-    const [bgColor, setBgColor] = useState<string>("#FFFFFF");
-    const [fgColor, setFgColor] = useState<string>("#000000");
-    const [includeMargin, setIncludeMargin] = useState<boolean>(true);
-    const [logoUrl, setLogoUrl] = useState<string>("");
-    const [logoSize, setLogoSize] = useState<number>(50);
+    const {
+        size,
+        setSize,
+        errorCorrection,
+        setErrorCorrection,
+        bgColor,
+        setBgColor,
+        fgColor,
+        setFgColor,
+        includeMargin,
+        setIncludeMargin,
+        logoUrl,
+        setLogoUrl,
+        logoSize,
+        setLogoSize
+    } = useQrCodeGeneratorStore();
 
     return (
         <div className="space-y-4">

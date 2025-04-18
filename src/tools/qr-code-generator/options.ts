@@ -46,3 +46,12 @@ export const QR_TYPES: {
     { id: "event", label: "Event", icon: CalendarIcon, content: SelectionContentEvent },
     { id: "location", label: "Location", icon: MapPinIcon, content: SelectionContentLocation }
 ] as const;
+
+export type TErrorCorrectionLevel = "L" | "M" | "Q" | "H";
+
+export const ERROR_CORRECTION_LEVELS = [
+    { value: "L", label: "Low (7%)" },
+    { value: "M", label: "Medium (15%)" },
+    { value: "Q", label: "Quartile (25%)" },
+    { value: "H", label: "High (30%)" }
+];

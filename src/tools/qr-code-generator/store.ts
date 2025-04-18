@@ -1,9 +1,17 @@
-import type { TQRType } from "./qr-types";
+import type { TErrorCorrectionLevel, TQRType } from "./options";
 
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const defaultQRType: TQRType = "url";
+
+const defaultSize: number = 200;
+const defaultErrorCorrection: TErrorCorrectionLevel = "M";
+const defaultBgColor: string = "#FFFFFF";
+const defaultFgColor: string = "#000000";
+const defaultIncludeMargin: boolean = true;
+const defaultLogoUrl: string = "";
+const defaultLogoSize: number = 50;
 
 const defaultUrl: string = "https://";
 
@@ -40,6 +48,21 @@ const defaultLongitude: string = "";
 export const useQrCodeGeneratorStore = create<{
     qrType: TQRType;
     setQrType: (qrType: TQRType) => void;
+
+    size: number;
+    setSize: (size: number) => void;
+    errorCorrection: TErrorCorrectionLevel;
+    setErrorCorrection: (errorCorrection: TErrorCorrectionLevel) => void;
+    bgColor: string;
+    setBgColor: (bgColor: string) => void;
+    fgColor: string;
+    setFgColor: (fgColor: string) => void;
+    includeMargin: boolean;
+    setIncludeMargin: (includeMargin: boolean) => void;
+    logoUrl: string;
+    setLogoUrl: (logoUrl: string) => void;
+    logoSize: number;
+    setLogoSize: (logoSize: number) => void;
 
     url: string;
     setUrl: (url: string) => void;
@@ -100,6 +123,21 @@ export const useQrCodeGeneratorStore = create<{
     immer((set) => ({
         qrType: defaultQRType,
         setQrType: (qrType) => set({ qrType }),
+
+        size: defaultSize,
+        setSize: (size) => set({ size }),
+        errorCorrection: defaultErrorCorrection,
+        setErrorCorrection: (errorCorrection) => set({ errorCorrection }),
+        bgColor: defaultBgColor,
+        setBgColor: (bgColor) => set({ bgColor }),
+        fgColor: defaultFgColor,
+        setFgColor: (fgColor) => set({ fgColor }),
+        includeMargin: defaultIncludeMargin,
+        setIncludeMargin: (includeMargin) => set({ includeMargin }),
+        logoUrl: defaultLogoUrl,
+        setLogoUrl: (logoUrl) => set({ logoUrl }),
+        logoSize: defaultLogoSize,
+        setLogoSize: (logoSize) => set({ logoSize }),
 
         url: defaultUrl,
         setUrl: (url) => set({ url }),
