@@ -1,6 +1,6 @@
 import type { TQRType } from "./qr-types";
 
-import { qrTypes } from "./qr-types";
+import { QR_TYPES } from "./qr-types";
 import { useQrCodeGeneratorStore } from "./store";
 
 import { Label } from "@/components/ui/label";
@@ -19,7 +19,7 @@ export const SelectionAndContent = () => {
                     className="w-full"
                 >
                     <TabsList className="grid grid-cols-4 h-auto">
-                        {qrTypes.slice(0, 4).map((type) => (
+                        {QR_TYPES.slice(0, 4).map((type) => (
                             <TabsTrigger
                                 key={type.id}
                                 value={type.id}
@@ -31,7 +31,7 @@ export const SelectionAndContent = () => {
                         ))}
                     </TabsList>
                     <TabsList className="grid grid-cols-4 h-auto">
-                        {qrTypes.slice(4).map((type) => (
+                        {QR_TYPES.slice(4).map((type) => (
                             <TabsTrigger
                                 key={type.id}
                                 value={type.id}
@@ -43,7 +43,7 @@ export const SelectionAndContent = () => {
                         ))}
                     </TabsList>
                     <div className="h-2"></div>
-                    {qrTypes.map(({ id, content: Content }) => (
+                    {QR_TYPES.map(({ id, content: Content }) => (
                         <TabsContent value={id} className="mt-4 space-y-4">
                             <Content />
                         </TabsContent>

@@ -16,7 +16,7 @@ const WIFI_ENCRYPTION_TYPES = [
     { value: "WPA", label: "WPA/WPA2" },
     { value: "WEP", label: "WEP" },
     { value: "nopass", label: "No Password" }
-];
+] as const;
 
 export const SelectionContentWifi = () => {
     const [wifiName, setWifiName] = useState<string>("");

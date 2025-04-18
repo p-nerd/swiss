@@ -31,7 +31,7 @@ export type TQRType =
     | "event"
     | "location";
 
-export const qrTypes: {
+export const QR_TYPES: {
     id: TQRType;
     label: string;
     icon: LucideIcon;
@@ -45,4 +45,4 @@ export const qrTypes: {
     { id: "contact", label: "Contact", icon: CreditCardIcon, content: SelectionContentContact },
     { id: "event", label: "Event", icon: CalendarIcon, content: SelectionContentEvent },
     { id: "location", label: "Location", icon: MapPinIcon, content: SelectionContentLocation }
-];
+] as const;
