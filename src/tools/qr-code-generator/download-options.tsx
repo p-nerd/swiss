@@ -42,6 +42,7 @@ const createImageFromSVG = (svg: SVGElement) => {
 const getImageURLFromSVG = (qrCodeRef: TQRCodeRef): string | null => {
     const svg = getSVGElement(qrCodeRef);
     if (!svg) return null;
+
     return createImageFromSVG(svg);
 };
 
@@ -57,26 +58,86 @@ export const DownloadOptions = ({ qrCodeRef }: { qrCodeRef: TQRCodeRef }) => {
         downloadFile(url, fileName + ".svg");
     };
 
-    const downloadPNG = () => {
+    const downloadPNG = async () => {
         const url = getImageURLFromSVG(qrCodeRef);
         if (!url) return;
 
-        console.log(url);
+        try {
+            // Convert the SVG URL to an image
+            const img = new Image();
+            img.src = url;
 
-        // downloadFile(url, `${fileName}.png`);
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+
+            // Create canvas and draw image
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+
+            if (ctx) {
+                // Fill with white background
+                ctx.fillStyle = "white";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Draw the image
+                ctx.drawImage(img, 0, 0);
+
+                // Get PNG data URL and download
+                const pngUrl = canvas.toDataURL("image/png");
+                downloadFile(pngUrl, `${fileName}.png`);
+            }
+
+            // Clean up
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error converting to PNG:", error);
+        }
     };
 
-    const downloadJPEG = () => {
+    const downloadJPEG = async () => {
         const url = getImageURLFromSVG(qrCodeRef);
         if (!url) return;
 
-        console.log(url);
+        try {
+            // Convert the SVG URL to an image
+            const img = new Image();
+            img.src = url;
 
-        // downloadFile(url, `${fileName}.jpg`);
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+
+            // Create canvas and draw image
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+
+            if (ctx) {
+                // Fill with white background
+                ctx.fillStyle = "white";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Draw the image
+                ctx.drawImage(img, 0, 0);
+
+                // Get JPEG data URL and download
+                const jpegUrl = canvas.toDataURL("image/jpeg", 0.9);
+                downloadFile(jpegUrl, `${fileName}.jpg`);
+            }
+
+            // Clean up
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error converting to JPEG:", error);
+        }
     };
 
     return (
-        <div className="mt-6 space-y-4 w-full">
+        <div className="mt-6 flex flex-col items-center space-y-4 w-full">
             <h4 className="text-sm font-medium">Download Options</h4>
             <div className="flex flex-wrap gap-2">
                 <Button onClick={downloadSVG} className="gap-2">
